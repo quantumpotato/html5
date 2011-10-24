@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<style type='text/css'>
+canvas {
+  border: 1px solid #aaa;
+  cursor: none;
+}
+</style>
+
+<script type="text/javascript" src="jquery-1.4.3.min.js"></script>
+<script type="text/javascript">
+var context;
+var width = 500;
+var height = 500;
+
+var x = -50;
+var y = -50;
+
+var goalX = 0;
+var goalY = 0;
+
+var start;
+var hitDist = 20;
+function draw() {
+  context.clearRect(0, 0, width, height);
+  
+  if (Math.abs(x - goalX) < hitDist && Math.abs(y - goalY) < hitDist) {
+    pickGoal()
+  }
+
+  context.fillStyle = "blue";
+  context.fillRect(x - 10, y - 10, 20, 20);
+  context.fillStyle = "red";
+  context.fillRect(goalX - 10, goalY - 10, 20, 20);
+}
+
+function pickGoal() {
+  goalX = Math.random() * width/2 + width/4;
+  goalY = Math.random() * height/2 + height/4;
+}
+
+function getTime() {
+  return new Date().getTime() / 1000;
+}
+
+function elapsedTime() {
+  return getTime() - start;
+}
+
+$(document).ready(function() {
+  start = getTime();
+  pickGoal();
+
+  var canvas = $('#canvas');
+  context = canvas.get(0).getContext('2d');
+  
+  canvas.mousemove(function(e) {
+    var mousex = e.pageX - canvas.offset().left;
+    var mousey = e.pageY - canvas.offset().top;
+
+    mousex -= width/2;
+    mousey -= width/2;
+
+    var angle = elapsedTime() / 50;
+    x = mousex * Math.cos(angle) - mousey * Math.sin(angle) + width/2;
+    y = mousex * Math.sin(angle) + mousey * Math.cos(angle) + height/2;
+  });
+  setInterval(draw, 10);
+});
+</script>
+</head>
+<body>
+<canvas id='canvas' width=500 height=500></canvas>
+</body>
+</html>

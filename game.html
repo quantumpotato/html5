@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+<head>
+<style type='text/css'>
+canvas {
+  border: 1px solid #aaa;
+  cursor: none;
+}
+</style>
+
+<script type="text/javascript" src="jquery-1.4.3.min.js"></script>
+<script type="text/javascript">
+var context;
+var width = 500;
+var height = 500;
+
+var x = -50;
+var y = -50;
+
+var goalX = 0;
+var goalY = 0;
+
+var start;
+var hitDist = 20;
+
+ var understanding = new Understanding();
+
+function point(x,y) {
+	this.x = x;
+	this.y = y;
+}
+
+function Understanding() {
+	this.l = new point(0,0);
+	
+	this.tick = function() {
+	  context.fillStyle = "white";
+	  context.fillRect(this.l.x - 10, this.l.y - 10, 20, 20);
+	}
+}
+
+function Target() {
+	this.l = new point(0,0);
+	
+	this.tick = function() {
+		context.fillStyle = "green";
+		context.fillRect(this.l.x - 10, this.l.y - 10, 20, 20);
+	}
+}
+
+function Extras() {
+	this.l = new point(0,0);
+	
+	this.tick = function() {
+		context.fillStyle = "orange"
+		context.fillRect(this.l.x - 10, this.l.y - 10, 20, 20);
+	}
+}
+
+function randomPoint() {
+	goalX = Math.random() * width/2 + width/4;
+  goalY = Math.random() * height/2 + height/4;
+  
+return new point(goalX, goalY);
+}
+
+var goal = new Target();
+
+var extras = []
+extras.push(new Extras());
+extras.push(new Extras());
+
+extras[0].l = randomPoint();
+extras[1].l = randomPoint();
+
+function setBackground() {
+	context.clearRect(0, 0, width, height);
+	context.fillStyle = "black";
+	context.fillRect(0,0,width,height);
+}
+
+function draw() {
+	setBackground();
+
+  var cursor = point(x,y);
+
+	understanding.tick();
+	goal.tick();
+	
+	for (var i = 0; i < extras.length; i++) {
+		extras[i].tick();
+	};
+	
+
+  if (Math.abs(x - goal.l.x) < hitDist && Math.abs(y - goal.l.y) < hitDist) {
+    pickGoal()
+  }
+
+  context.fillStyle = "blue";
+//  context.fillRect(x - 10, y - 10, 20, 20);
+  context.fillStyle = "red";
+  context.fillRect(goalX - 10, goalY - 10, 20, 20);
+}
+
+function pickGoal() {
+  goalX = Math.random() * width/2 + width/4;
+  goalY = Math.random() * height/2 + height/4;
+	goal.l = new point(goalX,goalY);
+}
+
+function getTime() {
+  return new Date().getTime() / 1000;
+}
+
+function elapsedTime() {
+  return getTime() - start;
+}
+
+
+$(document).ready(function() {
+  start = getTime();
+  pickGoal();
+
+  var canvas = $('#canvas');
+  context = canvas.get(0).getContext('2d');
+
+  canvas.mousemove(function(e) {
+    var mousex = e.pageX - canvas.offset().left;
+    var mousey = e.pageY - canvas.offset().top;
+
+    mousex -= width/2;
+    mousey -= width/2;
+
+    var angle = 0; 
+	
+		var mouse = new point(mousex, mousey);
+
+	  x = mouse.x * Math.cos(angle) - mouse.y * Math.sin(angle) + width/2;
+    y = mouse.x * Math.sin(angle) + mouse.y * Math.cos(angle) + height/2;
+
+		understanding.l = new point(x,y);
+  });
+  setInterval(draw, 10);
+});
+</script>
+</head>
+<body>
+<canvas id='canvas' width=500 height=500></canvas>
+</body>
+</html>
