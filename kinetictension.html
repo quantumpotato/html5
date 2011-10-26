@@ -14,11 +14,20 @@ var context;
 var width = 500;
 var height = 500;
 
+var coordinatesCollected = 0;
+var cords = [];
+
+var cord = new Target();
+cord.vel = new point(-2,-2);
+
+var extras = [];
+
+
 var x = -50;
 var y = -50;
 
-var goalX = 0;
-var goalY = 0;
+var cordX = 0;
+var cordY = 0;
 
 var start;
 var hitDist = 20;
@@ -31,10 +40,10 @@ function point(x,y) {
 }
 
 function randomPoint() {
-	goalX = Math.random() * width/2 + width/4;
+	goalY = Math.random() * width/2 + width/4;
   goalY = Math.random() * height/2 + height/4;
   
-	return new point(goalX, goalY);
+	return new point(goalY, goalY);
 }
 
 
@@ -82,10 +91,6 @@ function Extras() {
 	}
 }
 
-var goal = new Target();
-goal.vel = new point(-2,-2);
-
-var extras = [];
 
 function generateExtras(num) {
 	 for (var i = 0; i < num; i++) {
@@ -142,37 +147,81 @@ function gravitize(a,b, multiplier) {
 	b.vel = combineVel(b.vel, new point(forceX,forceY));
 }
 
-function draw() {
-	setBackground();
-
-  var cursor = point(x,y);
-
-	understanding.tick();
-	goal.tick();
-	
+function useGravity() {
 	for (var i = 0; i < extras.length; i++) {
 		extras[i].tick();
-		 gravitize(extras[i], goal, 1);
-		 gravitize(goal, extras[i], 1);
-		 gravitize(understanding, goal, -1);
+		 gravitize(extras[i], cord, 1);
+		 gravitize(cord, extras[i], 1);
+		 gravitize(understanding, cord, -1);
 		 for (var ii = 0; ii < extras.length; ii++) {
 		 	if (i != ii) {
 		 		gravitize(extras[i], extras[ii], 1);
 		 	}
 		 }
 	};
-	
-
-  if (Math.abs(x - goal.l.x) < hitDist && Math.abs(y - goal.l.y) < hitDist) {
-    pickGoal()
-  }
 }
 
-function pickGoal() {
-  goalX = Math.random() * width/2 + width/4;
-  goalY = Math.random() * height/2 + height/4;
-	goal.l = new point(goalX,goalY);
-	goal.vel = new point(0,0);
+function drawScore() { 
+	context.fillStyle = "white";
+	context.fillText("Coordinates collected: " + coordinatesCollected, 0,height - 20);
+}
+
+function resetExtras() {
+	for (var i = 0; i < extras.length; i++) {
+		var extra = extras[i];
+		extra.l = randomPoint();
+	}
+}
+
+function cordTouched(cord) {
+	coordinatesCollected = coordinatesCollected + 1;
+	cords.push(new point(cord.l.x, cord.l.y));
+	moveCord();
+}
+
+function collisionCheck() {
+	// for (var i = 0; i < extras.length; i++) {
+	// 	var extra = extras[i];
+	// 	if (Math.abs(x - extra.l.x) < hitDist && Math.abs(y - extra.l.y) < hitDist) {
+	// 	//	moveCord();
+	// 	}
+	// }	  
+}
+
+function drawCords() {
+	for (var i = 0; i < cords.length; i++) {
+		var coord = cords[i];
+		context.fillStyle = "red";
+		context.fillRect(coord.x-10, coord.y-10, 20, 20); 
+	}
+}
+
+function draw() {
+	setBackground();
+
+  var cursor = point(x,y);
+
+	understanding.tick();
+	cord.tick();
+	
+	drawScore();
+	
+	useGravity();
+
+	collisionCheck();
+
+  if (Math.abs(x - cord.l.x) < hitDist && Math.abs(y - cord.l.y) < hitDist) {
+		cordTouched(cord);
+  }
+
+	drawCords();
+}
+
+function moveCord() {
+  cordY = Math.random() * width/2 + width/4;
+  cordY = Math.random() * height/2 + height/4;
+	cord.l = new point(cordY,cordY);
+	cord.vel = new point(0,0);
 }
 
 function getTime() {
@@ -186,12 +235,12 @@ function elapsedTime() {
 
 $(document).ready(function() {
   start = getTime();
-  pickGoal();
+  moveCord();
 
   var canvas = $('#canvas');
   context = canvas.get(0).getContext('2d');
 
-	generateExtras(3);
+	generateExtras(2);
 
   canvas.mousemove(function(e) {
     var mousex = e.pageX - canvas.offset().left;
