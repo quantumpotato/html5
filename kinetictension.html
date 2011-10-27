@@ -54,13 +54,20 @@ function resetIfOob(a) {
 	};
 }
 
+function drawCircle(p,colour,radius) {
+	context.fillStyle = colour;
+	context.beginPath();
+	context.arc(p.x,p.y,radius,0,Math.PI*2,true);
+	context.closePath();
+	context.fill();
+}
+
 function Understanding() {
 	this.l = new point(0,0);
 	this.mass = 1;
 	
 	this.tick = function() {
-	  context.fillStyle = "white";
-	  context.fillRect(this.l.x - 10, this.l.y - 10, 20, 20);
+	 	drawCircle(this.l,"white",10);
 		resetIfOob(this);
 	}
 }
@@ -71,8 +78,7 @@ function Target() {
 	this.mass = 8;
 	
 	this.tick = function() {
-		context.fillStyle = "green";
-		context.fillRect(this.l.x - 10, this.l.y - 10, 20, 20);
+	 	drawCircle(this.l,"green",10);	
 		this.l = combineVel(this.l, this.vel);
 		resetIfOob(this);
 	}
@@ -84,8 +90,7 @@ function Extras() {
 	this.mass = 3;
 	
 	this.tick = function() {
-		context.fillStyle = "orange"
-		context.fillRect(this.l.x - 10, this.l.y - 10, 20, 20);
+	 	drawCircle(this.l,"orange",10);
 		this.l = combineVel(this.l, this.vel);		
 		resetIfOob(this);		
 	}
@@ -191,9 +196,7 @@ function collisionCheck() {
 function drawCords() {
 	for (var i = 0; i < cords.length; i++) {
 		var coord = cords[i];
-		context.fillStyle = "red";
-		context.fillRect(coord.x-10, coord.y-10, 20, 20); 
-	}
+	 	drawCircle(coord,"red",10);	}
 }
 
 function draw() {
@@ -242,6 +245,15 @@ $(document).ready(function() {
 
 	generateExtras(2);
 
+	canvas.click(function(e) {
+		var mousex = e.pageX - canvas.offset().left;
+    var mousey = e.pageY - canvas.offset().top;
+
+ 
+		
+		console.log(mousex + " " + mousey);
+	});
+
   canvas.mousemove(function(e) {
     var mousex = e.pageX - canvas.offset().left;
     var mousey = e.pageY - canvas.offset().top;
@@ -249,7 +261,7 @@ $(document).ready(function() {
     mousex -= width/2;
     mousey -= width/2;
 
-    var angle = 50; 
+    var angle = 0; 
 	
 		var mouse = new point(mousex, mousey);
 
