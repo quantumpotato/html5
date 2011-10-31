@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+<head>
+<style type='text/css'>
+canvas {
+  border: 1px solid #aaa;
+  cursor: none;
+}
+</style>
+
+<script type="text/javascript" src="jquery-1.4.3.min.js"></script>
+<script type="text/javascript">
+
+var context;
+var width = 500;
+var height = 500;
+
+var x = -50;
+var y = -50;
+
+function Understanding() {
+	this.l = new point(0,0);
+	this.mass = 1;
+	
+	this.tick = function() {
+	 	drawCircle(this.l,"white",10);
+		resetIfOob(this);
+	}
+}
+
+function point(x,y) {
+	this.x = x;
+	this.y = y;
+}
+
+function randomPoint() {
+	goalY = Math.random() * width/2 + width/4;
+  goalY = Math.random() * height/2 + height/4;
+  
+	return new point(goalY, goalY);
+}
+
+
+function resetIfOob(a) {
+	if (a.l.x > width + 10 || a.l.x < -10 || a.l.y < -10 || a.l.y > height + 10) {
+		a.l = randomPoint();
+		a.vel = new point(0,0);
+	};
+}
+
+function drawCircle(p,colour,radius) {
+	context.fillStyle = colour;
+	context.beginPath();
+	context.arc(p.x,p.y,radius,0,Math.PI*2,true);
+	context.closePath();
+	context.fill();
+}
+
+
+function setBackground() {
+	context.clearRect(0, 0, width, height);
+	context.fillStyle = "black";
+	context.fillRect(0,0,width,height);
+}
+
+function combineVel(a, b) {
+	return new point (a.x+b.x,a.y+b.y);
+}
+
+function distance(a,b) {
+	var xdist = (a.x + b.x) * (a.x + b.x);
+	var ydist = (a.y + b.y) * (a.y + b.y);
+	return Math.sqrt(xdist * ydist);
+}
+
+function gravitize(a,b, multiplier) {
+	if (distance(a.l, b.l) > 2) {
+		var dx = a.l.x - b.l.x;
+		var dy = a.l.y - b.l.y;
+		var distx = Math.pow(dx,2);
+		var disty = Math.pow(dy,2);
+		if (distx + disty == 0) {
+			distx = .001;
+			disty = .001;
+		}
+		
+		var dist = Math.sqrt(distx+disty);
+		if (dist == 0) {
+			dist = 1;
+		}
+		
+		var forceY = Math.abs(dy) / Math.pow(dist,2) * a.mass;
+		var forceX = Math.abs(dx) / Math.pow(dist,2) * a.mass;
+		
+		forceX = forceX * multiplier;
+		forceY = forceY * multiplier;
+		if (dy < 0) {
+			forceY = forceY * -1;
+		}
+		if (dx < 0) {
+			forceX = forceX * -1;
+		}
+	}
+		
+	b.vel = combineVel(b.vel, new point(forceX,forceY));
+}
+
+function Star() {
+	this.l = randomPoint();
+	
+	function tick() {
+		drawCircle(this.l,"white",10);
+	}
+}
+
+var stars = [];
+
+function setupStars(starCount) {
+	for (var i = 0; i < starCount; i++) {
+		var s = new Star();
+		stars.push(s);
+	};
+}
+
+function starLoop() {
+	for (var i = 0; i < stars.length; i++) {
+		var s = stars[i];
+		s.tick();
+	}
+}
+
+function draw() {
+		setBackground();
+	  var cursor = point(x,y);
+	starLoop();
+}
+
+function setup() {
+	setupStars(100);
+}
+
+$(document).ready(function() {
+	var address = location.href;
+ 	console.log(location.href);
+	//send to server?
+	
+	var canvas = $('#canvas');
+  context = canvas.get(0).getContext('2d');
+	
+	setup();
+	  setInterval(draw, 10);
+
+});
+</script>
+</head>
+<body>
+<canvas id='canvas' width=500 height=500></canvas>
+</body>
+</html>

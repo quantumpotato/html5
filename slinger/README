@@ -1,0 +1,40 @@
+slingshot {
+
+function 1(){
+	vector in straight line towards player
+	when vector will not take fury closer to player, calculate {
+		get angle for 10 px from fury.l to player.l
+		apply angle to current velocity	
+	}
+	expected result {
+		straight line, doesn't chase player
+		player crosses threshhold to adjust fury
+	}
+}
+
+function 2(){
+	reverse gravity {
+		radius in newtonian calculation calculated from N - R where N is ###
+	}
+}
+
+function 3(){
+	circling and firing {
+		fury orbits player
+		tap to shoot at its current angular velocity
+	}
+}
+
+function 4() {
+	when distance is too far calculate {
+		apply force from fury to player
+	}
+	tighten distance by clicking
+	fade velocity down to zero over time
+}
+
+trailing fury chases player
+fury hits enemy - converts enemy to dead, sends enemy to end
+strong shell - hits enemy, loses 1 strength of shell, enemy changes vector, shell remains same
+
+organism spawn system

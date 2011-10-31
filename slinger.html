@@ -1,0 +1,259 @@
+<!doctype html>
+<html>
+<head>
+<style type='text/css'>
+canvas {
+  border: 1px solid #aaa;
+  cursor: none;
+}
+</style>
+
+<script type="text/javascript" src="jquery-1.4.3.min.js"></script>
+<script type="text/javascript">
+var context;
+var width = 500;
+var height = 500;
+
+var fury = new Fury();
+fury.vel = new point(1,1);
+
+var extras = [];
+
+
+var x = -50;
+var y = -50;
+
+var cordX = 0;
+var cordY = 0;
+
+var start;
+var hitDist = 20;
+
+var life = new Life();
+
+function point(x,y) {
+	this.x = x;
+	this.y = y;
+}
+
+life.vel = new point(1,1);
+
+function randomPoint() {
+	goalY = Math.random() * width/2 + width/4;
+  goalY = Math.random() * height/2 + height/4;
+  
+	return new point(goalY, goalY);
+}
+
+
+function resetIfOob(a) {
+	if (a.l.x > width + 10 || a.l.x < -10 || a.l.y < -10 || a.l.y > height + 10) {
+		a.l = randomPoint();
+		a.vel = new point(0,0);
+	};
+}
+
+function drawCircle(p,colour,radius) {
+	context.fillStyle = colour;
+	context.beginPath();
+	context.arc(p.x,p.y,radius,0,Math.PI*2,true);
+	context.closePath();
+	context.fill();
+}
+
+function Life() {
+	this.l = new point(0,0);
+	this.mass = 8;
+	this.vel = new point(1,1);
+	
+	this.tick = function() {
+	 	drawCircle(this.l,"green",10);
+		resetIfOob(this);
+		var dist = distance(this.l, fury.l);
+		dist = 300 - dist;
+		var newMass = dist / 30;
+		if (newMass < 8) {
+			newMass = 8;
+		} else if (newMass > 30) {
+			newMass = 30;
+		}
+	}
+}
+
+function Fury() {
+	this.l = new point(100,100);
+	this.vel = new point(3,2);
+	this.mass = 1;
+	
+	this.tick = function() {
+		drawCircle(this.l,"red",10);
+		gravitize(this, life, 1);
+		this.l = combineVel(this.l, this.vel);		
+	}
+}
+
+function Target() {
+	this.l = new point(0,0);
+	this.vel = new point(0,0);
+	this.mass = 8;
+	
+	this.tick = function() {
+	 	drawCircle(this.l,"green",10);	
+		this.l = combineVel(this.l, this.vel);
+		resetIfOob(this);
+	}
+}
+
+function Monster() {
+	this.l = new point(0,0);
+	this.vel = new point(Math.random() * 3, Math.random() * 3);
+	this.mass = 3;
+	
+	this.tick = function() {
+	 	drawCircle(this.l,"orange",10);
+		this.l = combineVel(this.l, this.vel);		
+		resetIfOob(this);		
+	}
+}
+
+function setBackground() {
+	context.clearRect(0, 0, width, height);
+	context.fillStyle = "black";
+	context.fillRect(0,0,width,height);
+}
+
+function combineVel(a, b) {
+	return new point (a.x+b.x,a.y+b.y);
+}
+
+function distance(a,b) {
+	var xdist = (a.x + b.x) * (a.x + b.x);
+	var ydist = (a.y + b.y) * (a.y + b.y);
+	return Math.sqrt(xdist * ydist);
+}
+
+function gravitize(a,b, multiplier) {
+	if (distance(a.l, b.l) > 2) {
+		var dx = a.l.x - b.l.x;
+		var dy = a.l.y - b.l.y;
+		var distx = Math.pow(dx,2);
+		var disty = Math.pow(dy,2);
+		if (distx + disty == 0) {
+			distx = .001;
+			disty = .001;
+		}
+		
+		var dist = Math.sqrt(distx+disty);
+		if (dist == 0) {
+			dist = 1;
+		}
+		
+		var forceY = Math.abs(dy) / Math.pow(dist,2) * a.mass;
+		var forceX = Math.abs(dx) / Math.pow(dist,2) * a.mass;
+		
+		forceX = forceX * multiplier;
+		forceY = forceY * multiplier;
+		if (dy < 0) {
+			forceY = forceY * -1;
+		}
+		if (dx < 0) {
+			forceX = forceX * -1;
+		}
+	}
+		
+	b.vel = combineVel(b.vel, new point(forceX,forceY));
+}
+
+function GetAngle(initialp, secondp) {
+	var distvar = ((initialp.x - secondp.x) * (initialp.x - secondp.x));
+	var distvar2 = ((initialp.y - secondp.y) * (initialp.y - secondp.y));
+	if (distvar + distvar2 == 0){
+		distvar = 1;
+		distvar2 = 3;
+	}
+	var veldistance = Math.sqrt((distvar+distvar2));
+	
+	distvar = ((Math.abs(initialp.x-secondp.x))/veldistance);
+	distvar2 = ((Math.abs(initialp.y-secondp.y))/veldistance);
+	
+	if (secondp.x < initialp.x){
+		console.log("reverse x");
+		distvar = -distvar;
+	}
+	
+	console.log(secondp.x + "///" + initialp.x);
+	console.log(secondp.y + "///" + initialp.y);
+	
+	if (secondp.y < initialp.y){
+		console.log("reverse y");
+		distvar2 = -distvar2;
+	}
+	
+	var fvel = new point(distvar,distvar2);
+	
+	return fvel;
+}
+
+function homeElastic() {
+    var ballToMouse = GetAngle(fury.l, life.l);
+		fury.l = combineVel(fury.l, ballToMouse);
+}
+
+function draw() {
+	setBackground();
+
+  var cursor = point(x,y);
+
+	life.tick();
+	fury.tick();	
+//	gravitize(life,fury,1);
+		
+	homeElastic();
+}
+
+function getTime() {
+  return new Date().getTime() / 1000;
+}
+
+function elapsedTime() {
+  return getTime() - start;
+}
+
+
+$(document).ready(function() {
+  start = getTime();
+
+  var canvas = $('#canvas');
+  context = canvas.get(0).getContext('2d');
+
+	canvas.click(function(e) {
+		var mousex = e.pageX - canvas.offset().left;
+    var mousey = e.pageY - canvas.offset().top;
+		
+		console.log(mousex + " " + mousey);
+	});
+
+  canvas.mousemove(function(e) {
+    var mousex = e.pageX - canvas.offset().left;
+    var mousey = e.pageY - canvas.offset().top;
+
+    mousex -= width/2;
+    mousey -= width/2;
+
+    var angle = 0; 
+	
+		var mouse = new point(mousex, mousey);
+
+	  x = mouse.x * Math.cos(angle) - mouse.y * Math.sin(angle) + width/2;
+    y = mouse.x * Math.sin(angle) + mouse.y * Math.cos(angle) + height/2;
+
+		life.l = new point(x,y);
+  });
+  setInterval(draw, 10);
+});
+</script>
+</head>
+<body>
+<canvas id='canvas' width=500 height=500></canvas>
+</body>
+</html>
