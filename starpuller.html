@@ -33,11 +33,33 @@ function point(x,y) {
 	this.y = y;
 }
 
+
+function distance(a,b) {
+	var xdist = (a.x + b.x) * (a.x + b.x);
+	var ydist = (a.y + b.y) * (a.y + b.y);
+	return Math.sqrt(xdist * ydist);
+}
+
+function Comet() {
+	this.l = new point(0,0);
+	this.vel = 
+	this.mass = 1;
+	this.vel = new point(2,3);
+	
+	this.tick = function() {
+		drawCircle(this.l,"red",6);
+		resetIfOob(this);
+		this.l = combineVel(this.l, this.vel);
+	}
+}
+
+var c = new Comet();
+
 function randomPoint() {
-	goalY = Math.random() * width/2 + width/4;
-  goalY = Math.random() * height/2 + height/4;
+	goalX = Math.random() * width;
+  goalY = Math.random() * height;
   
-	return new point(goalY, goalY);
+	return new point(goalX, goalY);
 }
 
 
@@ -67,14 +89,8 @@ function combineVel(a, b) {
 	return new point (a.x+b.x,a.y+b.y);
 }
 
-function distance(a,b) {
-	var xdist = (a.x + b.x) * (a.x + b.x);
-	var ydist = (a.y + b.y) * (a.y + b.y);
-	return Math.sqrt(xdist * ydist);
-}
-
 function gravitize(a,b, multiplier) {
-	if (distance(a.l, b.l) > 2) {
+	if (distance(a.l, b.l) > 3) {
 		var dx = a.l.x - b.l.x;
 		var dy = a.l.y - b.l.y;
 		var distx = Math.pow(dx,2);
@@ -107,9 +123,10 @@ function gravitize(a,b, multiplier) {
 
 function Star() {
 	this.l = randomPoint();
-	
-	function tick() {
-		drawCircle(this.l,"white",10);
+	this.mass = 8;
+	this.vel = new point(0,0);	
+	this.tick = function() {
+		drawCircle(this.l,"white",3);
 	}
 }
 
@@ -118,6 +135,7 @@ var stars = [];
 function setupStars(starCount) {
 	for (var i = 0; i < starCount; i++) {
 		var s = new Star();
+		s.l = randomPoint();
 		stars.push(s);
 	};
 }
@@ -129,14 +147,52 @@ function starLoop() {
 	}
 }
 
+function findClosestObjectToPoint(point, array) {
+	var dist = 1000;
+	var object = array[0];
+	for (var i = 0; i < array.length; i++) {
+		var objectDist = distance(array[i].l, point);
+		if (objectDist < dist) {
+			dist = objectDist;
+			object = array[i];
+		}
+	}
+	
+	return object;
+}
+
+function starStrength() {
+//	var cursor = new point(x,y);
+	var yDivided = y / height;
+	return yDivided * 1;
+}
+
+function cometLoop() {
+	c.tick();
+	var closestStar = findClosestObjectToPoint(c.l, stars);
+	
+	var s = starStrength();
+	console.log("s" + s);
+//	c.l = new point(s * 100, c.l.y);
+	
+	if (s > .1) {
+		for (var i = 0; i < stars.length; i++) {
+			gravitize(stars[i], c, starStrength()); 
+		}
+	}
+	
+//	gravitize(closestStar, c, starStrength());
+}
+
 function draw() {
-		setBackground();
-	  var cursor = point(x,y);
+	setBackground();
+  var cursor = point(x,y);
 	starLoop();
+	cometLoop();
 }
 
 function setup() {
-	setupStars(100);
+	setupStars(12);
 }
 
 $(document).ready(function() {
@@ -148,7 +204,23 @@ $(document).ready(function() {
   context = canvas.get(0).getContext('2d');
 	
 	setup();
-	  setInterval(draw, 10);
+	  setInterval(draw, 30);
+
+	  canvas.mousemove(function(e) {
+	    var mousex = e.pageX - canvas.offset().left;
+	    var mousey = e.pageY - canvas.offset().top;
+
+	    mousex -= width/2;
+	    mousey -= width/2;
+
+	    var angle = 0; 
+
+			var mouse = new point(mousex, mousey);
+
+		  x = mouse.x * Math.cos(angle) - mouse.y * Math.sin(angle) + width/2;
+	    y = mouse.x * Math.sin(angle) + mouse.y * Math.cos(angle) + height/2;
+	console.log("ss:" + starStrength());
+		});
 
 });
 </script>
