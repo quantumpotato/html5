@@ -35,9 +35,15 @@ function point(x,y) {
 
 
 function distance(a,b) {
-	var xdist = (a.x + b.x) * (a.x + b.x);
-	var ydist = (a.y + b.y) * (a.y + b.y);
-	return Math.sqrt(xdist * ydist);
+	var xdist = Math.abs(a.x - b.x);
+	var ydist = Math.abs(a.y - b.y);
+	xdist = xdist * xdist;
+	ydist = ydist * ydist;
+	if (Math.abs(xdist + ydist) > 3) {
+		return Math.sqrt(xdist + ydist);
+	}
+	
+	return 1000;
 }
 
 function Comet() {
@@ -124,8 +130,13 @@ function Star() {
 	this.l = randomPoint();
 	this.mass = 8;
 	this.vel = new point(0,0);	
+	this.highlighted = false;
 	this.tick = function() {
-		drawCircle(this.l,"white",3);
+		if (this.highlighted == false) {
+			drawCircle(this.l,"white",3);
+		} else {
+			drawCircle(this.l,"green",3);
+		}
 	}
 }
 
@@ -147,17 +158,41 @@ function starLoop() {
 }
 
 function findClosestObjectToPoint(point, array) {
-	var dist = 1000;
+	var dist = 10000;
 	var object = array[0];
 	for (var i = 0; i < array.length; i++) {
 		var objectDist = distance(array[i].l, point);
+		array[i].highlighted = false;
 		if (objectDist < dist) {
 			dist = objectDist;
 			object = array[i];
+
 		}
 	}
-	
+
+		object.highlighted = true;	
 	return object;
+}
+
+function getAngle(a,b) {
+	var dist = distance(a,b);
+	
+	if (dist == 0) {
+		return new point(0,0);
+	}
+	
+	var distX = Math.abs(a.x-b.x) / dist;
+	var distY = Math.abs(a.y-b.y) / dist;
+	
+	if (b.x < a.x) {
+		distX = -distX;
+	}
+	
+	if (b.y < a.y) {
+		distY = -distY;
+	}
+	
+	return new point(distX,distY);
 }
 
 function starStrength() {
@@ -168,19 +203,22 @@ function starStrength() {
 
 function cometLoop() {
 	c.tick();
-	var closestStar = findClosestObjectToPoint(c.l, stars);
-	
 	var s = starStrength();
-	console.log("s" + s);
-//	c.l = new point(s * 100, c.l.y);
+	
+	// var cs = findClosestObjectToPoint(c.l, stars);
+	// 	if (s > .1) {
+	// 		// var angle = getAngle(c.l,cs.l);
+	// 		// var aVel = new point(angle.x * 20, angle.y * 20);
+	// 		// c.l = combineVel(c.l, aVel);
+	// //		gravitize(cs, c, 1);
+	// 	}
 	
 	if (s > .1) {
-		for (var i = 0; i < stars.length; i++) {
-			gravitize(stars[i], c, starStrength()); 
+			for (var i = 0; i < stars.length; i++) {
+					gravitize(stars[i], c, starStrength()); 
+			}
 		}
-	}
 	
-//	gravitize(closestStar, c, starStrength());
 }
 
 function draw() {
@@ -218,7 +256,6 @@ $(document).ready(function() {
 
 		  x = mouse.x * Math.cos(angle) - mouse.y * Math.sin(angle) + width/2;
 	    y = mouse.x * Math.sin(angle) + mouse.y * Math.cos(angle) + height/2;
-	console.log("ss:" + starStrength());
 		});
 });
 </script>
