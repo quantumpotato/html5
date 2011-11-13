@@ -40,20 +40,18 @@ function Box(speed, color, x, y) {
 	this.x = x;
 	this.y = y;
 	this.color = color;
-	this.tick = function() {
-		this.delayLeft = this.delayLeft - 1;
-		
-		context.fillStyle = this.color;
-		if (this.delayLeft < this.delayReset - 60) {
-					this.fillStyle = "white";
-		}
-				
-		if (this.delayLeft <= 0) {			
-			context.fillStyle = this.color;			
-			console.log("context fill style" + context.fillStyle);
-			this.delayLeft = this.delayReset;
-		}
+	this.tick = function() {		
+		context.fillStyle = "white";
+		context.fillRect(this.x, this.y,30,30);
+		this.x += this.speed;		
+		context.fillStyle = this.color;		
 		context.fillRect(this.x, this.y,30,30);		
+		if (this.x > 200) {
+			context.fillStyle = "white";
+			context.fillRect(this.x, this.y,30,30);			
+			this.x = 0;
+		}
+		
 	}
 }
 
@@ -62,6 +60,9 @@ function update() {
 		var b = boxes[i];
 		b.tick();
 	}
+	
+	context.fillStyle = "green";
+	context.fillRect(0,0,10,140);
 }
 
 $(document).ready(function() {
@@ -81,10 +82,18 @@ $(document).ready(function() {
   context = canvas.get(0).getContext('2d');
 	
 	var b1 = new Box(timings[0], "red",0,0);
-	var b2 = new Box(timings[1], "blue", 71, 0);
-	boxes.push(b1);
-	boxes.push(b2);
-	setInterval(update, 50);
+	var b2 = new Box(timings[1], "blue", 0, 70);
+
+	var colors = ["red", "blue"];
+	
+	for (var i = 0; i < timings.length; i++) {
+		var b = new Box(timings[i], colors[i],0,70 * i);
+		boxes.push(b);
+	}
+	
+	// boxes.push(b1);
+	// boxes.push(b2);
+	setInterval(update, 1000/10);
 });
 </script>
 </head>
