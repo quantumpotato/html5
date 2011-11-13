@@ -35,17 +35,17 @@ function drawRed() {
 	context.fillRect(0,0,20,20);
 }
 
-function Box(delay, color) {
-	this.delayLeft = delay;
-	this.delayReset = delay;
+function Box(speed, color, x, y) {
+	this.speed = speed;
+	this.x = x;
+	this.y = y;
 	this.color = color;
 	this.tick = function() {
 		this.delayLeft = this.delayLeft - 1;
-		console.log("delay left:" + this.delayLeft);
-		context.fillStyle = "black";
 		
-		if (this.delayLeft < this.delayReset - 30) {
-					this.fillStyle = "black";
+		context.fillStyle = this.color;
+		if (this.delayLeft < this.delayReset - 60) {
+					this.fillStyle = "white";
 		}
 				
 		if (this.delayLeft <= 0) {			
@@ -53,7 +53,7 @@ function Box(delay, color) {
 			console.log("context fill style" + context.fillStyle);
 			this.delayLeft = this.delayReset;
 		}
-		context.fillRect(0,0,200,200);		
+		context.fillRect(this.x, this.y,30,30);		
 	}
 }
 
@@ -80,11 +80,10 @@ $(document).ready(function() {
 	var canvas = $('#canvas');
   context = canvas.get(0).getContext('2d');
 	
-	var b1 = new Box(timings[0], "green");
-	console.log("b1: " + b1);
+	var b1 = new Box(timings[0], "red",0,0);
+	var b2 = new Box(timings[1], "blue", 71, 0);
 	boxes.push(b1);
-	console.log(boxes);
-	console.log(boxes[0].tick);
+	boxes.push(b2);
 	setInterval(update, 50);
 });
 </script>
