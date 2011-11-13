@@ -15,6 +15,9 @@ var context;
 var width = 500;
 var height = 500;
 
+var survival = 0;
+var bestSurvival = 0;
+
 var x = -50;
 var y = -50;
 
@@ -33,13 +36,12 @@ function point(x,y) {
 	this.y = y;
 }
 
-
 function distance(a,b) {
 	var xdist = Math.abs(a.x - b.x);
 	var ydist = Math.abs(a.y - b.y);
 	xdist = xdist * xdist;
 	ydist = ydist * ydist;
-	if (Math.abs(xdist + ydist) > 3) {
+	if (Math.abs(xdist + ydist) > 0) {
 		return Math.sqrt(xdist + ydist);
 	}
 	
@@ -53,9 +55,9 @@ function Comet() {
 	this.vel = new point(2,3);
 	
 	this.tick = function() {
-		drawCircle(this.l,"red",6);
+		drawCircle(this.l,"white",6);
 		resetIfOob(this);
-		this.l = combineVel(this.l, this.vel);
+		this.l = new point(x,y);
 	}
 }
 
@@ -68,9 +70,16 @@ function randomPoint() {
 	return new point(goalX, goalY);
 }
 
+function oob(a) {
+		if (a.l.x > width + 10 || a.l.x < -10 || a.l.y < -10 || a.l.y > height + 10) {
+			return true;
+		}
+		
+		return false;
+}
 
 function resetIfOob(a) {
-	if (a.l.x > width + 10 || a.l.x < -10 || a.l.y < -10 || a.l.y > height + 10) {
+	if (oob(a)) {
 		a.l = randomPoint();
 		a.vel = new point(0,0);
 	};
@@ -93,6 +102,29 @@ function setBackground() {
 function combineVel(a, b) {
 	return new point (a.x+b.x,a.y+b.y);
 }
+
+
+function getAngle(a,b) {
+	var dist = distance(a,b);
+	
+	if (dist == 0) {
+		return new point(0,0);
+	}
+	
+	var distX = Math.abs(a.x-b.x) / dist;
+	var distY = Math.abs(a.y-b.y) / dist;
+	
+	if (b.x < a.x) {
+		distX = -distX;
+	}
+	
+	if (b.y < a.y) {
+		distY = -distY;
+	}
+	
+	return new point(distX,distY);
+}
+
 
 function gravitize(a,b, multiplier) {
 	if (distance(a.l, b.l) > 3) {
@@ -128,15 +160,19 @@ function gravitize(a,b, multiplier) {
 
 function Star() {
 	this.l = randomPoint();
-	this.mass = 8;
-	this.vel = new point(0,0);	
+	var rand = randomPoint();
+	var angle = getAngle(this.l,rand);
+	this.vel = new point (angle.x * 3, angle.y * 3);
 	this.highlighted = false;
 	this.tick = function() {
-		if (this.highlighted == false) {
-			drawCircle(this.l,"white",3);
-		} else {
-			drawCircle(this.l,"ccf",3);
-		}
+		this.l = combineVel(this.l, this.vel);
+			drawCircle(this.l,"red",3);
+			if (oob(this)) {
+				var speed = Math.random() * 5;
+				speed = speed + 2;
+				var toC = getAngle(this.l, c.l);
+				this.vel = new point (toC.x * speed, toC.y * speed);
+			};
 	}
 }
 
@@ -154,6 +190,12 @@ function starLoop() {
 	for (var i = 0; i < stars.length; i++) {
 		var s = stars[i];
 		s.tick();
+		if (distance(s.l,c.l) < 10) {
+			if (survival > bestSurvival) {
+				bestSurvival = survival;
+			}
+			survival = 0;
+		}
 	}
 }
 
@@ -174,51 +216,15 @@ function findClosestObjectToPoint(point, array) {
 	return object;
 }
 
-function getAngle(a,b) {
-	var dist = distance(a,b);
-	
-	if (dist == 0) {
-		return new point(0,0);
-	}
-	
-	var distX = Math.abs(a.x-b.x) / dist;
-	var distY = Math.abs(a.y-b.y) / dist;
-	
-	if (b.x < a.x) {
-		distX = -distX;
-	}
-	
-	if (b.y < a.y) {
-		distY = -distY;
-	}
-	
-	return new point(distX,distY);
-}
-
-function starStrength() {
-//	var cursor = new point(x,y);
-	var yDivided = y / height;
-	return yDivided * 1;
-}
-
 function cometLoop() {
 	c.tick();
-	var s = starStrength();
 	
-	 var cs = findClosestObjectToPoint(c.l, stars);
-	// 	if (s > .1) {
-	// 		// var angle = getAngle(c.l,cs.l);
-	// 		// var aVel = new point(angle.x * 20, angle.y * 20);
-	// 		// c.l = combineVel(c.l, aVel);
-	// //		gravitize(cs, c, 1);
-	// 	}
-	
-	if (s > .1) {
-			for (var i = 0; i < stars.length; i++) {
-					gravitize(stars[i], c, starStrength()); 
-			}
-		}
-	
+}
+
+function drawScore() {
+	survival++;
+	context.fillStyle = "white";
+	context.fillText(survival + " | " + bestSurvival,width / 2,height - 20);
 }
 
 function draw() {
@@ -226,10 +232,13 @@ function draw() {
   var cursor = point(x,y);
 	starLoop();
 	cometLoop();
+
+	drawScore();
+	
 }
 
 function setup() {
-	setupStars(12);
+	setupStars(50);
 }
 
 $(document).ready(function() {
