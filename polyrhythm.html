@@ -11,31 +11,81 @@ canvas {
 <script type="text/javascript" src="jquery-1.4.3.min.js"></script>
 <script type="text/javascript">
 
+var context;
 var x = 0;
 var y = 0;
 var width = 400;
 var height = 400;
 
+var timings = [];
+var boxes = [];
+
 function draw() {
 	
+}
+
+function clearScreen () {
+	context.clearRect(0, 0, width, height);
+	context.fillStyle = "black";
+	context.fillRect(0,0,width,height);
+}
+
+function drawRed() {
+	context.fillStyle = "red";
+	context.fillRect(0,0,20,20);
+}
+
+function Box(delay, color) {
+	this.delayLeft = delay;
+	this.delayReset = delay;
+	this.color = color;
+	this.tick = function() {
+		this.delayLeft = this.delayLeft - 1;
+		console.log("delay left:" + this.delayLeft);
+		context.fillStyle = "black";
+		
+		if (this.delayLeft < this.delayReset - 30) {
+					this.fillStyle = "black";
+		}
+				
+		if (this.delayLeft <= 0) {			
+			context.fillStyle = this.color;			
+			console.log("context fill style" + context.fillStyle);
+			this.delayLeft = this.delayReset;
+		}
+		context.fillRect(0,0,200,200);		
+	}
+}
+
+function update() {
+	for (var i = 0; i < boxes.length; i++) {
+		var b = boxes[i];
+		b.tick();
+	}
 }
 
 $(document).ready(function() {
 	var address = location.href;
 	var urlComponents = address.split('?');
-	var timings = urlComponents[1].split('=')[1].split(',');
-	var number = parseInt(timings[0]) + 3;
-	console.log(number);
-	console.log(timings);
+	var urlTimings = urlComponents[1].split('=')[1].split(',');
+
+	for (var i = 0; i < urlTimings.length; i++) {
+		var timing = parseInt(urlTimings[i]);
+		timings.push(timing);
+	}
+
  	console.log(location.href);
 	//send to server?
 	
 	var canvas = $('#canvas');
   context = canvas.get(0).getContext('2d');
 	
-	  setInterval(draw, 30);
-
-	  
+	var b1 = new Box(timings[0], "green");
+	console.log("b1: " + b1);
+	boxes.push(b1);
+	console.log(boxes);
+	console.log(boxes[0].tick);
+	setInterval(update, 50);
 });
 </script>
 </head>
