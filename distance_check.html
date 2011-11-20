@@ -1,0 +1,288 @@
+<!doctype html>
+<html>
+<head>
+<style type='text/css'>
+canvas {
+  border: 1px solid #aaa;
+  cursor: none;
+}
+</style>
+
+<script type="text/javascript" src="jquery-1.4.3.min.js"></script>
+<script type="text/javascript">
+
+var context;
+var width = 500;
+var height = 500;
+
+var x = -50;
+var y = -50;
+
+var lastHighlighted = null;
+
+var active = false;
+
+function Understanding() {
+	this.l = new point(0,0);
+	this.mass = 1;
+	
+	this.tick = function() {
+	 	drawCircle(this.l,"white",10);
+		resetIfOob(this);
+	}
+}
+
+function point(x,y) {
+	this.x = x;
+	this.y = y;
+}
+
+
+function distance(a,b) {
+	var xdist = Math.abs(a.x - b.x);
+	var ydist = Math.abs(a.y - b.y);
+	xdist = xdist * xdist;
+	ydist = ydist * ydist;
+	if (Math.abs(xdist + ydist) > 3) {
+		return Math.sqrt(xdist + ydist);
+	}
+	
+	return 1000;
+}
+
+function Comet() {
+	this.l = new point(0,0);
+	this.vel = 
+	this.mass = 1;
+	this.vel = new point(2,3);
+	
+	this.tick = function() {
+		drawCircle(this.l,"red",6);
+		resetIfOob(this);
+		this.l = combineVel(this.l, this.vel);
+	}
+}
+
+var c = new Comet();
+
+function randomPoint() {
+	goalX = Math.random() * width;
+  goalY = Math.random() * height;
+  
+	return new point(goalX, goalY);
+}
+
+
+function resetIfOob(a) {
+	if (a.l.x > width + 10 || a.l.x < -10 || a.l.y < -10 || a.l.y > height + 10) {
+		a.l = randomPoint();
+		a.vel = new point(0,0);
+	};
+}
+
+function drawCircle(p,colour,radius) {
+	context.fillStyle = colour;
+	context.beginPath();
+	context.arc(p.x,p.y,radius,0,Math.PI*2,true);
+	context.closePath();
+	context.fill();
+}
+
+function setBackground() {
+	context.clearRect(0, 0, width, height);
+	context.fillStyle = "black";
+	context.fillRect(0,0,width,height);
+}
+
+function combineVel(a, b) {
+	return new point (a.x+b.x,a.y+b.y);
+}
+
+function gravitize(a,b, multiplier) {
+	if (distance(a.l, b.l) > 3) {
+		var dx = a.l.x - b.l.x;
+		var dy = a.l.y - b.l.y;
+		var distx = Math.pow(dx,2);
+		var disty = Math.pow(dy,2);
+		if (distx + disty == 0) {
+			distx = .001;
+			disty = .001;
+		}
+		
+		var dist = Math.sqrt(distx+disty);
+		if (dist == 0) {
+			dist = 1;
+		}
+		
+		var forceY = Math.abs(dy) / Math.pow(dist,2) * a.mass;
+		var forceX = Math.abs(dx) / Math.pow(dist,2) * a.mass;
+		
+		forceX = forceX * multiplier;
+		forceY = forceY * multiplier;
+		if (dy < 0) {
+			forceY = forceY * -1;
+		}
+		if (dx < 0) {
+			forceX = forceX * -1;
+		}
+	}
+		
+	b.vel = combineVel(b.vel, new point(forceX,forceY));
+}
+
+function Star() {
+	this.l = randomPoint();
+	this.mass = 8;
+	this.vel = new point(0,0);	
+	this.highlighted = false;
+	this.tick = function() {
+		if (this.highlighted == false) {
+			drawCircle(this.l,"white",3);
+		} else {
+			drawCircle(this.l,"red",3);
+		}
+	}
+}
+
+var stars = [];
+
+function setupStars(starCount) {
+	for (var i = 0; i < starCount; i++) {
+		var s = new Star();
+		s.l = randomPoint();
+		stars.push(s);
+	};
+}
+
+function starLoop() {
+	for (var i = 0; i < stars.length; i++) {
+		var s = stars[i];
+		s.tick();
+	}
+}
+
+function findClosestObjectToPoint(point, array) {
+	var dist = 10000;
+	var object = array[0];
+	for (var i = 0; i < array.length; i++) {
+		var objectDist = distance(array[i].l, point);
+		array[i].highlighted = false;
+		if (objectDist < dist) {
+			dist = objectDist;
+			object = array[i];
+		}
+	}
+
+		object.highlighted = true;	
+	return object;
+}
+
+function getAngle(a,b) {
+	var dist = distance(a,b);
+	
+	if (dist == 0) {
+		return new point(0,0);
+	}
+	
+	var distX = Math.abs(a.x-b.x) / dist;
+	var distY = Math.abs(a.y-b.y) / dist;
+	
+	if (b.x < a.x) {
+		distX = -distX;
+	}
+	
+	if (b.y < a.y) {
+		distY = -distY;
+	}
+	
+	return new point(distX,distY);
+}
+
+function starStrength() {
+//	var cursor = new point(x,y);
+	var yDivided = y / height;
+	return yDivided * 1;
+}
+
+function cometLoop() {
+	c.tick();
+	
+	
+}
+
+function highlightStars(s) {
+	var maxDistance = 99999;
+	for (var i = 0; i < s.length; i++){
+		var checkingDistance = distance(s[i].l, c.l);
+		if (checkingDistance < maxDistance) {
+			lastHighlighted = s[i];			
+			maxDistance = checkingDistance;
+		};
+	}
+	
+	for (var i = 0; i < s.length; i++){
+		s[i].highlighted = false;
+	}
+	
+	lastHighlighted.highlighted = true
+	
+}
+
+
+function attractToHighlight() {
+	if (active === true) {
+		var angle = getAngle(c.l, lastHighlighted.l);
+		var vector = new point(angle.x * 2, angle.y * 2);
+		c.vel = combineVel(c.vel, vector);
+	}
+}
+
+
+function draw() {
+	setBackground();
+  var cursor = point(x,y);
+	active = y / height > .5;
+	if (active === false) {	
+		highlightStars(stars);
+	}
+	starLoop();
+	cometLoop();
+	attractToHighlight();
+}
+
+function setup() {
+	setupStars(12);
+}
+
+$(document).ready(function() {
+	var address = location.href;
+ 	console.log(location.href);
+	//send to server?
+	
+	var canvas = $('#canvas');
+  context = canvas.get(0).getContext('2d');
+	
+	setup();
+	  setInterval(draw, 30);
+
+	  canvas.mousemove(function(e) {
+	    var mousex = e.pageX - canvas.offset().left;
+	    var mousey = e.pageY - canvas.offset().top;
+
+	    mousex -= width/2;
+	    mousey -= width/2;
+
+	    var angle = 0; 
+
+			var mouse = new point(mousex, mousey);
+
+		  x = mouse.x * Math.cos(angle) - mouse.y * Math.sin(angle) + width/2;
+	    y = mouse.x * Math.sin(angle) + mouse.y * Math.cos(angle) + height/2;
+		});
+});
+</script>
+</head>
+<body>
+<canvas id='canvas' width=500 height=500></canvas>
+</body>
+</html>
