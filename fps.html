@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<script type="text/javascript" src="jquery-1.4.3.min.js"></script>
+<script type="text/javascript">
+
+
+var canvas;
+var gl;
+var currentTime;
+
+$(document).ready(function() {
+	$('body:first').bind("onload",start());
+});
+
+function start() {
+	
+	fpsDiv = document.createElement('div');
+	$('body').append(fpsDiv);
+	
+	canvas = document.getElementById('glcanvas');
+	
+	initWebGL(canvas);
+	
+	function shadersReady(ready) {
+		initBuffers();
+		
+		gl.clearColor(0.0, 0.0, 0.0, 1.0);
+		gl.enable(gl.DEPTH_TEST);
+		gl.depthFunc(gl.LEQUAL);
+		gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+		
+		currentTime = Date.now();
+		
+		tick();
+	}
+	initShaders(shadersReady);
+	
+};
+
+function tick() {
+	requestAnimFrame(tick);
+	drawScene();
+	animate();
+};
+
+function animate() {
+	var delta = Date.now() - currentTime;
+	currentTime = Date.now();
+	$(fpsDiv).html(delta);
+	
+	// rPyramid += (90*delta) / 1000.0;
+	// rCube += (75*delta) / 1000.0;
+	// rPenta += (75*delta) / 1000.0;
+};
+
+</script>
+</head>
+<body>
+<canvas id='canvas' width=500 height=500></canvas>
+</body>
+</html>

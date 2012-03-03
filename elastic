@@ -1,0 +1,68 @@
+In the tutorial Nix linked, which is what I was suggesting modifications to:
+
+(centerx,centery) is the cursor position.
+(_x,_y) is the ball position.
+(x,y) is the vector from the ball to the mouse. It's used to calculate the force to apply to the ball.
+(xp,yp) is the ball velocity (speed).
+
+I stuck with those variable names for my changes.
+
+They're horrible variable names, though! Smiley Here's the whole thing, including my changes, rewritten with more sensible variable names. The whole thing's untested though, so you might have to play around with the constant values before you get sensible behaviour.
+
+Code:
+
+// Variables provided every time the function's called:
+// mousePosX, mousePosY
+
+// Variables stored from frame to frame:
+// ballPosX, ballPosY
+// ballVelX, ballVelY
+
+// Spring constant.
+// Higher values will pull the ball towards the mouse faster.
+springConstant = 0.1;
+
+// Inertia.
+// On a scale of 0 to 1.
+// With low values, the ball will drag slowly like it's moving through treacle.
+// With high values, the ball will happily bounce back and forth for a while.
+inertia = 0.9;
+
+// Prediction.
+// Measured in seconds. Default: 0.
+// How far ahead to predict the ball's movement, for the purposes of slowing it down.
+// Low values will let the ball bounce back and forth past the mouse.
+// High values will make the ball jitter and take a long time to reach the mouse.
+predict = 0.2;
+
+// Tangential inertia.
+// On a scale of 0 to 1.
+// Low values will force the ball to only move towards or away from the mouse.
+// High values will allow the ball to sling around the mouse in circles.
+tangentinertia = 0.7;
+
+// Calculate a force from the ball's predicted position towards the mouse.
+forceX = mousePosX - (ballPosX + predict*ballVelX);
+forceY = mousePosY - (ballPosY + predict*ballVelY);
+
+// This block is optional and the rest will work OK without it.
+// You may as well get the rest working, then add this in after.
+{
+  // Split the ball's velocity into a "towards mouse" component and a "sideways" component.
+  forceLength = sqrt( forceX*forceX + forceY*forceY );
+  towardsComponent = (ballVelX*forceX + ballVelY*forceY)/forceLength;
+  tangentComponent = (ballVelX*forceY - ballVelY*forceX)/forceLength;
+
+  // Reduce the ball's sideways velocity.
+  tangentComponent *= tangentinertia;
+
+  // Convert the components back into X and Y.
+  ballVelX = (towardsComponent*forceX + tangentComponent*forceY)/forceLength;
+  ballVelY = (towardsComponent*forceY - tangentComponent*forceX)/forceLength;
+}
+	
+ballVelX = ballVelX * inertia + forceX*springConstant;
+ballVelY = ballVelY * inertia + forceY*springConstant;
+
+ballPosX += ballVelX;
+ballPosY += ballVelY;

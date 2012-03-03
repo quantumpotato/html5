@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+<style type='text/css'>
+canvas {
+  border: 1px solid #aaa;
+  cursor: none;
+}
+</style>
+
+<script type="text/javascript" src="jquery-1.4.3.min.js"></script>
+<script type="text/javascript">
+
+var x = -50;
+var y = -50;
+var inertia = .9;
+var k = .1;
+var context;
+var width = 500;
+var height = 500;
+
+function drawCircle(px,py,colour,radius) {
+	context.fillStyle = colour;
+	context.beginPath();
+	context.arc(px,py,radius,0,Math.PI*2,true);
+	context.closePath();
+	context.fill();
+}
+
+function Ball() {
+	this.x = 0;
+	this.y = 0;
+	this._x = 0;
+	this._y = 0;
+	this.xp = 0;
+	this.yp = 0;
+	
+	this.move = function(centerx,centery) {
+		var predict = .2;
+		this.x =
+		this.x = -this._x + centerx;
+		this.y = -this._y + centery;
+		this.xp = this.xp * inertia * this.x*k;
+		this.yp = this.yp * inertia * this.y*k;
+		this._x = this._x + this.xp;
+		this._y = this._y + this.yp;
+		drawCircle(this.x,this.y,"blue",10);
+	}
+}
+
+var b = new Ball();
+
+function setBackground() {
+	context.clearRect(0, 0, width, height);
+	context.fillStyle = "white";
+	context.fillRect(0,0,width,height);
+}
+
+function draw() {
+	setBackground();
+	b.move(x,y)
+}
+
+function getTime() {
+  return new Date().getTime() / 1000;
+}
+
+$(document).ready(function() {
+  start = getTime();
+
+  var canvas = $('#canvas');
+  context = canvas.get(0).getContext('2d');
+
+  canvas.mousemove(function(e) {
+    var mousex = e.pageX - canvas.offset().left;
+    var mousey = e.pageY - canvas.offset().top;
+
+    mousex -= width/2;
+    mousey -= width/2;
+		
+		x = mousex * Math.cos(0) - mousey * Math.sin(0) + width/2;
+    y = mousex * Math.sin(0) + mousey * Math.cos(0) + height/2;
+  });
+  setInterval(draw, 10);
+});
+
+</script>
+</head>
+<body>
+<canvas id='canvas' width=500 height=500></canvas>
+</body>
+</html>
