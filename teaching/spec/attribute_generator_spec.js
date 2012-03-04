@@ -1,6 +1,6 @@
 describe("Basic Object", function(){
-	it("should have 4 properties", function(){
-		expect(PropertyManager.BasicObject.properties.length).toBe(4);
+	it("should have 5 properties", function(){
+		expect(PropertyManager.BasicObject.properties.length).toBe(5);
 	});
 });
 
@@ -31,13 +31,13 @@ describe("Object generator", function(){
 		it("should execute generate functions on generated objects", function(){
 			var newThing = generateThing("BasicObject");
 			expect(newThing.life).toBe(1);
-			newThing.vel.x = 1;
-			newThing.vel.y = 1;
+			newThing.d.x = 1;
+			newThing.d.y = 1;
 			var oldX = newThing.l.x;
 			var oldY = newThing.l.y;
 			newThing.functions["tick"][0](newThing);
-			expect(newThing.l.x).toBe(oldX+newThing.vel.x);
-			expect(newThing.l.y).toBe(oldY+newThing.vel.y);
+			expect(newThing.l.x).toBe(oldX+newThing.d.x);
+			expect(newThing.l.y).toBe(oldY+newThing.d.y);
 		});
 	});
 });

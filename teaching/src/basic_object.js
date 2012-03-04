@@ -2,10 +2,10 @@ foobar = {};
 
 PropertyManager = {
 	"BasicObject":{
-		"properties":['l','vel','life','maxLife']
+		"properties":['l','d','life','maxLife','speed']
 	},
 	"StupidHunter":{
-		"properties":['l', 'vel', 'target']
+		"properties":['l', 'd', 'target']
 	}
 }
 
@@ -15,8 +15,8 @@ FunctionManager = {
 		"functions":{
 			"tick":[
 				function(t){
-					t.l.x = t.l.x + t.vel.x;
-					t.l.y = t.l.y + t.vel.y;
+					t.l.x = t.l.x + t.d.x * t.speed;
+					t.l.y = t.l.y + t.d.y * t.speed;
 				}
 			]
 		}
@@ -27,7 +27,7 @@ FunctionManager = {
 			"tick":[
 				function(t){
 					if (t.target != null) {
-						t.vel = GetAngle(t.l, t.target.l);
+						t.d = GetAngle(t.l, t.target.l);
 					}
 				}
 			]
@@ -37,7 +37,8 @@ FunctionManager = {
 
 DefaultPropertyManager = {
 	"l":{"x":0,"y":0},
-	"vel":{"x":0,"y":0},
+	"d":{"x":0,"y":0},
 	"life":1,
-	"maxLife":1
+	"maxLife":1,
+	"speed":1
 }
