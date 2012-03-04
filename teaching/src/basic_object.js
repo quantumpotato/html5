@@ -15,8 +15,8 @@ FunctionManager = {
 		"functions":{
 			"tick":[
 				function(t){
-					t.l.x = t.l.x + t.d.x * t.speed;
-					t.l.y = t.l.y + t.d.y * t.speed;
+					t.l.x = t.l.x + (t.d.x * t.speed);
+					t.l.y = t.l.y + (t.d.y * t.speed);
 				}
 			]
 		}

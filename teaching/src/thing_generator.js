@@ -4,8 +4,8 @@ generateThing = function(templateName){
 	newThing.properties = [];
 	var properties = PropertyManager[templateName].properties;
 	for (var i = 0; i < properties.length; i++){
-		newThing.properties.push(properties[i]);
-		newThing[properties[i]] = DefaultPropertyManager[properties[i]];
+			newThing.properties.push(properties[i]);
+			newThing[properties[i]] = DefaultPropertyManager[properties[i]];				
 	};
 
 	newThing.functions = {};
@@ -18,7 +18,6 @@ generateThing = function(templateName){
 		if (newThing.functions[functionSet] === undefined) {
 			newThing.functions[functionSet] = [];
 		}
-		
 		
 		for (var ii = 0; ii < functions[index[i]].length; ii++) {
 			newThing.functions[functionSet].push(functions[index[i]][ii]);
