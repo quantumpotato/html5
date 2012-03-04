@@ -1,0 +1,62 @@
+generators:
+
+['BasicObject','']
+
+
+function stupidChasingMonster = {
+	this.propertiesForGeneration = ['BasicObject','StupidHunt'];
+}
+
+var monster = generateObjectFromFunction(stupidChasingMonster);
+
+function generateObjectFromFunction(f) {
+	var newThing = {};
+	for (properties in f.propertiesForGeneratin) {
+		//assign properties
+	}
+}
+
+
+BasicObject = {
+this.properties = ['l','vel','life','maxLife'];
+}
+
+GravityObject = {
+	this.properties = ['mass', 'attracts', 'attracted']
+}
+
+Regeneration = {
+	this.properties = ['life', 'maxLife', 'regenRate']
+	
+	this.tickFunctions = [function(){
+		if (this.life < this.maxLife) {
+			this.life += regenRate;
+			if (this.life >= this.maxLife) {
+				this.life = this.maxLife;
+			}
+		}
+	}];
+}
+
+StupidHunt = {
+	this.properties = ['l', 'vel', 'target'];
+	
+	this.tickFunctions = [function(){
+		if (this.target === null) {
+			//find target..
+		}
+		
+		this.vel = GetAngle(this.l, this.target.l);
+	}];
+}
+
+
+DefaultPropertyValues = {
+"l":{x:0, y:0},
+"vel":{x:0, y:0},
+"life":1,
+"maxLife":1,
+"regenRate":1
+}
+
+AssignPropertiesToThing()
