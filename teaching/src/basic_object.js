@@ -12,7 +12,8 @@ FunctionManager = {
 		"functions":{
 			"tick":[
 				function(t){
-					t.life = 3;
+					t.l.x = t.l.x + t.vel.x;
+					t.l.y = t.l.y + t.vel.y;
 				}
 			]
 		}
@@ -20,8 +21,8 @@ FunctionManager = {
 }
 
 DefaultPropertyManager = {
-	"l":0,
-	"vel":0,
+	"l":{"x":0,"y":0},
+	"vel":{"x":0,"y":0},
 	"life":1,
 	"maxLife":1
 }

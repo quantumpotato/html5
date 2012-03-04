@@ -31,8 +31,13 @@ describe("Object generator", function(){
 		it("should execute generate functions on generated objects", function(){
 			var newThing = generateThing("BasicObject");
 			expect(newThing.life).toBe(1);
+			newThing.vel.x = 1;
+			newThing.vel.y = 1;
+			var oldX = newThing.l.x;
+			var oldY = newThing.l.y;
 			newThing.functions["tick"][0](newThing);
-			expect(newThing.life).toBe(3);
+			expect(newThing.l.x).toBe(oldX+newThing.vel.x);
+			expect(newThing.l.y).toBe(oldY+newThing.vel.y);
 		});
 	});
 });
