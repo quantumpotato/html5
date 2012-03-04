@@ -27,5 +27,12 @@ describe("Object generator", function(){
 			var newThing = generateThing("BasicObject");
 			expect(newThing.functions.length).toBe(FunctionManager["BasicObject"].functions.length);
 		});
+		
+		it("should execute generate functions on generated objects", function(){
+			var newThing = generateThing("BasicObject");
+			expect(newThing.life).toBe(1);
+			newThing.functions[0].tick(newThing);
+			expect(newThing.life).toBe(3);
+		});
 	});
 });
