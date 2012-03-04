@@ -5,14 +5,17 @@ describe("Basic Object", function(){
 });
 
 describe("Object generator", function(){
+	var newThing;
+	beforeEach(function(){
+		newThing = generateThing("BasicObject");
+	});
+	
 	describe("Object properties", function(){
 		it("should create an object which has properties from its template", function(){
-			var newThing = generateThing("BasicObject");
 			expect(newThing.properties.length).toBe(PropertyManager["BasicObject"].properties.length);
 		});
 	
 		it("should set default values", function(){
-			var newThing = generateThing("BasicObject");
 			var expectedProperties = PropertyManager["BasicObject"].properties;
 			for (var i = 0; i < newThing.properties.length; i++){
 				var propertyName = newThing.properties[i];
@@ -24,12 +27,10 @@ describe("Object generator", function(){
 	
 	describe("Object tick functions", function(){
 		it("should create an object which has tick functions from its template", function(){
-			var newThing = generateThing("BasicObject");
 			expect(newThing.functions.tick.length).toBe(FunctionManager["BasicObject"].functions.tick.length);
 		});
 		
 		it("should execute generate functions on generated objects", function(){
-			var newThing = generateThing("BasicObject");
 			expect(newThing.life).toBe(1);
 			newThing.d.x = 1;
 			newThing.d.y = 1;
