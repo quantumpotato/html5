@@ -7,6 +7,12 @@ generateThing = function(templateName){
 		newThing.properties.push(properties[i]);
 		newThing[properties[i]] = DefaultPropertyManager[properties[i]];
 	};
+	
+	newThing.functions = [];
+	var functions = FunctionManager[templateName].functions;
+	for (var i = 0; i < functions.length; i++){
+		newThing.functions.push(functions[i]);
+	}
 
 	return newThing;
 };
