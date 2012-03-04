@@ -17,6 +17,7 @@ describe("Object generator", function(){
 	
 		it("should set default values", function(){
 			var expectedProperties = PropertyManager()["BasicObject"].properties;
+//	ITERATE OVER KEYS
 			for (var i = 0; i < newThing.properties.length; i++){
 				var propertyName = newThing.properties[i];
 				var propertyValue = newThing[propertyName];
