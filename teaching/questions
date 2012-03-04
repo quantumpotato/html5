@@ -1,0 +1,19 @@
+How?
+
+generateThing = function(templateName){
+	var newThing = {};
+
+	newThing.properties = [];
+	var properties = templateName.properties;
+	alert(templateName);
+	alert(templateName.properties);
+	alert(BasicObject.properties);
+//	var properties = BasicObject.properties;
+	for (var i = 0; i < properties.length; i++){
+		newThing.properties.push(properties[i]);
+	};
+
+	return newThing;
+};
+
+How?
