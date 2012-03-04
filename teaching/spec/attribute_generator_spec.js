@@ -25,13 +25,13 @@ describe("Object generator", function(){
 	describe("Object tick functions", function(){
 		it("should create an object which has tick functions from its template", function(){
 			var newThing = generateThing("BasicObject");
-			expect(newThing.functions.length).toBe(FunctionManager["BasicObject"].functions.length);
+			expect(newThing.functions.tick.length).toBe(FunctionManager["BasicObject"].functions.tick.length);
 		});
 		
 		it("should execute generate functions on generated objects", function(){
 			var newThing = generateThing("BasicObject");
 			expect(newThing.life).toBe(1);
-			newThing.functions[0].tick(newThing);
+			newThing.functions["tick"][0](newThing);
 			expect(newThing.life).toBe(3);
 		});
 	});

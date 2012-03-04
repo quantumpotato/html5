@@ -8,13 +8,14 @@ PropertyManager = {
 
 FunctionManager = {
 	"BasicObject":{
-		"functions":[
-			{
-				"tick":function(t){
+		"index":["tick"],
+		"functions":{
+			"tick":[
+				function(t){
 					t.life = 3;
 				}
-			}
-		]
+			]
+		}
 	}
 }
 
