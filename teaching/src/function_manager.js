@@ -22,6 +22,21 @@ FunctionManager = function() {
 					}
 				]
 			}
+		},
+		"Regeneration":{
+			"index":["tick"],
+			"functions":{
+				"tick":[
+					function(t){
+						if (t.life < t.maxLife){
+							t.life += t.regenRate;
+							if (t.life > t.maxLife) {
+								t.life = t.maxLife;
+							}
+						}
+					}
+				]
+			}
 		}
 	}
 }

@@ -7,6 +7,9 @@ PropertyManager = function() {
 		},
 		"StupidHunter":{
 			"properties":['l', 'd', 'target']
+		},
+		"Regeneration":{
+			"properties":['life','maxLife','regenRate']
 		}
 	}
 }

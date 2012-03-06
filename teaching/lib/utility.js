@@ -1,3 +1,9 @@
+function distance(a,b) {
+	var xdist = (a.x + b.x) * (a.x + b.x);
+	var ydist = (a.y + b.y) * (a.y + b.y);
+	return Math.sqrt(xdist * ydist);
+}
+
 function randomPoint() {
 	goalX = Math.random() * width;
   goalY = Math.random() * height;
