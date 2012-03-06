@@ -21,7 +21,16 @@ describe("Object generator", function(){
 			for (var i = 0; i < newThing.properties.length; i++){
 				var propertyName = newThing.properties[i];
 				var propertyValue = newThing[propertyName];
-				expect(propertyValue).toBe(DefaultPropertyManager()[propertyName]);
+				var tested = false;
+				for (var key in propertyValue) {
+					tested = true;
+				   var obj = propertyValue[key];
+					expect(obj).toBe(DefaultPropertyManager()[propertyName][key]);
+				}
+				
+				if (!tested) {
+					expect(propertyValue).toBe(DefaultPropertyManager()[propertyName]);					
+				}
 			};
 		});
 	});

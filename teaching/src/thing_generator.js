@@ -9,7 +9,7 @@
 			newThing[properties[i]] = DefaultPropertyManager()[properties[i]];				
 		}
 	};
-
+	
 	newThing.functions = {};
 	
 	var index = FunctionManager()[templateName].index;
