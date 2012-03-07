@@ -12,7 +12,7 @@ describe("Stupid Hunter", function(){
 		var oldY = stupidHunter.l.y;
 		stupidHunter.speed = 1;
 	//	alert(stupidHunter.d.x);
-		stupidHunter.functions["tick"][0](stupidHunter);
+		stupidHunter.functions["tick"][0]({"t":stupidHunter});
 		expect(stupidHunter.l.x).toBe(oldX);
 		expect(stupidHunter.l.y).toBe(oldY);
 	});

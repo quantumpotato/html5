@@ -49,7 +49,7 @@ describe("Object generator", function(){
 			newThing.d.y = 1;
 			var oldX = newThing.l.x;
 			var oldY = newThing.l.y;
-			newThing.functions["tick"][0](newThing);
+			newThing.functions["tick"][0]({"t":newThing});
 			expect(newThing.l.x).toBe(oldX+newThing.d.x);
 			expect(newThing.l.y).toBe(oldY+newThing.d.y);
 		});
