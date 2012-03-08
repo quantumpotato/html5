@@ -18,8 +18,8 @@ FunctionManager = function() {
 				"tick":[
 					function(args){
 						var t = args.t;
-						if (t.target != null) {
-							t.d = GetAngle(t.l, t.target.l);
+						if (t.target != undefined) {
+							t.d = getAngle(t.l, t.target.l);
 						}
 					}
 				]
@@ -38,7 +38,7 @@ FunctionManager = function() {
 							}
 						}
 					}
-				]
+					]
 			}
 		}
 	}

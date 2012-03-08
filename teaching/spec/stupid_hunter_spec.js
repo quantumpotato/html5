@@ -1,12 +1,11 @@
 describe("Stupid Hunter", function(){
-	// var stupidHunter;
-	// beforeEach(function(){
-	// 	var stupidHunter = generateThing('BasicObject', 'StupidHunter');
-	// 	console.log("new stupid hunter d.x" + stupidHunter.d.x);
-	// });
+	var stupidHunter;
+		beforeEach(function(){
+			stupidHunter = generateThing(['BasicObject','StupidHunter']);
+			console.log("new stupid hunter d.x" + stupidHunter.d.x);
+		});
 	
 	it("should not move when it has no target", function() {
-		var stupidHunter = generateThing('BasicObject', 'StupidHunter');		
 	 	console.log("new stupid hunter d.x" + stupidHunter.d.x);
 		var oldX = stupidHunter.l.x;
 		var oldY = stupidHunter.l.y;

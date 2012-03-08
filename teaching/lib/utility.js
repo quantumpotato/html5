@@ -1,17 +1,17 @@
-function distance(a,b) {
+distance = function(a,b) {
 	var xdist = (a.x + b.x) * (a.x + b.x);
 	var ydist = (a.y + b.y) * (a.y + b.y);
 	return Math.sqrt(xdist * ydist);
 }
 
-function randomPoint() {
+randomPoint = function() {
 	goalX = Math.random() * width;
   goalY = Math.random() * height;
   
-	return new point(goalX, goalY);
+	return {"x":goalX,"y":goalY};
 }
 
-function oob(a) {
+oob = function(a) {
 		if (a.l.x > width + 10 || a.l.x < -10 || a.l.y < -10 || a.l.y > height + 10) {
 			return true;
 		}
@@ -19,14 +19,14 @@ function oob(a) {
 		return false;
 }
 
-function resetIfOob(a) {
+resetIfOob = function(a){
 	if (oob(a)) {
 		a.l = randomPoint();
-		a.vel = new point(0,0);
+		a.vel = {"x":0,"y":0};
 	};
 }
 
-function drawCircle(p,colour,radius) {
+drawCircle = function(p,colour,radius) {
 	context.fillStyle = colour;
 	context.beginPath();
 	context.arc(p.x,p.y,radius,0,Math.PI*2,true);
@@ -34,21 +34,21 @@ function drawCircle(p,colour,radius) {
 	context.fill();
 }
 
-function setBackground() {
+setBackground = function() {
 	context.clearRect(0, 0, width, height);
 	context.fillStyle = "black";
 	context.fillRect(0,0,width,height);
 }
 
-function combineVel(a, b) {
-	return new point (a.x+b.x,a.y+b.y);
+combineVel = function(a, b) {
+	return {"x":a.x+bx,"y":a.y+b.y};
 }
 
-function getAngle(a,b) {
+getAngle = function(a,b) {
 	var dist = distance(a,b);
 	
 	if (dist == 0) {
-		return new point(0,0);
+		return {"x":0,"y":0};
 	}
 	
 	var distX = Math.abs(a.x-b.x) / dist;
@@ -62,10 +62,10 @@ function getAngle(a,b) {
 		distY = -distY;
 	}
 	
-	return new point(distX,distY);
+	return {"x":distX,"y":distY};
 }
 
-function gravitize(a,b, multiplier) {
+gravitize = function(a,b, multiplier) {
 	if (distance(a.l, b.l) > 3) {
 		var dx = a.l.x - b.l.x;
 		var dy = a.l.y - b.l.y;
@@ -94,5 +94,5 @@ function gravitize(a,b, multiplier) {
 		}
 	}
 		
-	b.vel = combineVel(b.vel, new point(forceX,forceY));
+	b.vel = combineVel(b.vel, {"x":forceX,"y":forceY});
 }

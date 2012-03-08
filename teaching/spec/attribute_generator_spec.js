@@ -7,7 +7,7 @@ describe("Basic Object", function(){
 describe("Object generator", function(){
 	var newThing;
 	beforeEach(function(){
-		newThing = generateThing("BasicObject");
+		newThing = generateThing(["BasicObject"]);
 	});
 	
 	describe("Object properties", function(){
@@ -41,7 +41,7 @@ describe("Object generator", function(){
 		});
 		
 		it("should execute generate functions on generated objects", function(){
-			var secondThing = generateThing("BasicObject");
+			var secondThing = generateThing(['BasicObject']);
 			console.log("second thing d.x" + secondThing.d.x);       //0
 			expect(newThing.life).toBe(1);
 			newThing.d.x = 5;
