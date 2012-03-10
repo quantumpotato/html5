@@ -1,7 +1,7 @@
 distance = function(a,b) {
-	var xdist = (a.x + b.x) * (a.x + b.x);
-	var ydist = (a.y + b.y) * (a.y + b.y);
-	return Math.sqrt(xdist * ydist);
+	var xdist = (a.x - b.x) * (a.x - b.x);
+	var ydist = (a.y - b.y) * (a.y - b.y);
+	return Math.sqrt(xdist + ydist);
 }
 
 randomPoint = function() {
