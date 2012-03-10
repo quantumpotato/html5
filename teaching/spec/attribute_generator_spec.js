@@ -42,10 +42,8 @@ describe("Object generator", function(){
 		
 		it("should execute generate functions on generated objects", function(){
 			var secondThing = generateThing(['BasicObject']);
-			console.log("second thing d.x" + secondThing.d.x);       //0
 			expect(newThing.life).toBe(1);
 			newThing.d.x = 5;
-			console.log("second thing d.x" + secondThing.d.x);			 //5
 			newThing.d.y = 1;
 			var oldX = newThing.l.x;
 			var oldY = newThing.l.y;

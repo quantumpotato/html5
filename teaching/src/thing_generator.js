@@ -5,14 +5,12 @@ generateThing = function(templates){
 	newThing.functions = {};
 	for (var templateIndex = 0; templateIndex < templates.length; templateIndex++) {
 		var templateName = templates[templateIndex];		
-		console.log('templateName' + templateName);
 		var properties = PropertyManager()[templateName].properties;
 		for (var i = 0; i < properties.length; i++){
 			if (newThing.properties[properties[i]] === undefined) {
 				newThing.properties.push(properties[i]);			
 				newThing[properties[i]] = DefaultPropertyManager()[properties[i]];				
-			}
-			console.log(properties[i] + " : " + newThing[properties[i]]);		
+			}	
 		};
 		
 		
