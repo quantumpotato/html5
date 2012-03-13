@@ -5,6 +5,8 @@ function DefaultPropertyManager() {
 		"life":1,
 		"maxLife":1,
 		"speed":1,
-		"regenRate":1
+		"regenRate":1,
+		"mass":1,
+		"score":0
 	}
 }

@@ -8,7 +8,7 @@ FunctionManager = function() {
 						var t = args.t;
 						t.l.x = t.l.x + (t.d.x * t.speed);
 						t.l.y = t.l.y + (t.d.y * t.speed);
-					}
+					},
 				]
 			}
 		},
@@ -39,6 +39,15 @@ FunctionManager = function() {
 						}
 					}
 					]
+			}
+		},
+		"Player":{
+			"index":["tick"],
+			"functions":{
+				"tick":[
+				function(args){
+					
+				}]
 			}
 		}
 	}

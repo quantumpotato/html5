@@ -5,6 +5,7 @@ generateThing = function(templates){
 	newThing.functions = {};
 	for (var templateIndex = 0; templateIndex < templates.length; templateIndex++) {
 		var templateName = templates[templateIndex];		
+		console.log(templateName);
 		var properties = PropertyManager()[templateName].properties;
 		for (var i = 0; i < properties.length; i++){
 			if (newThing.properties[properties[i]] === undefined) {
