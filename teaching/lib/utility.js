@@ -1,3 +1,16 @@
+function sortAndRemoveDuplicates(arr) {
+    arr.sort( function(a, b) { return a - b; } );
+    var copy = arr.slice(0);
+    arr.length = 0;
+
+    for (var i = 0, len = copy.length; i < len; ++i) {
+        if (i == 0 || copy[i] != copy[i - 1]) {
+            arr.push(copy[i]);
+        }
+    }
+    return arr;
+}
+
 distance = function(a,b) {
 	var xdist = (a.x - b.x) * (a.x - b.x);
 	var ydist = (a.y - b.y) * (a.y - b.y);

@@ -51,7 +51,9 @@ describe("Object generator", function(){
 			for (var i = 0; i < stupidHunterFunctions.length; i++) {
 				functionIndexes.push(stupidHunterFunctions[i]);
 			};
-			expect(basicHunter.functionIndexes.length).toBe(sortedFunctionIndexes.length);
+			functionIndexes = sortAndRemoveDuplicates(functionIndexes);
+			var basicHunter = generateThing(['BasicObject','StupidHunter']);
+			expect(basicHunter.functionIndexes.length).toBe(functionIndexes.length);
 		});
 		
 		it("should execute generate functions on generated objects", function(){
