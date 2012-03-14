@@ -15,7 +15,10 @@ function gameController() {
 	return {
 		"nodes":[],
 		"registeredNodes":{},
+		"registrationIndexes":[],
 		"eventInterceptors":[],
+		"eventListeners":{},
+		"listenerIndexes":[],
 		"initialize":function(){},
 		"reset":function(){},
 		"register":function(t){

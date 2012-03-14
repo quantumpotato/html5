@@ -40,6 +40,20 @@ describe("Object generator", function(){
 			expect(newThing.functions.tick.length).toBe(FunctionManager()["BasicObject"].functions.tick.length);
 		});
 		
+		it("should track function indexes", function(){
+			var functionIndexes = FunctionManager()["BasicObject"].index;
+			expect(newThing.functionIndexes.length).toBe(functionIndexes.length);
+		});
+		
+		it("should track function indexes for multiple component objects", function(){
+			var functionIndexes = [FunctionManager()["BasicObject"].index];
+			var stupidHunterFunctions = FunctionManager()["StupidHunter"].index;
+			for (var i = 0; i < stupidHunterFunctions.length; i++) {
+				functionIndexes.push(stupidHunterFunctions[i]);
+			};
+			expect(basicHunter.functionIndexes.length).toBe(sortedFunctionIndexes.length);
+		});
+		
 		it("should execute generate functions on generated objects", function(){
 			var secondThing = generateThing(['BasicObject']);
 			expect(newThing.life).toBe(1);

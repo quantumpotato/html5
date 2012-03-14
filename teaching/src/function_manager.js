@@ -13,7 +13,7 @@ FunctionManager = function() {
 			}
 		},
 		"StupidHunter":{
-			"index":["tick"],
+			"index":["tick", "tick2"],
 			"functions":{
 				"tick":[
 					function(args){
@@ -21,6 +21,11 @@ FunctionManager = function() {
 						if (t.target != undefined) {
 							t.d = getAngle(t.l, t.target.l);
 						}
+					}
+				],
+				"tick2":[
+					function(args){
+						
 					}
 				]
 			}

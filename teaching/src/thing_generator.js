@@ -3,6 +3,7 @@ generateThing = function(templates){
 
 	newThing.properties = [];
 	newThing.functions = {};
+	newThing.functionIndexes = [];
 	for (var templateIndex = 0; templateIndex < templates.length; templateIndex++) {
 		var templateName = templates[templateIndex];		
 		console.log(templateName);
@@ -22,6 +23,7 @@ generateThing = function(templates){
 			var functionSet = index[i];		
 			if (newThing.functions[functionSet] === undefined) {
 				newThing.functions[functionSet] = [];
+				newThing.functionIndexes.push(functionSet);
 			}
 
 			for (var ii = 0; ii < functions[index[i]].length; ii++) {
