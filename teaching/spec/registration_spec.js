@@ -14,13 +14,17 @@ describe("Registering", function(){
 		testGC.register(player);
 		expect(testGC.nodes[0]).toBe(player);
 	});
-	it("should listen for events with the game controller when registering", function(){
-		testGC.register(player);
-		// var functionsRegistered = player.functions;
-		// alert(player);
-		// alert(functionsRegistered);
+	it("should listen to game controller events it registered for", function(){
+		var regenner = generateThing(['BasicObject','Regeneration']);
+		regenner.maxLife = 8;
+		testGC.register(regenner);
+		var oldLife = regenner.life;
+		testGC.tick();
+		testGC.tick();
+		var newLife = regenner.life;
+		expect(newLife).toBeGreaterThan(oldLife);		
 	});
 	it("should pull targets from registered objects", function(){
-		
+		expect(1).toBe(0);
 	});
 });

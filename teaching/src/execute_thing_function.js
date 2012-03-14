@@ -6,8 +6,8 @@ function executeThingFunction(t, functionName, args) {
 	}
 }
 
-function etf(f, functionName, args){
-	executeThingFunction(f, functionName, args);
+function etf(t, functionName, args){
+	executeThingFunction(t, functionName, args);
 }
 
 function register(thing, gameController) {

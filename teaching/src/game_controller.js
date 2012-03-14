@@ -23,6 +23,12 @@ function gameController() {
 		"reset":function(){},
 		"register":function(t){
 			this.nodes.push(t);
+		},
+		"tick":function(){
+			for (var i = 0; i < this.nodes.length; i++) {
+				var n = this.nodes[i];
+				etf(n, "tick", {"t":n});
+			}
 		}
 	}
 }
