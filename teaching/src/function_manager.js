@@ -21,6 +21,12 @@ FunctionManager = function() {
 						if (t.target != undefined) {
 							t.d = getAngle(t.l, t.target.l);
 						}
+					},
+					function(args){
+						if (this.target === undefined && this.gc != undefined) {
+							alert("finding target");							
+							this.target = this.gc.findTarget('Player');
+						}
 					}
 				],
 				"tick2":[

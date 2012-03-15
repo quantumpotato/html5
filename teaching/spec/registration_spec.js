@@ -4,6 +4,7 @@ describe("Registering", function(){
 	beforeEach(function(){
 		testGC = gameController();
 		player = generateThing(["BasicObject","Player"]);			
+		player.teams = ['Player'];
 	});
 	describe("a new game controller", function(){
 		it("should have no nodes", function(){
@@ -25,6 +26,15 @@ describe("Registering", function(){
 		expect(newLife).toBeGreaterThan(oldLife);		
 	});
 	it("should pull targets from registered objects", function(){
-		expect(1).toBe(0);
+		var hunter = generateThing(['BasicObject','StupidHunter']);
+		var oldTarget = hunter.target;
+		testGC.register(player);
+		testGC.register(hunter);
+		testGC.tick();
+		testGC.tick();
+		alert(hunter.target);
+		alert(hunter.gc);
+		alert(hunter.gc.findTarget("Player"));
+		expect(hunter.target).toBe(player);		
 	});
 });
