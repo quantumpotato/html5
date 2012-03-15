@@ -51,8 +51,10 @@ function gameController() {
 			}
 		},
 		"findTarget":function(team){
-			for (var i = 0; i < this.registeredNodes[team].length; i++) {
-				return this.registeredNodes[team][i];
+			if (this.registeredNodes[team] != undefined) {
+				for (var i = 0; i < this.registeredNodes[team].length; i++) {
+					return this.registeredNodes[team][i];
+				}
 			}
 			return undefined;
 		}

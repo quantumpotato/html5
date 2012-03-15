@@ -23,9 +23,11 @@ FunctionManager = function() {
 						}
 					},
 					function(args){
-						if (this.target === undefined && this.gc != undefined) {
-							alert("finding target");							
-							this.target = this.gc.findTarget('Player');
+						var t = args.t;
+						console.log("t.target"+t.target);
+						console.log("t.gc"+this.gc);
+						if (t.target === undefined && t.gc != undefined) {						
+							t.target = t.gc.findTarget('Player');
 						}
 					}
 				],

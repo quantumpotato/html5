@@ -32,9 +32,6 @@ describe("Registering", function(){
 		testGC.register(hunter);
 		testGC.tick();
 		testGC.tick();
-		alert(hunter.target);
-		alert(hunter.gc);
-		alert(hunter.gc.findTarget("Player"));
 		expect(hunter.target).toBe(player);		
 	});
 });
