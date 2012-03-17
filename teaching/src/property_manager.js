@@ -13,6 +13,9 @@ PropertyManager = function() {
 		},
 		"Player":{
 			"properties":['score']
+		},
+		"PointUp":{
+			"properties":['l','power']
 		}
 	}
 }

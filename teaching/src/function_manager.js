@@ -62,6 +62,16 @@ FunctionManager = function() {
 					
 				}]
 			}
+		},
+		"PointUp":{
+			"index":["registering"],
+			"functions":{
+				"registering":[
+				function(args){
+					var t = args.t;
+					t.l = randomPoint();
+				}]
+			}
 		}
 	}
 }

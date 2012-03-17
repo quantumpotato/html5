@@ -41,6 +41,7 @@ function gameController() {
 					}
 					
 					this.registeredNodes[teamName].push(t);
+					etf(t, "registering", null);
 				}
 			}
 		},

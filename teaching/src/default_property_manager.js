@@ -7,6 +7,7 @@ function DefaultPropertyManager() {
 		"speed":1,
 		"regenRate":1,
 		"mass":1,
-		"score":0
+		"score":0,
+		"power":1
 	}
 }
