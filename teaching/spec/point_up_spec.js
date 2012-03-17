@@ -1,10 +1,13 @@
 describe("PointUps", function(){
 	var pointUp;
 	var gc;
+	var cm;
 	beforeEach(function(){
 		pointUp = generateThing(["BasicObject","PointUp"]);
-		pointUp.teams = ['pod'];
+		pointUp.teams = ['pod','collision'];
 		gc = gameController();
+		cm = generateThing(["CollisionManager"]);
+		gc.register(cm);		
 	});
 	it("should generate a random location when registering", function(){
 		var oldX = pointUp.l.x;
@@ -12,8 +15,6 @@ describe("PointUps", function(){
 		gc.register(pointUp);
 		expect(pointUp.l.x).toNotBe(oldX);
 		expect(pointUp.l.y).toNotBe(oldY);
-		console.log(pointUp.l.x);
-		console.log(pointUp.l.y);
 	});
 	it("should not increase score for non-players colliding", function(){
 		gc.register(pointUp);
@@ -28,6 +29,14 @@ describe("PointUps", function(){
 		expect(stupidHunter.score).toBe(oldScore);
 	});
 	it("should increase score for players when colliding", function(){
-		
+		gc.register(pointUp);
+		var player = generateThing(['BasicObject','Player']);
+		player.teams = ["Player","collision"];
+		gc.register(player);
+		pointUp.l.x = player.l.x;
+		pointUp.l.y = player.l.y;
+		var oldScore = player.score;
+		gc.tick();		
+		expect(player.score).toBeGreaterThan(oldScore);
 	});
 });

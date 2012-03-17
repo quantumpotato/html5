@@ -62,13 +62,23 @@ FunctionManager = function() {
 			}
 		},
 		"PointUp":{
-			"index":["registering"],
+			"index":["registering","collision"],
 			"functions":{
 				"registering":[
 				function(args){
 					var t = args.t;
 					t.l = randomPoint();
-				}]
+				}],
+				"collision":[
+				function(args){
+					var a = args.a;
+					var b = args.b;
+					console.log("colliding");
+					if (b.score != undefined) {
+						b.score += a.power;
+					}
+				}
+				]
 			}
 		},
 		"CollisionManager":{
@@ -85,6 +95,7 @@ FunctionManager = function() {
 				}],
 				"tick":[
 				function(args){
+					console.log("ticking collision manager");
 					var t = args.t;
 					var gameController = t.gc;
 					if (gameController.registeredNodes["collision"] === undefined) {
