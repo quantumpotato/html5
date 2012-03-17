@@ -3,7 +3,7 @@ foobar = {};
 PropertyManager = function() {
 		return {
 		"BasicObject":{
-			"properties":['l','d','life','maxLife','speed','power']
+			"properties":['l','d','life','maxLife','speed','power','radius']
 		},
 		"StupidHunter":{
 			"properties":['l', 'd', 'target']
@@ -16,6 +16,9 @@ PropertyManager = function() {
 		},
 		"PointUp":{
 			"properties":['l','power']
+		},
+		"CollisionManager":{
+			"properties":[]
 		}
 	}
 }

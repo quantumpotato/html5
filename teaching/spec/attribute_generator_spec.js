@@ -1,6 +1,6 @@
 describe("Basic Object", function(){
 	it("should have 6 properties", function(){
-		expect(PropertyManager().BasicObject.properties.length).toBe(6);
+		expect(PropertyManager().BasicObject.properties.length).toBe(7);
 	});
 });
 

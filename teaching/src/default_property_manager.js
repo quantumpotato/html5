@@ -8,6 +8,7 @@ function DefaultPropertyManager() {
 		"regenRate":1,
 		"mass":1,
 		"score":0,
-		"power":1
+		"power":1,
+		"radius":10
 	}
 }

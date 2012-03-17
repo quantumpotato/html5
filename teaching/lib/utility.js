@@ -1,3 +1,6 @@
+var width = 500;
+var height = 500;
+
 function sortAndRemoveDuplicates(arr) {
     arr.sort( function(a, b) { return a - b; } );
     var copy = arr.slice(0);

@@ -4,17 +4,30 @@ describe("Collision Management", function(){
 	var player;
 	var stupidHunter;
 	beforeEach(function(){
-		// testGC = gameController();
-		// cm = generateThing(["collision-manager"]);
-		// testGC.register(cm);
-		// player = generateThing(['BasicObject','Player']);
-		// stupidHunter = generateThing(['BasicObject','StupidHunter']);
-		// testGC.register(player);
-		// testGC.register(stupidHunter);
+		testGC = gameController();
+		cm = generateThing(["CollisionManager"]);
+		testGC.register(cm);
+		player = generateThing(['BasicObject','Player']);
+		player.teams = ["Player","collision"];
+		stupidHunter = generateThing(['BasicObject','StupidHunter']);
+		stupidHunter.teams = ["collision"];
+		testGC.register(player);
+		testGC.register(stupidHunter);
 	});
-	it("should compare distances between objects each tick", function(){
-		//compare distances
-		//send collide message, expect player life to have decremented
-//		expect(0).toBe(-1);
+	it("should know if two objects are not colliding", function(){
+		stupidHunter.l.x = 50;
+		stupidHunter.l.y = 50;
+		var args = {"t":cm,"a":player,"b":stupidHunter};
+		var result = vtf(cm, "evaluate", args);
+		expect(result).toBe(false);
+	});
+	it("should know if two objects are colliding", function(){
+		stupidHunter.l.x = player.l.x;
+		stupidHunter.l.y = player.l.y;
+		var args = {"t":cm,"a":player,"b":stupidHunter};
+		var result = vtf(cm, "evaluate", args);
+		console.log("player x:" + player.l.x +"y"+player.l.y);
+		console.log("stupidHunter x:"+stupidHunter.l.x+"y"+stupidHunter.l.y);
+		expect(result).toBe(true);
 	});
 });
