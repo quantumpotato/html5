@@ -12,6 +12,18 @@ FunctionManager = function() {
 				]
 			}
 		},
+		"DeadCleaner":{
+			"index":['tick'],
+			"functions":
+				{"tick":
+					[function(args){
+						var t = args.t;
+						for (var i = 0; i < t.gc.registeredNodes["living"].length; i++){
+							
+						};
+					}]
+				}
+		},
 		"StupidHunter":{
 			"index":["tick", "tick2"],
 			"functions":{

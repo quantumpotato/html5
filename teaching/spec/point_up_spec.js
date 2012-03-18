@@ -49,6 +49,9 @@ describe("PointUps", function(){
 		var oldScore = player.score;
 		gc.tick();		
 		gc.tick();		
-		expect(pointUp).toBe(undefined);	
+		var deadCleaner = generateThing(['DeadCleaner']);
+		deadCleaner.teams = ['controller'];
+		gc.register(deadCleaner);
+		expect(pointUp).toBe(undefined);t	
 	});
 });

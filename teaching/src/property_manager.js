@@ -19,7 +19,10 @@ PropertyManager = function() {
 		},
 		"CollisionManager":{
 			"properties":[]
-		}
+		},
+		"DeadCleaner":{
+			"properties":[]
+		},
 	}
 }
 
