@@ -58,6 +58,9 @@ function gameController() {
 				}
 			}
 			return undefined;
+		},
+		"remove":function(node){
+			
 		}
 	}
 }

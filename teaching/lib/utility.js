@@ -1,6 +1,16 @@
 var width = 500;
 var height = 500;
 
+function cleanArray(actual){
+  var newArray = new Array();
+  for(var i = 0; i<actual.length; i++){
+      if (actual[i]){
+        newArray.push(actual[i]);
+    }
+  }
+  return newArray;
+}
+
 function sortAndRemoveDuplicates(arr) {
     arr.sort( function(a, b) { return a - b; } );
     var copy = arr.slice(0);

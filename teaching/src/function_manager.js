@@ -62,8 +62,12 @@ FunctionManager = function() {
 			}
 		},
 		"PointUp":{
-			"index":["registering","collision"],
+			"index":["registering","collision", "removal"],
 			"functions":{
+				"removal":[
+				function(args){
+					args.t.gc.remove(args.t);
+				}],
 				"registering":[
 				function(args){
 					var t = args.t;
@@ -113,7 +117,6 @@ FunctionManager = function() {
 								etf(a,"collision",{"a":a,"b":b});
 							}
 						}
-
 					};
 				}]
 			}

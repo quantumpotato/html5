@@ -39,4 +39,16 @@ describe("PointUps", function(){
 		gc.tick();		
 		expect(player.score).toBeGreaterThan(oldScore);
 	});
+	it("should die after colliding", function(){
+		gc.register(pointUp);
+		var player = generateThing(['BasicObject','Player']);
+		player.teams = ["Player","collision"];
+		gc.register(player);
+		pointUp.l.x = player.l.x;
+		pointUp.l.y = player.l.y;
+		var oldScore = player.score;
+		gc.tick();		
+		gc.tick();		
+		expect(pointUp).toBe(undefined);	
+	});
 });
