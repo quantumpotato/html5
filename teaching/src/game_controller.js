@@ -63,18 +63,22 @@ function gameController() {
 			alert("prior to removal:" + this.nodes);
 			for(var i=0; i<this.nodes.length; i++) {
 				if (this.nodes[i] === node) {
+					alert("removing in nodes");
 					this.nodes.splice(i,1);
 					i--;
 				}
 			}
-			for (var ii = 0; ii <this.registeredIndexes.length; ii++) {
 				
-			for (var j=0;j<this.registeredNodes[this.registeredIndexes[ii]].length;j++){
-				this.registeredNodes[this.registeredIndexes[ii]].splice(j,1);
-				j--;
+			for (var j=0;j<this.registeredNodes['living'].length;j++){
+				var n = this.registeredNodes['living'][j];
+				if (n.life <= 0) {
+					alert('removing');
+					this.registeredNodes['living'].splice(j,1);
+					j--;
+				}
 			}
-			}
-			node = undefined;
+
+			node = null;
 			alert('after removal:' + this.nodes);
 		}
 	}
