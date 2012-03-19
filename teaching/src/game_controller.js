@@ -60,7 +60,22 @@ function gameController() {
 			return undefined;
 		},
 		"remove":function(node){
-			alert('removing');
+			alert("prior to removal:" + this.nodes);
+			for(var i=0; i<this.nodes.length; i++) {
+				if (this.nodes[i] === node) {
+					this.nodes.splice(i,1);
+					i--;
+				}
+			}
+			for (var ii = 0; ii <this.registeredIndexes.length; ii++) {
+				
+			for (var j=0;j<this.registeredNodes[this.registeredIndexes[ii]].length;j++){
+				this.registeredNodes[this.registeredIndexes[ii]].splice(j,1);
+				j--;
+			}
+			}
+			node = undefined;
+			alert('after removal:' + this.nodes);
 		}
 	}
 }

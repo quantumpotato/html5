@@ -4,7 +4,7 @@ describe("PointUps", function(){
 	var cm;
 	beforeEach(function(){
 		pointUp = generateThing(["BasicObject","PointUp"]);
-		pointUp.teams = ['pod','collision'];
+		pointUp.teams = ['pod','collision','living'];
 		gc = gameController();
 		cm = generateThing(["CollisionManager"]);
 		gc.register(cm);		
@@ -52,6 +52,7 @@ describe("PointUps", function(){
 		var deadCleaner = generateThing(['DeadCleaner']);
 		deadCleaner.teams = ['controller'];
 		gc.register(deadCleaner);
-		expect(pointUp).toBe(undefined);t	
+		gc.tick();
+		expect(pointUp).toBe(undefined);
 	});
 });

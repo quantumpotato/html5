@@ -19,7 +19,9 @@ FunctionManager = function() {
 					[function(args){
 						var t = args.t;
 						for (var i = 0; i < t.gc.registeredNodes["living"].length; i++){
-							
+							if (t.gc.registeredNodes['living'][i].life <= 0) {
+								t.gc.remove(t.gc.registeredNodes['living'][i]);
+							}
 						};
 					}]
 				}
@@ -92,6 +94,7 @@ FunctionManager = function() {
 					console.log("colliding");
 					if (b.score != undefined) {
 						b.score += a.power;
+						a.life = 0;
 					}
 				}
 				]
