@@ -18,9 +18,12 @@ FunctionManager = function() {
 				{"tick":
 					[function(args){
 						var t = args.t;
+						var dead = [];
 						for (var i = 0; i < t.gc.registeredNodes["living"].length; i++){
 							if (t.gc.registeredNodes['living'][i].life <= 0) {
 								t.gc.remove(t.gc.registeredNodes['living'][i]);
+								i--;
+								dead.push(t.gc.registeredNodes['living'][i]);
 							}
 						};
 					}]

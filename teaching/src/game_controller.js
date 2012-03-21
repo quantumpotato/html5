@@ -77,8 +77,6 @@ function gameController() {
 					j--;
 				}
 			}
-
-			node = null;
 			alert('after removal:' + this.nodes);
 		}
 	}

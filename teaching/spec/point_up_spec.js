@@ -44,6 +44,7 @@ describe("PointUps", function(){
 		var player = generateThing(['BasicObject','Player']);
 		player.teams = ["Player","collision"];
 		gc.register(player);
+		alert("living" + gc.registeredNodes['living'].length);		
 		pointUp.l.x = player.l.x;
 		pointUp.l.y = player.l.y;
 		var oldScore = player.score;
@@ -53,6 +54,7 @@ describe("PointUps", function(){
 		deadCleaner.teams = ['controller'];
 		gc.register(deadCleaner);
 		gc.tick();
+		alert("living" + gc.registeredNodes['living'].length);
 		expect(pointUp).toBe(undefined);
 	});
 });
