@@ -47,7 +47,7 @@ describe("PointUps", function(){
 		alert("living" + gc.registeredNodes['living'].length);		
 		pointUp.l.x = player.l.x;
 		pointUp.l.y = player.l.y;
-		var oldScore = player.score;
+		var oldNodes = gc.registeredNodes['living'].length;
 		gc.tick();		
 		gc.tick();		
 		var deadCleaner = generateThing(['DeadCleaner']);
@@ -55,6 +55,7 @@ describe("PointUps", function(){
 		gc.register(deadCleaner);
 		gc.tick();
 		alert("living" + gc.registeredNodes['living'].length);
-		expect(pointUp).toBe(undefined);
+		var newNodes = gc.registeredNodes['living'].length;
+		expect(newNodes).toBeLessThan(oldNodes);
 	});
 });

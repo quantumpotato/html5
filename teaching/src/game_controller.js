@@ -14,7 +14,7 @@ function DefaultPropertyManager() {
 function gameController() {
 	return {
 		"nodes":[],
-		"registeredNodes":{},
+		"registeredNodes":{"living":[]},
 		"registeredIndexes":[],
 		"eventInterceptors":[],
 		"eventListeners":{},
@@ -22,8 +22,9 @@ function gameController() {
 		"initialize":function(){},
 		"reset":function(){},
 		"register":function(t){
-			this.nodes.push(t);
 			t.gc = this;
+			this.nodes.push(t);
+			this.registeredNodes['living'].push(t);
 			
 			if (t.teams != undefined && t.teams.length > 0) {
 				for (var i = 0; i < t.teams.length; i++) {
@@ -45,30 +46,13 @@ function gameController() {
 				}
 			}
 		},
-		"tick":function(){
-			for (var i = 0; i < this.nodes.length; i++) {
-				var n = this.nodes[i];
-				etf(n, "tick", {"t":n});
-			}
-		},
-		"findTarget":function(team){
-			if (this.registeredNodes[team] != undefined) {
-				for (var i = 0; i < this.registeredNodes[team].length; i++) {
-					return this.registeredNodes[team][i];
-				}
-			}
-			return undefined;
-		},
-		"remove":function(node){
-			alert("prior to removal:" + this.nodes);
-			for(var i=0; i<this.nodes.length; i++) {
-				if (this.nodes[i] === node) {
-					alert("removing in nodes");
-					this.nodes.splice(i,1);
-					i--;
-				}
-			}
-				
+		"removeDeadThings":function(){
+			//for node in myNodes
+			//if node is dead {
+			//remove node from myNodes
+			//loop through registeredIndexes of node
+			//remove node from each registered array
+			console.log("registered" + this.registeredNodes['living'].length);
 			for (var j=0;j<this.registeredNodes['living'].length;j++){
 				var n = this.registeredNodes['living'][j];
 				if (n.life <= 0) {
@@ -77,7 +61,21 @@ function gameController() {
 					j--;
 				}
 			}
-			alert('after removal:' + this.nodes);
+		},
+		"tick":function(){
+			for (var i = 0; i < this.nodes.length; i++) {
+				var n = this.nodes[i];
+				etf(n, "tick", {"t":n});
+			}
+			this.removeDeadThings();
+		},
+		"findTarget":function(team){
+			if (this.registeredNodes[team] != undefined) {
+				for (var i = 0; i < this.registeredNodes[team].length; i++) {
+					return this.registeredNodes[team][i];
+				}
+			}
+			return undefined;
 		}
 	}
 }
