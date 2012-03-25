@@ -52,11 +52,21 @@ function gameController() {
 			//remove node from myNodes
 			//loop through registeredIndexes of node
 			//remove node from each registered array
+			
+			
 			console.log("registered" + this.registeredNodes['living'].length);
 			for (var j=0;j<this.registeredNodes['living'].length;j++){
 				var n = this.registeredNodes['living'][j];
 				if (n.life <= 0) {
-					alert('removing');
+					for (var i = 0; i < this.nodes.length; i++) {
+						var iNode = this.nodes[i];
+						if (iNode === n) {
+							this.nodes.splice(i,1);
+							break;
+						}
+					}
+					
+					
 					this.registeredNodes['living'].splice(j,1);
 					j--;
 				}

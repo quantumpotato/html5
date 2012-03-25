@@ -1,4 +1,4 @@
-describe("PointUps", function(){
+describe("PointUps and Death", function(){
 	var pointUp;
 	var gc;
 	var cm;
@@ -44,18 +44,15 @@ describe("PointUps", function(){
 		var player = generateThing(['BasicObject','Player']);
 		player.teams = ["Player","collision"];
 		gc.register(player);
-		alert("living" + gc.registeredNodes['living'].length);		
 		pointUp.l.x = player.l.x;
 		pointUp.l.y = player.l.y;
-		var oldNodes = gc.registeredNodes['living'].length;
+		var oldRegisteredNodes = gc.registeredNodes['living'].length;
+		var oldNodes = gc.nodes.length;
 		gc.tick();		
-		gc.tick();		
-		var deadCleaner = generateThing(['DeadCleaner']);
-		deadCleaner.teams = ['controller'];
-		gc.register(deadCleaner);
 		gc.tick();
-		alert("living" + gc.registeredNodes['living'].length);
-		var newNodes = gc.registeredNodes['living'].length;
+		var newRegisteredNodes = gc.registeredNodes['living'].length;
+		expect(newRegisteredNodes).toBeLessThan(oldNodes);
+		var newNodes = gc.nodes.length;
 		expect(newNodes).toBeLessThan(oldNodes);
 	});
 });
