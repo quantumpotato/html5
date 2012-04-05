@@ -23,6 +23,9 @@ PropertyManager = function() {
 		"DeadCleaner":{
 			"properties":[]
 		},
+		"MovesWithMouse":{
+			"properties":['l']
+		}
 	}
 }
 

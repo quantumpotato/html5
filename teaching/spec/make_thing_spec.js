@@ -4,6 +4,15 @@ describe("Making a custom game thing", function(){
 		var coin = mt('coin',gc);
 		expect(coin.teams[0]).toBe('collision');
 		expect(gc.registeredNodes['living'][0]).toBe(coin);
-		expect(coin.functions['draw'][0]).toNotBe(undefined);
+		expect(coin.functions['draw']).toNotBe(undefined);
+	});
+	it("should create a player", function(){
+		var gc = gameController();
+		var player = mt('player', gc);
+		expect(player.teams[0]).toBe('collision');
+		expect(player.teams[1]).toBe('player');
+		expect(gc.registeredNodes['living'][0]).toBe(player);
+		expect(gc.registeredNodes['player'][0]).toBe(player);
+		expect(player.functions['draw']).toNotBe(undefined);
 	});
 });

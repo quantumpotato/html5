@@ -138,6 +138,16 @@ FunctionManager = function() {
 					};
 				}]
 			}
+		},
+		"MovesWithMouse":{
+			"index":['mouse-move'],
+			"functions":{
+				"mouse-move":[
+					function(args){
+						
+					}
+				]
+			}
 		}
 	}
 }
