@@ -8,7 +8,7 @@ describe("Making a custom game thing", function(){
 	});
 	it("should create a player", function(){
 		var gc = gameController();
-		var player = mt('player', gc);
+		var player = mt('player-mouse', gc);
 		expect(player.teams[0]).toBe('collision');
 		expect(player.teams[1]).toBe('player');
 		expect(gc.registeredNodes['living'][0]).toBe(player);
