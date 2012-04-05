@@ -4,5 +4,6 @@ describe("Making a custom game thing", function(){
 		var coin = mt('coin',gc);
 		expect(coin.teams[0]).toBe('collision');
 		expect(gc.registeredNodes['living'][0]).toBe(coin);
+		expect(coin.functions['draw'][0]).toNotBe(undefined);
 	});
 });
