@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+<style type='text/css'>
+canvas {
+  border: 1px solid #aaa;
+  cursor: none;
+}
+</style>
+
+<script type="text/javascript" src="jquery-1.4.3.min.js"></script>
+<script type="text/javascript" src="../lib/utility.js"></script>
+<script type="text/javascript" src="../src/game_controller.js"></script>
+<script type="text/javascript" src="../src/game.js"></script>	
+<script type="text/javascript" src="../src/property_manager.js"></script>
+<script type="text/javascript" src="../src/default_property_manager.js"></script>
+<script type="text/javascript" src="../src/function_manager.js"></script>
+<script type="text/javascript" src="../src/thing_generator.js"></script>
+<script type="text/javascript" src="../src/execute_thing_function.js"></script>
+<script type="text/javascript" src="../src/make_thing.js"></script>
+<script type="text/javascript">
+var context;
+var width = 500;
+var height = 500;
+var x = -50;
+var y = -50;
+
+function draw() {
+
+}
+
+function getTime() {
+  return new Date().getTime() / 1000;
+}
+
+function elapsedTime() {
+  return getTime() - start;
+}
+
+
+$(document).ready(function() {
+  start = getTime();
+  moveCord();
+
+  var canvas = $('#canvas');
+  context = canvas.get(0).getContext('2d');
+
+	generateExtras(2);
+
+	canvas.click(function(e) {
+		var mousex = e.pageX - canvas.offset().left;
+    var mousey = e.pageY - canvas.offset().top;
+		console.log(mousex + " " + mousey);
+	});
+
+  canvas.mousemove(function(e) {
+    var mousex = e.pageX - canvas.offset().left;
+    var mousey = e.pageY - canvas.offset().top;
+
+    mousex -= width/2;
+    mousey -= width/2;
+
+    var angle = 0; 
+	
+		var mouse = new point(mousex, mousey);
+
+	  x = mouse.x * Math.cos(angle) - mouse.y * Math.sin(angle) + width/2;
+    y = mouse.x * Math.sin(angle) + mouse.y * Math.cos(angle) + height/2;
+
+//		understanding.l = new point(x,y);
+  });
+  setInterval(draw, 10);
+});
+</script>
+</head>
+<body>
+<canvas id='canvas' width=500 height=500></canvas>
+</body>
+</html>
