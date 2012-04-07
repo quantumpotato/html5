@@ -15,4 +15,10 @@ describe("Making a custom game thing", function(){
 		expect(gc.registeredNodes['player'][0]).toBe(player);
 		expect(player.functions['draw']).toNotBe(undefined);
 	});
+	it("should call setup for a new coin", function(){ 
+		var gc = gameController();
+		var coin = mt('coin',gc);
+		expect(coin.l.x).toBeGreaterThan(0);
+		expect(coin.l.y).toBeGreaterThan(0);
+	});
 });

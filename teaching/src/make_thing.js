@@ -25,9 +25,22 @@ function drawFunction(name) {
 	}
 };
 
+function setupFunctions() {
+	return {
+		"coin":function(t){
+			t.l.x = Math.random() * width;
+			t.l.y = Math.random() * height;
+		},
+		"player-mouse":function(t) {
+			
+		}
+	}
+};
+
 function makeThing(name, gc) {
 	var newThing = generateThing(makeThingProperties()[name]);
 	newThing.teams = newThingTeams()[name];
+	setupFunctions()[name](newThing);
 	gc.register(newThing);
 	newThing.functions['draw'] = drawFunction(name);
 	return newThing;
