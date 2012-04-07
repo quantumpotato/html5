@@ -40,12 +40,9 @@ function elapsedTime() {
 
 $(document).ready(function() {
   start = getTime();
-  moveCord();
 
   var canvas = $('#canvas');
   context = canvas.get(0).getContext('2d');
-
-	generateExtras(2);
 
 	canvas.click(function(e) {
 		var mousex = e.pageX - canvas.offset().left;
@@ -66,8 +63,6 @@ $(document).ready(function() {
 
 	  x = mouse.x * Math.cos(angle) - mouse.y * Math.sin(angle) + width/2;
     y = mouse.x * Math.sin(angle) + mouse.y * Math.cos(angle) + height/2;
-
-//		understanding.l = new point(x,y);
   });
   setInterval(draw, 10);
 });
