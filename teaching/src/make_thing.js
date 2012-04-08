@@ -12,11 +12,10 @@ function newThingTeams(){
 	}
 };
 
-function drawFunction(name) {
+function drawFunctions() {
 	return {
 		"coin":function(args){
 			var t = args.t;
-			console.log(t.l.x + " " + t.l.y);
 			drawCircle(t.l, 'yellow', 10);
 		},
 		"player-mouse":function(args){
@@ -44,7 +43,7 @@ function makeThing(name, gc) {
 	setupFunctions()[name](newThing);
 	gc.register(gc, newThing);
 	newThing.functions['draw'] = [];
-	newThing.functions['draw'].push(drawFunction(name));
+	newThing.functions['draw'].push(drawFunctions()[name]);
 	return newThing;
 };
 
