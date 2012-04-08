@@ -47,7 +47,6 @@ function tick() {
 	context.fillStyle = "white";
 	context.fillText("score: " + player.score, 0,height - 20);
 	
-	
 	gc.tick(gc);
 }
 
@@ -68,9 +67,6 @@ $(document).ready(function() {
   canvas.mousemove(function(e) {
     var mousex = e.pageX - canvas.offset().left;
     var mousey = e.pageY - canvas.offset().top;
-
-  //  mousex -= width/2;
-//    mousey -= width/2;
 
     var angle = 0; 
 	
