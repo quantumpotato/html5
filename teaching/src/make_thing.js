@@ -20,7 +20,7 @@ function drawFunctions() {
 		},
 		"player-mouse":function(args){
 			var t = args.t;
-			drawCircle(t.l, 'red', 20);
+			drawCircle(t.l, 'red', t.radius);
 		}
 	}
 };

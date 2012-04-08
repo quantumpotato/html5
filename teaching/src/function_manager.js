@@ -132,7 +132,7 @@ FunctionManager = function() {
 						for (var ii = 0; ii < gameController.registeredNodes["collision"].length; ii++) {
 							b = gameController.registeredNodes["collision"][ii];
 							var dist = distance(a.l, b.l);							
-							if (dist < 10) {
+							if (dist < a.radius + b.radius) {
 								etf(a,"collision",{"a":a,"b":b});
 							}
 						}

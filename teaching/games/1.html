@@ -80,6 +80,7 @@ $(document).ready(function() {
 	gc = gameController();
 	var coin = mt('coin',gc);
 	player = mt('player-mouse', gc);
+	player.radius = 15;
 	var collisionManager = generateThing(['CollisionManager']);
 	gc.register(gc, collisionManager);
 	var coinMaker = generateThing(['Maker']);
