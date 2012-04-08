@@ -52,6 +52,7 @@ function tick() {
 
 $(document).ready(function() {
   start = getTime();
+	alert('hi');
 
   var canvas = $('#canvas');
   context = canvas.get(0).getContext('2d');
@@ -81,6 +82,7 @@ $(document).ready(function() {
 	player = mt('player-mouse', gc);
 	var collisionManager = generateThing(['CollisionManager']);
 	gc.register(gc, collisionManager);
+	alert(gc.nodes);
   setInterval(tick, 10);
 });
 </script>

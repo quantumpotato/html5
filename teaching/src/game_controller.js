@@ -25,7 +25,6 @@ function gameController() {
 			t.gc = gc;
 			gc.nodes.push(t);
 			gc.registeredNodes['living'].push(t);
-			
 			if (t.teams != undefined && t.teams.length > 0) {
 				for (var i = 0; i < t.teams.length; i++) {
 					var teamName = t.teams[i];
@@ -74,13 +73,14 @@ function gameController() {
 				var n = gc.nodes[i];
 				etf(n, "tick", {"t":n,"gc":gc});
 				etf(n, "draw", {"t":n});
-				for (var ii = 0; ii < n.delays; ii++) {
-					n.delayedActions[ii].delay--;
-					if (n.delayedActions[ii].delay <= 0) {
-						n.delayedActions[ii].delay = n.delayedActions[ii].delayReset;
-						n.delayedActions[ii].action({'t':n, 'gc':gc});
-					}
-				}
+				// for (var ii = 0; ii < n.delayedActions.length; ii++) {
+				// 					n.delayedActions[ii].delay--;
+				// 					alert('delay:' + n.delayedActions[ii].delay);
+				// 					if (n.delayedActions[ii].delay <= 0) {
+				// 						n.delayedActions[ii].delay = n.delayedActions[ii].delayReset;
+				// 						n.delayedActions[ii].action({'t':n, 'gc':gc});
+				// 					}
+				// 				}
 			}
 			gc.removeDeadThings(gc);
 		},
@@ -94,7 +94,6 @@ function gameController() {
 		},
 		"mouseMove":function(gc, mouse) {
 			for (var i = 0; i < gc.registeredNodes['mouse-move'].length; i++) {
-				
 				var n = gc.registeredNodes['mouse-move'][i];
 				etf(n, 'mouse-move', {'t':n,'mouse':mouse});
 			}

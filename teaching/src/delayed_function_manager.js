@@ -2,7 +2,7 @@ DelayedFunctionManager = function() {
 	return {
 		"Maker":function(args) {
 			var maker = args.t;
-			mt(maker.kind);
+			mt(maker.kind, args.gc);
 		}
 	}
 }

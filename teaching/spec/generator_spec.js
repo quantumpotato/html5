@@ -11,6 +11,15 @@ describe('Thing maker', function(){
 		expect(maker.delayedActions[0].delayReset).toBe(0);
 		expect(maker.delayedActions[0].action).toNotBe(undefined);
 	});
-	
+	it("should make things", function(){
+		var gc = gameController();
+		maker.kind = 'coin';
+		maker.delayedActions[0].delayReset = 5;
+		gc.register(gc, maker);
+		expect(gc.nodes.length).toBe(1);
+		// gc.tick(gc);
+		// expect(gc.nodes.length).toBe(2);
+				
+	});
 
 });
