@@ -53,8 +53,6 @@ function gameController() {
 			//loop through registeredIndexes of node
 			//remove node from each registered array
 			
-			
-			console.log("registered" + gc.registeredNodes['living'].length);
 			for (var j=0;j<gc.registeredNodes['living'].length;j++){
 				var n = gc.registeredNodes['living'][j];
 				if (n.life <= 0) {
@@ -73,7 +71,6 @@ function gameController() {
 			}
 		},
 		"tick":function(gc){
-			console.log("gc" + gc);
 			for (var i = 0; i < gc.nodes.length; i++) {
 				var n = gc.nodes[i];
 				etf(n, "tick", {"t":n,"gc":gc});
