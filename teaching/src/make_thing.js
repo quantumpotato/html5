@@ -1,14 +1,14 @@
 function makeThingProperties(){
 	return {
 		"coin":["BasicObject","PointUp"],
-		"player-mouse":['BasicObject','MovesWithMouse']
+		"player-mouse":['Player','BasicObject','MovesWithMouse']
 	}
 };
 
 function newThingTeams(){
 	return {
 		"coin":['collision'],
-		"player-mouse":['collision','player']
+		"player-mouse":['collision','player','mouse-move']
 	}
 };
 

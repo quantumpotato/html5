@@ -25,6 +25,7 @@ var height = 500;
 var x = -50;
 var y = -50;
 var gc;
+var player;
 
 function draw() {
 
@@ -39,6 +40,14 @@ function elapsedTime() {
 }
 
 function tick() {
+	context.clearRect(0, 0, width, height);
+	context.fillStyle = "black";
+	context.fillRect(0,0,width,height);
+	
+	context.fillStyle = "white";
+	context.fillText("score: " + player.score, 0,height - 20);
+	
+	
 	gc.tick(gc);
 }
 
@@ -52,14 +61,16 @@ $(document).ready(function() {
 		var mousex = e.pageX - canvas.offset().left;
     var mousey = e.pageY - canvas.offset().top;
 		console.log(mousex + " " + mousey);
+		var mouse = {'x':mousex,'y':mousey};		
+		gc.mouseMove(gc, mouse);
 	});
 
   canvas.mousemove(function(e) {
     var mousex = e.pageX - canvas.offset().left;
     var mousey = e.pageY - canvas.offset().top;
 
-    mousex -= width/2;
-    mousey -= width/2;
+  //  mousex -= width/2;
+//    mousey -= width/2;
 
     var angle = 0; 
 	
@@ -70,11 +81,10 @@ $(document).ready(function() {
   });
 
 	gc = gameController();
-	alert(gc.nodes.length);
 	var coin = mt('coin',gc);
-	alert(coin.functions['draw'][0]);
-	var player = mt('player-mouse',gc);
-	alert(player);
+	player = mt('player-mouse', gc);
+	var collisionManager = generateThing(['CollisionManager']);
+	gc.register(gc, collisionManager);
   setInterval(tick, 10);
 });
 </script>
