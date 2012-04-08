@@ -97,8 +97,8 @@ FunctionManager = function() {
 					console.log("colliding");
 					if (b.score != undefined) {
 						b.score += a.power;
-//						a.life = 0;
-						a.l = randomPoint();
+						a.life = 0;
+						a.l.x = -500;
 					}
 				}
 				]
