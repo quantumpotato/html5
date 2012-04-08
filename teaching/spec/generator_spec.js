@@ -1,12 +1,15 @@
-describe('Thing generator', function(){
-	var generator;
+describe('Thing maker', function(){
+	var maker;
 	beforeEach(function(){
-		 generator = generateThing(['Generator']);
+		 maker = generateThing(['Maker']);
 	});
-	it("should have kinds of things it generates", function(){
-		expect(generator.kinds.length).toBe(0);
+	it("should have a thing it makes", function(){
+		expect(maker.kind.length).toBe(0);
+	});
+	it("should generate things", function() {
+		
 	});
 	it("should have a delayed function", function(){
-		expect(generator.delayedFunctions[0]).toNotBe(undefined);
+		expect(maker.delayedFunctions[0]).toNotBe(undefined);
 	});
 });

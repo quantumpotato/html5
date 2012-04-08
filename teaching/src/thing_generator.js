@@ -1,3 +1,46 @@
+function generateProperties(newThing, templateName) {
+	var properties = PropertyManager()[templateName].properties;
+	for (var i = 0; i < properties.length; i++){
+		if (newThing.properties[properties[i]] === undefined) {
+			newThing.properties.push(properties[i]);			
+			newThing[properties[i]] = DefaultPropertyManager()[properties[i]];				
+		}	
+	};
+}
+
+function generateFunctions(newThing, templateName) {
+	if (FunctionManager()[templateName] === undefined) {
+		return;
+	}
+	var index = FunctionManager()[templateName].index;
+	var functions = FunctionManager()[templateName].functions;
+
+	for (var i = 0; i < index.length; i++) {
+		var functionSet = index[i];		
+		if (newThing.functions[functionSet] === undefined) {
+			newThing.functions[functionSet] = [];
+			newThing.functionIndexes.push(functionSet);
+		}
+
+		for (var ii = 0; ii < functions[index[i]].length; ii++) {
+			newThing.functions[functionSet].push(functions[index[i]][ii]);
+		};
+	};	
+}
+
+generateDelayedFunctions = function(newThing, templateName) {
+	newThing.delayedFunctions = [];
+	var delayedFunctions = DelayedFunctionManager()[templateName];
+	if (delayedFunctions === undefined) {
+		return;
+	}
+	for (var i = 0; i < delayedFunctions.length; i++) {
+		newThing.delayedFunctions.push(delayedFunctions[i]);
+	}
+	
+	
+}
+
 generateThing = function(templates){
 	var newThing = {};
 
@@ -6,33 +49,12 @@ generateThing = function(templates){
 	newThing.functionIndexes = [];
 	for (var templateIndex = 0; templateIndex < templates.length; templateIndex++) {
 		var templateName = templates[templateIndex];		
-		var properties = PropertyManager()[templateName].properties;
-		for (var i = 0; i < properties.length; i++){
-			if (newThing.properties[properties[i]] === undefined) {
-				newThing.properties.push(properties[i]);			
-				newThing[properties[i]] = DefaultPropertyManager()[properties[i]];				
-			}	
-		};
-		
-		
-		var index = FunctionManager()[templateName].index;
-		var functions = FunctionManager()[templateName].functions;
 
-		for (var i = 0; i < index.length; i++) {
-			var functionSet = index[i];		
-			if (newThing.functions[functionSet] === undefined) {
-				newThing.functions[functionSet] = [];
-				newThing.functionIndexes.push(functionSet);
-			}
-
-			for (var ii = 0; ii < functions[index[i]].length; ii++) {
-				newThing.functions[functionSet].push(functions[index[i]][ii]);
-			};
-		};
+		generateProperties(newThing, templateName);
+		generateFunctions(newThing, templateName);
+		generateDelayedFunctions(newThing, templateName);
 		
 	}
 	
-
-
 	return newThing;
 };

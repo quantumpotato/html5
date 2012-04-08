@@ -1,8 +1,8 @@
 DelayedFunctionManager = function() {
 	return {
-		"generator":function(args) {
-			var generator = args.t;
-			var newThing = generateThing(generator.kinds);
-		}
+		"Maker":[function(args) {
+			var maker = args.t;
+			var newThing = mt(maker.kind);
+		}]
 	}
 }
