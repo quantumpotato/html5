@@ -97,6 +97,12 @@ function gameController() {
 				var n = gc.registeredNodes['mouse-move'][i];
 				etf(n, 'mouse-move', {'t':n,'mouse':mouse});
 			}
+		},
+		"mouseClick":function(gc, mouse) {
+			for (var i = 0; i < gc.registeredNodes['mouse-click'].length; i++) {
+				var n = gc.registeredNodes['mouse-click'][i];
+				etf(n, 'mouse-click', {'t':n,'mouse':mouse,'gc':gc});
+			}
 		}
 	}
 }

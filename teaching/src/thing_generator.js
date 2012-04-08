@@ -55,7 +55,6 @@ generateThing = function(templates){
 		generateProperties(newThing, templateName);
 		generateFunctions(newThing, templateName);
 		generateDelayedFunctions(newThing, templateName);
-		
 	}
 	
 	return newThing;
