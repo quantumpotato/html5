@@ -25,6 +25,9 @@ PropertyManager = function() {
 		},
 		"MovesWithMouse":{
 			"properties":['l']
+		},
+		"Generator":{
+			'properties':['kinds']
 		}
 	}
 }
