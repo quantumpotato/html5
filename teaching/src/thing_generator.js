@@ -29,15 +29,15 @@ function generateFunctions(newThing, templateName) {
 }
 
 generateDelayedFunctions = function(newThing, templateName) {
-	newThing.delayedFunctions = [];
-	var delayedFunctions = DelayedFunctionManager()[templateName];
-	if (delayedFunctions === undefined) {
+	newThing.delayedActions = [];
+	
+	var delayedFunction = DelayedFunctionManager()[templateName];
+	if (delayedFunction === undefined) {
 		return;
 	}
-	for (var i = 0; i < delayedFunctions.length; i++) {
-		newThing.delayedFunctions.push(delayedFunctions[i]);
-	}
 	
+	var delayedAction = {'delay':0, 'delayReset':0, 'action':delayedFunction};
+	newThing.delayedActions.push(delayedAction);
 	
 }
 

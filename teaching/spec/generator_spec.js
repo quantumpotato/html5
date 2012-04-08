@@ -6,10 +6,11 @@ describe('Thing maker', function(){
 	it("should have a thing it makes", function(){
 		expect(maker.kind.length).toBe(0);
 	});
-	it("should generate things", function() {
-		
+	it("should have a delayed action", function(){
+		expect(maker.delayedActions[0].delay).toBe(0);
+		expect(maker.delayedActions[0].delayReset).toBe(0);
+		expect(maker.delayedActions[0].action).toNotBe(undefined);
 	});
-	it("should have a delayed function", function(){
-		expect(maker.delayedFunctions[0]).toNotBe(undefined);
-	});
+	
+
 });
