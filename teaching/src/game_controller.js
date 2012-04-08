@@ -64,6 +64,7 @@ function gameController() {
 					}
 
 					gc.registeredNodes['living'].splice(j,1);
+					console.log("splicing");
 					j--;
 				}
 			}

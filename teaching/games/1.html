@@ -60,7 +60,6 @@ $(document).ready(function() {
 	canvas.click(function(e) {
 		var mousex = e.pageX - canvas.offset().left;
     var mousey = e.pageY - canvas.offset().top;
-		console.log(mousex + " " + mousey);
 		var mouse = {'x':mousex,'y':mousey};		
 		gc.mouseMove(gc, mouse);
 	});

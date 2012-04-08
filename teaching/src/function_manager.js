@@ -94,7 +94,6 @@ FunctionManager = function() {
 				function(args){
 					var a = args.a;
 					var b = args.b;
-					console.log("colliding");
 					if (b.score != undefined) {
 						b.score += a.power;
 						a.life = 0;
@@ -112,13 +111,11 @@ FunctionManager = function() {
 					var t = args.t;
 					var a = args.a;
 					var b = args.b;
-					console.log("evaluating distance between a & b" + a +" " + b);
 					var dist = distance(a.l,b.l);
 					return dist < (a.radius + b.radius);
 				}],
 				"tick":[
 				function(args){
-					console.log("ticking collision manager");
 					var t = args.t;
 					var gameController = args.gc;
 					if (gameController.registeredNodes["collision"] === undefined) {
@@ -126,7 +123,6 @@ FunctionManager = function() {
 					}
 					var a;
 					var b;					
-					console.log("looping through game controller:" + gameController);										
 					for (var i = 0; i < gameController.registeredNodes["collision"].length; i++) {
 						a = gameController.registeredNodes["collision"][i];
 						for (var ii = 0; ii < gameController.registeredNodes["collision"].length; ii++) {
