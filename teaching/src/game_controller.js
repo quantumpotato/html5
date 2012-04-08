@@ -21,32 +21,32 @@ function gameController() {
 		"listenerIndexes":[],
 		"initialize":function(){},
 		"reset":function(){},
-		"register":function(t){
-			t.gc = this;
-			this.nodes.push(t);
-			this.registeredNodes['living'].push(t);
+		"register":function(gc, t){
+			t.gc = gc;
+			gc.nodes.push(t);
+			gc.registeredNodes['living'].push(t);
 			
 			if (t.teams != undefined && t.teams.length > 0) {
 				for (var i = 0; i < t.teams.length; i++) {
 					var teamName = t.teams[i];
-					if (this.registeredNodes[teamName] === undefined) {
-						this.registeredNodes[teamName] = [];
-						this.registeredIndexes.push(teamName);
+					if (gc.registeredNodes[teamName] === undefined) {
+						gc.registeredNodes[teamName] = [];
+						gc.registeredIndexes.push(teamName);
 					}
 					
-					for (var ii = 0; ii < this.registeredNodes[teamName]; ii++) {
-						var registeredNodes = this.registeredNodes[teamName][ii];
+					for (var ii = 0; ii < gc.registeredNodes[teamName]; ii++) {
+						var registeredNodes = gc.registeredNodes[teamName][ii];
 						if (registeredNodes === t){
 							return;
 						}
 					}
 					
-					this.registeredNodes[teamName].push(t);
+					gc.registeredNodes[teamName].push(t);
 					etf(t, "registering", {"t":t});
 				}
 			}
 		},
-		"removeDeadThings":function(){
+		"removeDeadThings":function(gc){
 			//for node in myNodes
 			//if node is dead {
 			//remove node from myNodes
@@ -54,53 +54,40 @@ function gameController() {
 			//remove node from each registered array
 			
 			
-			console.log("registered" + this.registeredNodes['living'].length);
-			for (var j=0;j<this.registeredNodes['living'].length;j++){
-				var n = this.registeredNodes['living'][j];
+			console.log("registered" + gc.registeredNodes['living'].length);
+			for (var j=0;j<gc.registeredNodes['living'].length;j++){
+				var n = gc.registeredNodes['living'][j];
 				if (n.life <= 0) {
-					for (var i = 0; i < this.nodes.length; i++) {
-						var iNode = this.nodes[i];
+					for (var i = 0; i < gc.nodes.length; i++) {
+						var iNode = gc.nodes[i];
 						if (iNode === n) {
-							this.nodes.splice(i,1);
+							gc.nodes.splice(i,1);
 							break;
 						}
 					}
 					
 					
-					this.registeredNodes['living'].splice(j,1);
+					gc.registeredNodes['living'].splice(j,1);
 					j--;
 				}
 			}
 		},
-		"tick":function(){
-			for (var i = 0; i < this.nodes.length; i++) {
-				var n = this.nodes[i];
-				etf(n, "tick", {"t":n});
+		"tick":function(gc){
+			console.log("gc" + gc);
+			for (var i = 0; i < gc.nodes.length; i++) {
+				var n = gc.nodes[i];
+				etf(n, "tick", {"t":n,"gc":gc});
+				etf(n, "draw", {"t":n});
 			}
-			this.removeDeadThings();
+			gc.removeDeadThings(gc);
 		},
-		"findTarget":function(team){
-			if (this.registeredNodes[team] != undefined) {
-				for (var i = 0; i < this.registeredNodes[team].length; i++) {
-					return this.registeredNodes[team][i];
+		"findTarget":function(gc, team){
+			if (gc.registeredNodes[team] != undefined) {
+				for (var i = 0; i < gc.registeredNodes[team].length; i++) {
+					return gc.registeredNodes[team][i];
 				}
 			}
 			return undefined;
 		}
 	}
 }
-
-// gameController = function(){
-// 	this.nodes = [];
-// 	this.registeredNodes = {};
-// 	this.eventInterceptors = [];
-// 	// this.initialize = function(){
-// 	// 	
-// 	// };
-// 	// 
-// 	// this.reset = function(){
-// 	// 	
-// 	// };
-// };
-
-//registeredObjects[player].length

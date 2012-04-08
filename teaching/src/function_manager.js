@@ -42,7 +42,7 @@ FunctionManager = function() {
 					function(args){
 						var t = args.t;
 						if (t.target === undefined && t.gc != undefined) {						
-							t.target = t.gc.findTarget('Player');
+							t.target = t.gc.findTarget(t.gc, 'Player');
 						}
 					}
 				],
@@ -119,7 +119,7 @@ FunctionManager = function() {
 				function(args){
 					console.log("ticking collision manager");
 					var t = args.t;
-					var gameController = t.gc;
+					var gameController = args.gc;
 					if (gameController.registeredNodes["collision"] === undefined) {
 						return;
 					}

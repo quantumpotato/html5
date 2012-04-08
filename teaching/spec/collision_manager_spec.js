@@ -6,13 +6,13 @@ describe("Collision Management", function(){
 	beforeEach(function(){
 		testGC = gameController();
 		cm = generateThing(["CollisionManager"]);
-		testGC.register(cm);
+		testGC.register(testGC, cm);
 		player = generateThing(['BasicObject','Player']);
 		player.teams = ["Player","collision"];
 		stupidHunter = generateThing(['BasicObject','StupidHunter']);
 		stupidHunter.teams = ["collision"];
-		testGC.register(player);
-		testGC.register(stupidHunter);
+		testGC.register(testGC,player);
+		testGC.register(testGC, stupidHunter);
 	});
 	it("should know if two objects are not colliding", function(){
 		stupidHunter.l.x = 50;
