@@ -39,13 +39,11 @@ function setupFunctions() {
 
 function makeThing(name, gc) {
 	var newThing = generateThing(makeThingProperties()[name]);
-	alert('making a thing');	
 	newThing.teams = newThingTeams()[name];
 	setupFunctions()[name](newThing);
 	gc.register(gc, newThing);
 	newThing.functions['draw'] = [];
 	newThing.functions['draw'].push(drawFunctions()[name]);
-	alert('made a thing');
 	return newThing;
 };
 

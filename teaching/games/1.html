@@ -15,6 +15,7 @@ canvas {
 <script type="text/javascript" src="../src/property_manager.js"></script>
 <script type="text/javascript" src="../src/default_property_manager.js"></script>
 <script type="text/javascript" src="../src/function_manager.js"></script>
+<script type="text/javascript" src="../src/delayed_function_manager.js"></script>
 <script type="text/javascript" src="../src/thing_generator.js"></script>
 <script type="text/javascript" src="../src/execute_thing_function.js"></script>
 <script type="text/javascript" src="../src/make_thing.js"></script>
@@ -52,7 +53,6 @@ function tick() {
 
 $(document).ready(function() {
   start = getTime();
-	alert('hi');
 
   var canvas = $('#canvas');
   context = canvas.get(0).getContext('2d');
@@ -82,7 +82,10 @@ $(document).ready(function() {
 	player = mt('player-mouse', gc);
 	var collisionManager = generateThing(['CollisionManager']);
 	gc.register(gc, collisionManager);
-	alert(gc.nodes);
+	var coinMaker = generateThing(['Maker']);
+	coinMaker.kind = 'coin';
+	coinMaker.delayedActions[0].delayReset = 50;
+ 	gc.register(gc, coinMaker);
   setInterval(tick, 10);
 });
 </script>

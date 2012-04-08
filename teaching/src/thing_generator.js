@@ -30,7 +30,6 @@ function generateFunctions(newThing, templateName) {
 
 generateDelayedFunctions = function(newThing, templateName) {
 	newThing.delayedActions = [];
-	
 	var delayedFunction = DelayedFunctionManager()[templateName];
 	if (delayedFunction === undefined) {
 		return;
@@ -52,9 +51,7 @@ generateThing = function(templates){
 
 		generateProperties(newThing, templateName);
 		generateFunctions(newThing, templateName);
-		alert('generating');
-	//	generateDelayedFunctions(newThing, templateName);
-		alert('generated');
+		generateDelayedFunctions(newThing, templateName);
 		
 	}
 	
