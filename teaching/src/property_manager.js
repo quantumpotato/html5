@@ -28,6 +28,9 @@ PropertyManager = function() {
 		},
 		"Maker":{
 			'properties':['kind']
+		},
+		"PlayerCannon":{
+			'properties':['l','ready']
 		}
 	}
 }

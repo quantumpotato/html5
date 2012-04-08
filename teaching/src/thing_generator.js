@@ -48,7 +48,6 @@ generateThing = function(templates){
 	newThing.functionIndexes = [];
 	for (var templateIndex = 0; templateIndex < templates.length; templateIndex++) {
 		var templateName = templates[templateIndex];		
-
 		generateProperties(newThing, templateName);
 		generateFunctions(newThing, templateName);
 		generateDelayedFunctions(newThing, templateName);

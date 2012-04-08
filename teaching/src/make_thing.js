@@ -1,14 +1,16 @@
 function makeThingProperties(){
 	return {
 		"coin":["BasicObject","PointUp"],
-		"player-mouse":['Player','BasicObject','MovesWithMouse']
+		"player-mouse":['Player','BasicObject','MovesWithMouse'],
+		"player-cannon":['PlayerCannon']
 	}
 };
 
 function newThingTeams(){
 	return {
 		"coin":['collision'],
-		"player-mouse":['collision','player','mouse-move']
+		"player-mouse":['collision','player','mouse-move'],
+		"player-cannon":['ally']
 	}
 };
 
@@ -40,7 +42,10 @@ function setupFunctions() {
 function makeThing(name, gc) {
 	var newThing = generateThing(makeThingProperties()[name]);
 	newThing.teams = newThingTeams()[name];
-	setupFunctions()[name](newThing);
+	
+	if (setupFunctions[name] != undefined) {	
+		setupFunctions()[name](newThing);
+	}
 	gc.register(gc, newThing);
 	newThing.functions['draw'] = [];
 	newThing.functions['draw'].push(drawFunctions()[name]);

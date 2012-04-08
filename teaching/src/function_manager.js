@@ -147,6 +147,19 @@ FunctionManager = function() {
 					}
 				]
 			}
+		},
+		"PlayerCannon":{
+			"index":['mouse-click'],
+			"functions":{
+				"mouse-click":[
+					function(args){
+						var pc = args.t;
+						if (pc.ready) {
+ 							bullet = mt('bullet',args.gc);
+						}
+					}
+				]
+			}
 		}
 	}
 }
