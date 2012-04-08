@@ -64,6 +64,7 @@ $(document).ready(function() {
     var angle = 0; 
 	
 		var mouse = {'x':mousex,'y':mousey};
+		gc.mouseMove(gc, mouse);
 	  x = mouse.x * Math.cos(angle) - mouse.y * Math.sin(angle) + width/2;
     y = mouse.x * Math.sin(angle) + mouse.y * Math.cos(angle) + height/2;
   });
@@ -72,6 +73,8 @@ $(document).ready(function() {
 	alert(gc.nodes.length);
 	var coin = mt('coin',gc);
 	alert(coin.functions['draw'][0]);
+	var player = mt('player-mouse',gc);
+	alert(player);
   setInterval(tick, 10);
 });
 </script>

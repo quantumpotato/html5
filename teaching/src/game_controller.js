@@ -85,6 +85,12 @@ function gameController() {
 				}
 			}
 			return undefined;
+		},
+		"mouseMove":function(gc, mouse) {
+			for (var i = 0; i < gc.registeredNodes['mouse-move'].length; i++) {
+				var n = gc.registeredNodes['mouse-move'][i];
+				etf(n, 'mouse-move', {'t':n,'mouse':mouse});
+			}
 		}
 	}
 }

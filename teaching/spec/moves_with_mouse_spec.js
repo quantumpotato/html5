@@ -5,6 +5,11 @@ describe("Moving with mouse movements", function(){
 	});
 	
 	it("should update x and y to match mouse x and y", function(){
-//		mouseMover
+		var gc = gameController();
+		mouseMover.teams = ['player', 'mouse-move'];
+		gc.register(gc, mouseMover);
+		var mouse = {'x':50,'y':60};
+		gc.mouseMove(gc, mouse);
+		expect(mouseMover.l.x).toBe(50);
 	});
 });

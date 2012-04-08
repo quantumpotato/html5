@@ -144,7 +144,9 @@ FunctionManager = function() {
 			"functions":{
 				"mouse-move":[
 					function(args){
-						
+						var t = args.t;
+						t.l.x = args.mouse.x;
+						t.l.y = args.mouse.y;
 					}
 				]
 			}
