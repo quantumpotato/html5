@@ -35,7 +35,11 @@ generateDelayedFunctions = function(newThing, templateName) {
 		return;
 	}
 	
-	var delayedAction = {'delay':0, 'delayReset':0, 'action':delayedFunction};
+	var delayReset = DelayResetValueManager()[templateName];
+	if (delayReset === undefined) {
+		delayReset = 0;
+	}
+	var delayedAction = {'delay':0, 'delayReset':delayReset, 'action':delayedFunction};
 	newThing.delayedActions.push(delayedAction);
 	
 }

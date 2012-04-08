@@ -9,3 +9,9 @@ DelayedFunctionManager = function() {
 		}
 	}
 }
+
+DelayResetValueManager = function() {
+	return {
+		"PlayerCannon":50
+	}
+}
