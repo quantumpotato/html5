@@ -9,6 +9,7 @@ function DefaultPropertyManager() {
 		"mass":1,
 		"score":0,
 		"power":1,
-		"radius":10
+		"radius":10,
+		"kinds":[]
 	}
 }
