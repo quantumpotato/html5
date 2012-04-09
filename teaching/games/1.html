@@ -77,14 +77,14 @@ $(document).ready(function() {
   });
 
 	gc = gameController();
-	var coin = mt('coin',gc);
+//	var coin = mt('coin',gc);
 	player = mt('player-mouse', gc);
 	player.radius = 15;
 	var collisionManager = generateThing(['CollisionManager']);
 	gc.register(gc, collisionManager);
 	var coinMaker = generateThing(['Maker']);
 	coinMaker.kind = 'coin';
-	coinMaker.delayedActions[0].delayReset = 50;
+	coinMaker.delayedActions[0].delayReset = 5;
  	gc.register(gc, coinMaker);
   setInterval(tick, 10);
 });

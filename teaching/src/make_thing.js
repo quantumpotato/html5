@@ -2,7 +2,7 @@ function makeThingProperties(){
 	return {
 		"coin":["BasicObject","PointUp"],
 		"player-mouse":['Player','BasicObject','MovesWithMouse'],
-		"player-cannon":['PlayerCannon'],
+		"player-cannon":['PlayerCannon','BasicObject'],
 		"bullet":['BasicObject']
 	}
 };
@@ -11,7 +11,8 @@ function newThingTeams(){
 	return {
 		"coin":['collision'],
 		"player-mouse":['collision','player','mouse-move'],
-		"player-cannon":['ally','mouse-click']
+		"player-cannon":['ally','mouse-click'],
+		"bullet":['collision']
 	}
 };
 
@@ -24,6 +25,14 @@ function drawFunctions() {
 		"player-mouse":function(args){
 			var t = args.t;
 			drawCircle(t.l, 'red', t.radius);
+		},
+		"bullet":function(args){
+			var t = args.t;			
+			drawCircle(t.l, 'red', t.radius);			
+		},
+		"player-cannon":function(args) {
+			var t = args.t;			
+			drawCircle(t.l, 'blue', t.radius);
 		}
 	}
 };

@@ -61,7 +61,7 @@ $(document).ready(function() {
 		var mousex = e.pageX - canvas.offset().left;
     var mousey = e.pageY - canvas.offset().top;
 		var mouse = {'x':mousex,'y':mousey};		
-		gc.mouseMove(gc, mouse);
+		gc.mouseClick(gc, mouse);
 	});
 
   canvas.mousemove(function(e) {
@@ -81,9 +81,11 @@ $(document).ready(function() {
 	player = mt('player-mouse', gc);
 	player.radius = 15;
 
+	var cannon = mt('player-cannon', gc);
+	cannon.l.x = 100;
+	cannon.l.y = 100;
+	cannon.ready = true;
 	
-	
-
   setInterval(tick, 10);
 });
 </script>

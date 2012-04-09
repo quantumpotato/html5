@@ -29,19 +29,17 @@ function generateFunctions(newThing, templateName) {
 }
 
 generateDelayedFunctions = function(newThing, templateName) {
-	newThing.delayedActions = [];
 	var delayedFunction = DelayedFunctionManager()[templateName];
 	if (delayedFunction === undefined) {
 		return;
 	}
-	
 	var delayReset = DelayResetValueManager()[templateName];
 	if (delayReset === undefined) {
 		delayReset = 0;
 	}
-	var delayedAction = {'delay':0, 'delayReset':delayReset, 'action':delayedFunction};
+
+	var delayedAction = {'delay':0, 'delayReset':delayReset, 'action':delayedFunction};	
 	newThing.delayedActions.push(delayedAction);
-	
 }
 
 generateThing = function(templates){
@@ -50,6 +48,7 @@ generateThing = function(templates){
 	newThing.properties = [];
 	newThing.functions = {};
 	newThing.functionIndexes = [];
+	newThing.delayedActions = [];	
 	for (var templateIndex = 0; templateIndex < templates.length; templateIndex++) {
 		var templateName = templates[templateIndex];		
 		generateProperties(newThing, templateName);

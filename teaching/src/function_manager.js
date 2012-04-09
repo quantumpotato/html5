@@ -155,7 +155,10 @@ FunctionManager = function() {
 					function(args){
 						var pc = args.t;
 						if (pc.ready) {
- 							bullet = mt('bullet',args.gc);
+ 							var bullet = mt('bullet',args.gc);
+							bullet.l.x = pc.l.x;
+							bullet.l.y = pc.l.y;
+							bullet.d = getAngle(pc.l, gc.findTarget(gc, 'player').l);
 						}
 					}
 				]
