@@ -13,6 +13,7 @@ function DefaultPropertyManager() {
 
 function gameController() {
 	return {
+		"drawing":false,
 		"nodes":[],
 		"registeredNodes":{"living":[]},
 		"registeredIndexes":[],
@@ -68,11 +69,23 @@ function gameController() {
 				}
 			}
 		},
+		"removeOutOfBoundsThings":function(gc) {
+			for (var i = 0; i <gc.registeredNodes['living'].length;i++) {
+				var n = gc.registeredNodes['living'][i];
+				var l = n.l;
+				if (l != undefined) {
+				if (oob(n)) {
+					n.life = 0;
+				}}
+			}
+		},
 		"tick":function(gc){
 			for (var i = 0; i < gc.nodes.length; i++) {
 				var n = gc.nodes[i];
 				etf(n, "tick", {"t":n,"gc":gc});
-				etf(n, "draw", {"t":n});
+				if (gc.drawing === true) {
+					etf(n, "draw", {"t":n});
+				}
 				for (var ii = 0; ii < n.delayedActions.length; ii++) {
 					n.delayedActions[ii].delay-= 1;
 					if (n.delayedActions[ii].delay <= 0) {
@@ -82,6 +95,7 @@ function gameController() {
 				}
 			}
 			gc.removeDeadThings(gc);
+			gc.removeOutOfBoundsThings(gc);
 		},
 		"findTarget":function(gc, team){
 			if (gc.registeredNodes[team] != undefined) {

@@ -38,7 +38,7 @@ randomPoint = function() {
 }
 
 oob = function(a) {
-		if (a.l.x > width + 10 || a.l.x < -10 || a.l.y < -10 || a.l.y > height + 10) {
+		if (a.l.x > width + a.radius || a.l.x < -a.radius || a.l.y < -a.radius || a.l.y > height + 10) {
 			return true;
 		}
 		
