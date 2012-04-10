@@ -13,12 +13,9 @@ describe('Player Cannon', function(){
 	});
 	it("should launch a bullet on mouse-click", function(){
 		var player = mt('player-mouse', gc);
-		alert(player);
-		alert(gc);
 		var nodes = gc.nodes.length;
 		pc.ready = true;
 		gc.mouseClick(gc, {'x':50,'y':50});
 		expect(gc.nodes.length).toBeGreaterThan(nodes);
 	});
-	
 });

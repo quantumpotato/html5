@@ -158,7 +158,7 @@ FunctionManager = function() {
  							var bullet = mt('bullet',args.gc);
 							bullet.l.x = pc.l.x;
 							bullet.l.y = pc.l.y;
-							bullet.d = getAngle(pc.l, gc.findTarget(gc, 'mouse-move').l);
+							bullet.d = getAngle(pc.l, args.gc.findTarget(args.gc, 'mouse-move').l);
 							pc.ready = false;
 							pc.delayedActions[0].delay = pc.delayedActions[0].delayReset;
 						}
