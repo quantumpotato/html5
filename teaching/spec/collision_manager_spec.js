@@ -25,7 +25,7 @@ describe("Collision Management", function(){
 		stupidHunter.l.x = player.l.x;
 		stupidHunter.l.y = player.l.y;
 		var args = {"t":cm,"a":player,"b":stupidHunter};
-		var result = vtf(cm, "evaluate ", args);
+		var result = vtf(cm, "evaluate", args);
 		expect(result).toBe(true);
 	});
 });
