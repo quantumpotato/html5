@@ -32,7 +32,9 @@ function drawFunctions() {
 		},
 		"player-cannon":function(args) {
 			var t = args.t;			
-			drawCircle(t.l, 'blue', t.radius);
+			//todo: radius by delay
+			var radius = ((t.delayedActions[0].delay + t.radius) / t.radius) + 10;
+			drawCircle(t.l, 'blue', radius);
 		}
 	}
 };

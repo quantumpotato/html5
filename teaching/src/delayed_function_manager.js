@@ -6,12 +6,13 @@ DelayedFunctionManager = function() {
 		},
 		"PlayerCannon":function(args){
 			args.t.ready = true;
+			console.log("args.t.ready" + args.t.ready);
 		}
 	}
 }
 
 DelayResetValueManager = function() {
 	return {
-		"PlayerCannon":500
+		"PlayerCannon":200
 	}
 }

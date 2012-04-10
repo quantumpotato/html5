@@ -149,7 +149,7 @@ FunctionManager = function() {
 			}
 		},
 		"PlayerCannon":{
-			"index":['mouse-click'],
+			"index":['mouse-click','tick'],
 			"functions":{
 				"mouse-click":[
 					function(args){
@@ -158,7 +158,18 @@ FunctionManager = function() {
  							var bullet = mt('bullet',args.gc);
 							bullet.l.x = pc.l.x;
 							bullet.l.y = pc.l.y;
-							bullet.d = getAngle(pc.l, gc.findTarget(gc, 'player').l);
+							bullet.d = getAngle(pc.l, gc.findTarget(gc, 'mouse-move').l);
+							pc.ready = false;
+							pc.delayedActions[0].delay = pc.delayedActions[0].delayReset;
+						}
+					}
+				],
+				"tick":[
+					function(args){
+					var pc = args.t;
+						if (pc.delayedActions[0].delay === 1) {
+							pc.delayedActions[0].delay+= 1;
+							pc.ready = true;
 						}
 					}
 				]
