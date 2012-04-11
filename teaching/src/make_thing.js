@@ -3,7 +3,7 @@ function makeThingProperties(){
 		"coin":["BasicObject","PointUp"],
 		"player-mouse":['Player','BasicObject','MovesWithMouse'],
 		"player-cannon":['PlayerCannon','BasicObject'],
-		"bullet":['BasicObject']
+		"bullet":['BasicObject','Bullet']
 	}
 };
 

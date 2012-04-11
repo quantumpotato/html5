@@ -31,6 +31,9 @@ PropertyManager = function() {
 		},
 		"PlayerCannon":{
 			'properties':['l','ready']
+		},
+		"Bullet":{
+			'properties':['l','d','life','radius','power','speed']
 		}
 	}
 }

@@ -174,6 +174,20 @@ FunctionManager = function() {
 					}
 				]
 			}
+		},
+		"Bullet":{
+			"index":['collision'],
+			"functions":{
+				"collision":[
+					function(args){
+						var a = args.a;
+						var b = args.b;
+						if (b.life && b.life > 0) {
+							a.life = 0;
+						}
+					}
+				]
+			}
 		}
 	}
 }
