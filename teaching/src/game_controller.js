@@ -47,6 +47,9 @@ function gameController() {
 			}
 		},
 		"deregister":function(gc, n){
+			
+			etf(n, 'deregister', {'t':n,'gc':gc});
+			
 			for (var i = 0; i < n.teams.length; i++) {
 				var team = n.teams[i];
 				for (var j = 0; j < gc.registeredNodes[team].length; j++) {

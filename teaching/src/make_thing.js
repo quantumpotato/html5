@@ -63,6 +63,14 @@ function setupFunctions() {
 	}
 };
 
+function deregisterFunctions(){
+	return {
+		'hunter':function(args){
+			args.gc.findTarget(args.gc, 'player').score+= 1;
+		}
+	}
+}
+
 function makeThing(name, gc) {
 	var newThing = generateThing(makeThingProperties()[name]);
 	newThing.teams = newThingTeams()[name];
@@ -70,6 +78,12 @@ function makeThing(name, gc) {
 	if (setupFunctions()[name] != undefined) {	
 		setupFunctions()[name](newThing);
 	}
+	
+	if (deregisterFunctions()[name] != undefined) {
+		newThing.functions['deregister'] = [];
+		newThing.functions['deregister'].push(deregisterFunctions()[name]);
+	}
+	
 	gc.register(gc, newThing);
 	newThing.functions['draw'] = [];
 	newThing.functions['draw'].push(drawFunctions()[name]);
