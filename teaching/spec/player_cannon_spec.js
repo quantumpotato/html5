@@ -9,7 +9,7 @@ describe('Player Cannon', function(){
 		expect(pc.teams[0]).toBe('ally');
 	});
 	it("should have a delay for launching a weapon", function(){
-		expect(pc.delayedActions[0].delayReset).toBe(200);
+		expect(pc.delayedActions[0].delayReset).toBe(80);
 	});
 	it("should launch a bullet on mouse-click", function(){
 		var player = mt('player-mouse', gc);
