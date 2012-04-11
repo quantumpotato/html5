@@ -87,6 +87,21 @@ $(document).ready(function() {
 	cannon.l.y = 100;
 	cannon.ready = true;
 	
+	var collisionManager = generateThing(['CollisionManager']);
+	gc.register(gc, collisionManager);
+		
+	var monsterMaker = generateThing(['Maker','StupidHunter','Regeneration','BasicObject']);
+	monsterMaker.kind = 'coin';
+	monsterMaker.delayedActions[0].delayReset = 100;
+	monsterMaker.l = {'x':300,'y':300};
+	monsterMaker.functions['draw'] = [];
+	monsterMaker.functions['draw'].push(function(args){
+		var t = args.t;
+		drawCircle(t.l, 'orange', 30);
+	});
+
+	gc.register(gc, monsterMaker);
+	
   setInterval(tick, 10);
 });
 </script>

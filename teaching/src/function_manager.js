@@ -42,7 +42,7 @@ FunctionManager = function() {
 					function(args){
 						var t = args.t;
 						if (t.target === undefined && t.gc != undefined) {						
-							t.target = t.gc.findTarget(t.gc, 'Player');
+							t.target = t.gc.findTarget(t.gc, 'player');
 						}
 					}
 				],
@@ -159,6 +159,7 @@ FunctionManager = function() {
 							bullet.l.x = pc.l.x;
 							bullet.l.y = pc.l.y;
 							bullet.d = getAngle(pc.l, args.gc.findTarget(args.gc, 'mouse-move').l);
+							bullet.owner = pc;
 							pc.ready = false;
 							pc.delayedActions[0].delay = pc.delayedActions[0].delayReset;
 						}
@@ -182,9 +183,11 @@ FunctionManager = function() {
 					function(args){
 						var a = args.a;
 						var b = args.b;
-						if (b.life && b.life > 0) {
-							b.life -= a.power;
-							a.life = 0;
+						if (b != a) {
+							if (b.life && b.life > 0) {
+								b.life -= a.power;
+								a.life = 0;
+							}
 						}
 					}
 				]

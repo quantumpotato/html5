@@ -2,7 +2,11 @@ DelayedFunctionManager = function() {
 	return {
 		"Maker":function(args) {
 			var maker = args.t;
-			mt(maker.kind, args.gc);
+			var t = mt(maker.kind, args.gc);
+			if (maker.l) {
+				t.l.x = maker.l.x;
+				t.l.y = maker.l.y;
+			}
 		},
 		"PlayerCannon":function(args){
 			args.t.ready = true;

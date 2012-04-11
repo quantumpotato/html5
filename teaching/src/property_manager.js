@@ -30,10 +30,10 @@ PropertyManager = function() {
 			'properties':['kind']
 		},
 		"PlayerCannon":{
-			'properties':['l','ready']
+			'properties':['l','ready','radius','power']
 		},
 		"Bullet":{
-			'properties':['l','d','life','radius','power','speed']
+			'properties':['l','d','life','radius','power','speed','owner']
 		}
 	}
 }

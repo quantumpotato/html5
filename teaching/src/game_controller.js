@@ -46,19 +46,26 @@ function gameController() {
 				}
 			}
 		},
+		"deregister":function(gc, n){
+			for (var i = 0; i < n.teams.length; i++) {
+				var team = n.teams[i];
+				for (var j = 0; j < gc.registeredNodes[team].length; j++) {
+					var registeredNode = gc.registeredNodes[team][j];
+					if (n === registeredNode) {
+						gc.registeredNodes[team].splice(j,1);
+						break;
+					}
+				}
+			}
+		},
 		"removeDeadThings":function(gc){
-			//for node in myNodes
-			//if node is dead {
-			//remove node from myNodes
-			//loop through registeredIndexes of node
-			//remove node from each registered array
-			
 			for (var j=0;j<gc.registeredNodes['living'].length;j++){
 				var n = gc.registeredNodes['living'][j];
 				if (n.life <= 0) {
 					for (var i = 0; i < gc.nodes.length; i++) {
 						var iNode = gc.nodes[i];
 						if (iNode === n) {
+							gc.deregister(gc, n);
 							gc.nodes.splice(i,1);
 							break;
 						}

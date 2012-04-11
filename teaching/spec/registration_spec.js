@@ -4,7 +4,7 @@ describe("Registering", function(){
 	beforeEach(function(){
 		testGC = gameController();
 		player = generateThing(["BasicObject","Player"]);			
-		player.teams = ['Player'];
+		player.teams = ['player'];
 	});
 	describe("a new game controller", function(){
 		it("should have no nodes", function(){
