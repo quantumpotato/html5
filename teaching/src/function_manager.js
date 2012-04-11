@@ -183,6 +183,7 @@ FunctionManager = function() {
 						var a = args.a;
 						var b = args.b;
 						if (b.life && b.life > 0) {
+							b.life -= a.power;
 							a.life = 0;
 						}
 					}
