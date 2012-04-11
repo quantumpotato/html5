@@ -4,7 +4,8 @@ function makeThingProperties(){
 		"player-mouse":['Player','BasicObject','MovesWithMouse'],
 		"player-cannon":['PlayerCannon'],
 		"bullet":['BasicObject','Bullet'],
-		"hunter":['BasicObject','Monster','StupidHunter']
+		"hunter":['BasicObject','Monster','StupidHunter'],
+		"monster-picker":['HashPicker']
 	}
 };
 
@@ -59,6 +60,9 @@ function setupFunctions() {
 		},
 		"bullet":function(t){
 			t.speed = 5;
+		},
+		"monster-picker":function(t){
+			t.hashes['monster-types'] = {'hash':{'hunter':2,'bullet':3}};
 		}
 	}
 };

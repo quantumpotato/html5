@@ -99,6 +99,11 @@ $(document).ready(function() {
 		var t = args.t;
 		drawCircle(t.l, 'orange', 30);
 	});
+	
+	monsterMaker.functions['draw'].push(function(args){
+		var t = args.t;
+		drawCircle({'x':t.l.x+t.d.x*5,'y':t.l.y+t.d.y*5},'purple',10);
+	});
 
 	gc.register(gc, monsterMaker);
 	

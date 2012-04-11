@@ -37,6 +37,9 @@ PropertyManager = function() {
 		},
 		"Monster":{
 			'properties':['l','life','power','speed']
+		},
+		"HashPicker":{
+			'properties':['hashes']
 		}
 	}
 }

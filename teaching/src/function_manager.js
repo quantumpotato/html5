@@ -209,6 +209,18 @@ FunctionManager = function() {
 					}
 				]
 			}
+		},
+		"HashPicker":{
+			"index":['select'],
+			"functions":{
+				'select':[
+					function(args){
+						var t = args.t;
+						var hash = args.t.hashes[args.hashName];
+						pwh(hash['hash'], hash['action'])
+					}
+				]
+			}
 		}
 	}
 }

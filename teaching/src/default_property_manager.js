@@ -11,6 +11,7 @@ function DefaultPropertyManager() {
 		"power":1,
 		"radius":10,
 		"kind":"",
-		"ready":false
+		"ready":false,
+		"hashes":{}
 	}
 }
