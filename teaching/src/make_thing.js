@@ -12,7 +12,7 @@ function newThingTeams(){
 		"coin":['collision'],
 		"player-mouse":['collision','player','mouse-move'],
 		"player-cannon":['ally','mouse-click'],
-		"bullet":['collision']
+		"bullet":['collision','bullet']
 	}
 };
 

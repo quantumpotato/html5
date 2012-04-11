@@ -18,4 +18,15 @@ describe('Player Cannon', function(){
 		gc.mouseClick(gc, {'x':50,'y':50});
 		expect(gc.nodes.length).toBeGreaterThan(nodes);
 	});
+	it("should launch a bullet aiming at player", function(){
+		var player = mt('player-mouse', gc);
+		player.l.x = 300;
+		player.l.y = 400;
+		var nodes = gc.nodes.length;
+		pc.ready = true;
+		gc.mouseClick(gc, {'x':50,'y':50});
+		var bullet = gc.findTarget(gc, 'bullet');
+		expect(bullet.d.x).toBe(getAngle(pc.l, player.l).x);		
+		expect(bullet.d.y).toBe(getAngle(pc.l, player.l).y);		
+	});
 });
