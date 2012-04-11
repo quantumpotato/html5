@@ -3,7 +3,8 @@ function makeThingProperties(){
 		"coin":["BasicObject","PointUp"],
 		"player-mouse":['Player','BasicObject','MovesWithMouse'],
 		"player-cannon":['PlayerCannon'],
-		"bullet":['BasicObject','Bullet']
+		"bullet":['BasicObject','Bullet'],
+		"hunter":['BasicObject','Monster','StupidHunter']
 	}
 };
 
@@ -12,7 +13,8 @@ function newThingTeams(){
 		"coin":['collision'],
 		"player-mouse":['collision','player','mouse-move'],
 		"player-cannon":['ally','mouse-click'],
-		"bullet":['collision','bullet']
+		"bullet":['collision','bullet'],
+		"hunter":['collision']
 	}
 };
 
@@ -35,6 +37,10 @@ function drawFunctions() {
 			//todo: radius by delay
 			var radius = ((t.delayedActions[0].delay + t.radius) / t.radius) + 10;
 			drawCircle(t.l, 'blue', radius);
+		},
+		"hunter":function(args){
+			var t = args.t;
+			drawCircle(t.l, 'purple', t.radius);
 		}
 	}
 };
@@ -47,6 +53,12 @@ function setupFunctions() {
 		},
 		"player-mouse":function(t) {
 			
+		},
+		"hunter":function(t){
+			t.speed = 3;
+		},
+		"bullet":function(t){
+			t.speed = 5;
 		}
 	}
 };
@@ -55,7 +67,7 @@ function makeThing(name, gc) {
 	var newThing = generateThing(makeThingProperties()[name]);
 	newThing.teams = newThingTeams()[name];
 	
-	if (setupFunctions[name] != undefined) {	
+	if (setupFunctions()[name] != undefined) {	
 		setupFunctions()[name](newThing);
 	}
 	gc.register(gc, newThing);

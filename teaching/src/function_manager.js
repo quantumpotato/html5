@@ -192,6 +192,23 @@ FunctionManager = function() {
 					}
 				]
 			}
+		},
+		"Monster":{
+			"index":['collision'],
+			"functions":{
+				"collision":[
+					function(args) {
+						var a = args.a;
+						var b = args.b;
+						if (b === a.target) {
+							b.life -= a.power;
+							var knockBackAngle = getAngle(a.l, b.l);
+							b.l.x += knockBackAngle.x * 20;
+							b.l.y += knockBackAngle.y * 20;
+						}
+					}
+				]
+			}
 		}
 	}
 }

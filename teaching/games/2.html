@@ -91,8 +91,8 @@ $(document).ready(function() {
 	gc.register(gc, collisionManager);
 		
 	var monsterMaker = generateThing(['Maker','StupidHunter','Regeneration','BasicObject']);
-	monsterMaker.kind = 'coin';
-	monsterMaker.delayedActions[0].delayReset = 100;
+	monsterMaker.kind = 'hunter';
+	monsterMaker.delayedActions[0].delayReset = 200;
 	monsterMaker.l = {'x':300,'y':300};
 	monsterMaker.functions['draw'] = [];
 	monsterMaker.functions['draw'].push(function(args){

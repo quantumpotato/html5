@@ -34,6 +34,9 @@ PropertyManager = function() {
 		},
 		"Bullet":{
 			'properties':['l','d','life','radius','power','speed','owner']
+		},
+		"Monster":{
+			'properties':['l','life','power','speed']
 		}
 	}
 }

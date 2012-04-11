@@ -17,6 +17,6 @@ DelayedFunctionManager = function() {
 
 DelayResetValueManager = function() {
 	return {
-		"PlayerCannon":200
+		"PlayerCannon":80
 	}
 }
