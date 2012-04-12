@@ -12,6 +12,6 @@ function DefaultPropertyManager() {
 		"radius":10,
 		"kind":"",
 		"ready":false,
-		"hashes":{}
+		"weightedHashes":{}
 	}
 }

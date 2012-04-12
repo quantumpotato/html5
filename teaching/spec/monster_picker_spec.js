@@ -6,8 +6,11 @@ describe("Monster picker", function(){
 		mp = mt('monster-picker', gc);
 	});
 	it("should have weighted monster types", function(){
-		expect(mp.hashes['monster-types'].hash.hunter).toBe(2);
-		expect(mp.hashes['monster-types'].hash.bullet).toBe(3);		
+		expect(mp.weightedHashes['monster-types'].hash.hunter).toBe(2);
+		expect(mp.weightedHashes['monster-types'].hash.bullet).toBe(3);		
+	});
+	it("should have a function", function(){
+		expect(mp.weightedHashes['monster-types'].action).toNotBe(undefined);
 	});
 });
 

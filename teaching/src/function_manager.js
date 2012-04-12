@@ -216,7 +216,7 @@ FunctionManager = function() {
 				'select':[
 					function(args){
 						var t = args.t;
-						var hash = args.t.hashes[args.hashName];
+						var hash = args.t.weightedHashes[args.hashName];
 						pwh(hash['hash'], hash['action'])
 					}
 				]

@@ -62,7 +62,7 @@ function setupFunctions() {
 			t.speed = 5;
 		},
 		"monster-picker":function(t){
-			t.hashes['monster-types'] = {'hash':{'hunter':2,'bullet':3}};
+			t.weightedHashes['monster-types'] = {'hash':{'hunter':2,'bullet':3}};
 		}
 	}
 };

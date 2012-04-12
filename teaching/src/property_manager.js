@@ -39,7 +39,7 @@ PropertyManager = function() {
 			'properties':['l','life','power','speed']
 		},
 		"HashPicker":{
-			'properties':['hashes']
+			'properties':['weightedHashes']
 		}
 	}
 }
