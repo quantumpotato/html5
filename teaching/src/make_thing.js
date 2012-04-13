@@ -5,7 +5,8 @@ function makeThingProperties(){
 		"player-cannon":['PlayerCannon'],
 		"bullet":['BasicObject','Bullet'],
 		"hunter":['BasicObject','Monster','StupidHunter'],
-		"monster-picker":['HashPicker']
+		"monster-picker":['HashPicker'],
+		"monster-builder":['Builder']
 	}
 };
 
@@ -15,7 +16,8 @@ function newThingTeams(){
 		"player-mouse":['collision','player','mouse-move'],
 		"player-cannon":['ally','mouse-click'],
 		"bullet":['collision','bullet'],
-		"hunter":['collision']
+		"hunter":['collision'],
+		"monster-builder":['monster-builder']
 	}
 };
 
@@ -62,7 +64,17 @@ function setupFunctions() {
 			t.speed = 5;
 		},
 		"monster-picker":function(t){
-			t.hashes['monster-types'] = {'hash':{'hunter':2,'bullet':3}};
+			var makeMonsterFunc = function(args) {
+				var gc = args.t.gc;
+				var mp = args.t;
+				var success = args.success;
+				
+				var builder = gc.findTarget('monster-builder', gc);
+				//use t.hashes['monster-building'] for kind
+				var buildArgs = {'t':builder,'kind':'hunter'};
+				etf(builder, 'build', buildArgs);
+			}
+			t.hashes['monster-building'] = {'hash':{'hunter':2,'bullet':3,'bouncer':1},'action':makeMonsterFunc};
 		}
 	}
 };

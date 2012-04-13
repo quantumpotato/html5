@@ -221,6 +221,18 @@ FunctionManager = function() {
 					}
 				]
 			}
+		},
+		"Builder":{
+			"index":['build'],
+			"functions":{
+				"build":[
+					function(args) {
+						var kind = args.kind;
+						var gc = args.t.gc;
+						mt(kind, gc);
+					}
+				]
+			}
 		}
 	}
 }

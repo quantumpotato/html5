@@ -6,8 +6,13 @@ describe("Monster picker", function(){
 		mp = mt('monster-picker', gc);
 	});
 	it("should have weighted monster types", function(){
-		expect(mp.hashes['monster-types'].hash.hunter).toBe(2);
-		expect(mp.hashes['monster-types'].hash.bullet).toBe(3);		
+		expect(mp.hashes['monster-building'].hash.hunter).toBe(2);
+		expect(mp.hashes['monster-building'].hash.bullet).toBe(3);
+	});
+	it("should create a monster when selecting", function(){
+		var nodes = gc.nodes.length;
+		etf(mp, 'build-monster', {'t':mp});
+		expect(gc.nodes.length).toBeGreaterThan(nodes);
 	});
 });
 

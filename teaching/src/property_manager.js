@@ -40,6 +40,9 @@ PropertyManager = function() {
 		},
 		"HashPicker":{
 			'properties':['hashes']
+		},
+		"Builder": {
+			'properties':[]
 		}
 	}
 }
