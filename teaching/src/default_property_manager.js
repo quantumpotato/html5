@@ -12,6 +12,8 @@ function DefaultPropertyManager() {
 		"radius":10,
 		"kind":"",
 		"ready":false,
-		"hashes":{}
+		"hashes":{},
+		"loopingFunctionName":"",
+		"loopingArgs":{}
 	}
 }

@@ -43,6 +43,9 @@ PropertyManager = function() {
 		},
 		"Builder": {
 			'properties':['hashes', 'l']
+		},
+		"Looper": {
+			'properties':['loopingFunctionName', 'loopingArgs']
 		}
 	}
 }

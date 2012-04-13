@@ -54,8 +54,8 @@ describe("Monster picker", function(){
 			expect(monster.l.x).toBe(mb.l.x);
 			expect(monster.l.y).toBe(mb.l.y);			
 		});
-		// it("should select over time", function(){
-		// 	expect(mp.delayedActions[0]).toNotBe(undefined);
-		// });
+		it("should select over time", function(){
+			expect(mp.delayedActions[0]).toNotBe(undefined);
+		});
 	});
 });

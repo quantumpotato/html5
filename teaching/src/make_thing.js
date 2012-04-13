@@ -5,7 +5,7 @@ function makeThingProperties(){
 		"player-cannon":['PlayerCannon'],
 		"bullet":['BasicObject','Bullet'],
 		"hunter":['BasicObject','Monster','StupidHunter'],
-		"monster-picker":['HashPicker'],
+		"monster-picker":['HashPicker','Looper'],
 		"monster-builder":['Builder']
 	}
 };
@@ -76,11 +76,13 @@ function setupFunctions() {
 				gc.newestNode.t = gc.findTarget(gc, 'player');
 				gc.newestNode.l.x = builder.l.x;
 				gc.newestNode.l.y = builder.l.y;
+				etf(gc.newestNode, 'fire', {'t':gc.newestNode, 'launcher':builder, 'targetTeam':'player'});
 				builder.hashes['monster-building'].hash[monster].speed += 1;
 				builder.hashes['monster-building'].hash[monster].power += 1;				
 			}
 			t.hashes['monster-building'] = {'hash':{'hunter':2,'bullet':3},'action':makeMonsterFunc};
-
+			t.loopingFunctionName = 'select';
+			t.loopingArgs = {'t':t,'hashName':'monster-building'};
 		},
 		'monster-builder':function(t) {
 			t.hashes['monster-building'] = {'hash':{'hunter':{'speed':3,'power':1},'bullet':{'speed':4,'power':1}}};

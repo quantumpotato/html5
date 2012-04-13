@@ -12,15 +12,16 @@ DelayedFunctionManager = function() {
 			args.t.ready = true;
 			console.log("args.t.ready" + args.t.ready);
 		},
-		"Builder":function(args){
-			var builder = args.t;
-			
+		"Looper":function(args){
+			var looper = args.t;
+			etf(mp, looper.loopingFunctionName, looper.loopingArgs);
 		}
 	}
 }
 
 DelayResetValueManager = function() {
 	return {
-		"PlayerCannon":80
+		"PlayerCannon":80,
+		"Looper":100
 	}
 }

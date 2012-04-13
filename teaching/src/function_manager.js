@@ -156,10 +156,7 @@ FunctionManager = function() {
 						var pc = args.t;
 						if (pc.ready) {
  							var bullet = mt('bullet',args.gc);
-							bullet.l.x = pc.l.x;
-							bullet.l.y = pc.l.y;
-							bullet.d = getAngle(pc.l, args.gc.findTarget(args.gc, 'mouse-move').l);
-							bullet.owner = pc;
+							etf(bullet, 'fire', {'t':bullet, 'launcher':pc, 'targetTeam':'mouse-move'});
 							pc.ready = false;
 							pc.delayedActions[0].delay = pc.delayedActions[0].delayReset;
 						}
@@ -177,7 +174,7 @@ FunctionManager = function() {
 			}
 		},
 		"Bullet":{
-			"index":['collision'],
+			"index":['collision','fire'],
 			"functions":{
 				"collision":[
 					function(args){
@@ -189,6 +186,17 @@ FunctionManager = function() {
 								a.life = 0;
 							}
 						}
+					}
+				],
+				"fire":[
+					function(args){
+						var bullet = args.t;
+						var launcher = args.launcher;
+						var targetTeam = args.targetTeam;
+						bullet.l.x = launcher.l.x;
+						bullet.l.y = launcher.l.y;
+						bullet.d = getAngle(launcher.l, bullet.gc.findTarget(bullet.gc, targetTeam).l);
+						bullet.owner = launcher;
 					}
 				]
 			}
