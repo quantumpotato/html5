@@ -13,7 +13,7 @@ describe("Monster picker", function(){
 	});
 	it("should create a monster when selecting", function(){
 		var nodes = gc.nodes.length;
-		etf(mp, 'select', {'t':mp,'hashName':'monster-building', 'action':mp.hashes['monster-building'].action});
+		etf(mp, 'select', {'t':mp,'hashName':'monster-building'});
 		expect(gc.nodes.length).toBeGreaterThan(nodes);
 	});
 	describe('Monster builder', function(){
@@ -24,16 +24,21 @@ describe("Monster picker", function(){
 		it('should have power attributes for its monsters', function(){
 			expect(mb.hashes['monster-building'].hash.hunter.power).toBeGreaterThan(0);
 			expect(mb.hashes['monster-building'].hash.bullet.power).toBeGreaterThan(0);
-		})
+		});
+		it('should increase speed and power for a kind when it builds that kind of monster', function(){
+			var hunterSpeed = mb.hashes['monster-building'].hash.hunter.speed;
+			var hunterPower = mb.hashes['monster-building'].hash.hunter.power;
+			var bulletSpeed = mb.hashes['monster-building'].hash.bullet.speed;
+			var bulletPower = mb.hashes['monster-building'].hash.bullet.power;			
+	
+			etf(mp, 'select', {'t':mp,'hashName':'monster-building'});
+			
+			var totalSpeed = mb.hashes['monster-building'].hash.hunter.speed + mb.hashes['monster-building'].hash.bullet.speed;
+			expect(totalSpeed).toBeGreaterThan(hunterSpeed + bulletSpeed);
+			
+			var totalPower = mb.hashes['monster-building'].hash.hunter.power + mb.hashes['monster-building'].hash.bullet.power;
+			expect(totalPower).toBeGreaterThan(hunterPower + bulletPower);			
+			
+		});
 	});
 });
-
-// {'monster-types':{'a':3,'b':4}}
-// 
-// function valueWeightedHash(hash, success) {
-// 	..arc4random
-// }
-// 
-// var args = {'t':t, 'monster':processWeightedHash(t.monster-types)}
-// etf(gc.findTarget('monster-builder', gc), 'build-monster', args)
-// processWeightedHash(t.monster_types, gc.findTarget('monster-builder', gc).functions)

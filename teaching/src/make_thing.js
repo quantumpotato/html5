@@ -73,6 +73,8 @@ function setupFunctions() {
 				//use t.hashes['monster-building'] for kind
 				var buildArgs = {'t':builder,'kind':monster};
 				etf(builder, 'build', buildArgs);
+				builder.hashes['monster-building'].hash[monster].speed += 1;
+				builder.hashes['monster-building'].hash[monster].power += 1;				
 			}
 			t.hashes['monster-building'] = {'hash':{'hunter':2,'bullet':3},'action':makeMonsterFunc};
 		},
