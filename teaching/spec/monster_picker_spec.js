@@ -21,6 +21,10 @@ describe("Monster picker", function(){
 			expect(mb.hashes['monster-building'].hash.hunter.speed).toBeGreaterThan(0);
 			expect(mb.hashes['monster-building'].hash.bullet.speed).toBeGreaterThan(0);			
 		});
+		it('should have power attributes for its monsters', function(){
+			expect(mb.hashes['monster-building'].hash.hunter.power).toBeGreaterThan(0);
+			expect(mb.hashes['monster-building'].hash.bullet.power).toBeGreaterThan(0);
+		})
 	});
 });
 
