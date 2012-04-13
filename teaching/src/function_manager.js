@@ -217,7 +217,7 @@ FunctionManager = function() {
 					function(args){
 						var t = args.t;
 						var hash = args.t.hashes[args.hashName];
-						pwh(hash['hash'], hash['action'])
+						pwh(t, hash);
 					}
 				]
 			}

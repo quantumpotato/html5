@@ -1,9 +1,11 @@
 describe("Monster picker", function(){
 	var mp;
 	var gc;
+	var mb;
 	beforeEach(function(){
 		gc = gameController();
 		mp = mt('monster-picker', gc);
+		mb = mt('monster-builder', gc);
 	});
 	it("should have weighted monster types", function(){
 		expect(mp.hashes['monster-building'].hash.hunter).toBe(2);
@@ -11,7 +13,8 @@ describe("Monster picker", function(){
 	});
 	it("should create a monster when selecting", function(){
 		var nodes = gc.nodes.length;
-		etf(mp, 'build-monster', {'t':mp});
+		alert(gc.nodes[1].teams);
+		etf(mp, 'select', {'t':mp,'hashName':'monster-building', 'action':mp.hashes['monster-building'].action});
 		expect(gc.nodes.length).toBeGreaterThan(nodes);
 	});
 });
