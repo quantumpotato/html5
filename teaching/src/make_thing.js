@@ -75,6 +75,9 @@ function setupFunctions() {
 				etf(builder, 'build', buildArgs);
 			}
 			t.hashes['monster-building'] = {'hash':{'hunter':2,'bullet':3},'action':makeMonsterFunc};
+		},
+		'monster-builder':function(t) {
+			t.hashes['monster-building'] = {'hash':{'hunter':{'speed':3},'bullet':{'speed':4}}};
 		}
 	}
 };

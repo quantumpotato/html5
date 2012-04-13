@@ -42,7 +42,7 @@ PropertyManager = function() {
 			'properties':['hashes']
 		},
 		"Builder": {
-			'properties':[]
+			'properties':['hashes']
 		}
 	}
 }

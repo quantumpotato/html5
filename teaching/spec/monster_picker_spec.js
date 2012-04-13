@@ -16,6 +16,12 @@ describe("Monster picker", function(){
 		etf(mp, 'select', {'t':mp,'hashName':'monster-building', 'action':mp.hashes['monster-building'].action});
 		expect(gc.nodes.length).toBeGreaterThan(nodes);
 	});
+	describe('Monster builder', function(){
+		it('should have speed attributes for its monsters', function(){
+			expect(mb.hashes['monster-building'].hash.hunter.speed).toBeGreaterThan(0);
+			expect(mb.hashes['monster-building'].hash.bullet.speed).toBeGreaterThan(0);			
+		});
+	});
 });
 
 // {'monster-types':{'a':3,'b':4}}
