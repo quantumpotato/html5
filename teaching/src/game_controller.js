@@ -20,11 +20,13 @@ function gameController() {
 		"eventInterceptors":[],
 		"eventListeners":{},
 		"listenerIndexes":[],
+		"newestNode":undefined,
 		"initialize":function(){},
 		"reset":function(){},
 		"register":function(gc, t){
 			t.gc = gc;
 			gc.nodes.push(t);
+			gc.newestNode = t;
 			gc.registeredNodes['living'].push(t);
 			if (t.teams != undefined && t.teams.length > 0) {
 				for (var i = 0; i < t.teams.length; i++) {

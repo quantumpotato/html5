@@ -2,8 +2,10 @@ describe("Monster picker", function(){
 	var mp;
 	var gc;
 	var mb;
+	var player;
 	beforeEach(function(){
 		gc = gameController();
+		player = mt('player-mouse', gc);
 		mp = mt('monster-picker', gc);
 		mb = mt('monster-builder', gc);
 	});
@@ -38,7 +40,11 @@ describe("Monster picker", function(){
 			
 			var totalPower = mb.hashes['monster-building'].hash.hunter.power + mb.hashes['monster-building'].hash.bullet.power;
 			expect(totalPower).toBeGreaterThan(hunterPower + bulletPower);			
-			
+		});
+		it('should set target for built monsters', function(){
+			etf(mp, 'select', {'t':mp,'hashName':'monster-building'});
+			var monster = gc.findTarget(gc, 'enemy');
+			expect(monster.t).toBe(player);
 		});
 	});
 });

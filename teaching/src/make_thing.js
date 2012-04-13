@@ -15,8 +15,8 @@ function newThingTeams(){
 		"coin":['collision'],
 		"player-mouse":['collision','player','mouse-move'],
 		"player-cannon":['ally','mouse-click'],
-		"bullet":['collision','bullet'],
-		"hunter":['collision'],
+		"bullet":['collision','bullet','enemy'],
+		"hunter":['collision','enemy'],
 		"monster-builder":['monster-builder']
 	}
 };
@@ -73,6 +73,7 @@ function setupFunctions() {
 				//use t.hashes['monster-building'] for kind
 				var buildArgs = {'t':builder,'kind':monster};
 				etf(builder, 'build', buildArgs);
+				gc.newestNode.t = gc.findTarget(gc, 'player');
 				builder.hashes['monster-building'].hash[monster].speed += 1;
 				builder.hashes['monster-building'].hash[monster].power += 1;				
 			}
