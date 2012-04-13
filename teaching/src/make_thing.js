@@ -69,13 +69,12 @@ function setupFunctions() {
 				var mp = args.t;
 				var monster = args.result;
 				
-				alert('registered' + gc.registeredNodes['monster-builder']);
-				var builder = gc.findTarget('monster-builder', gc);
+				var builder = gc.findTarget(gc, 'monster-builder');
 				//use t.hashes['monster-building'] for kind
 				var buildArgs = {'t':builder,'kind':monster};
 				etf(builder, 'build', buildArgs);
 			}
-			t.hashes['monster-building'] = {'hash':{'hunter':2,'bullet':3,'bouncer':1},'action':makeMonsterFunc};
+			t.hashes['monster-building'] = {'hash':{'hunter':2,'bullet':3},'action':makeMonsterFunc};
 		}
 	}
 };

@@ -13,7 +13,6 @@ describe("Monster picker", function(){
 	});
 	it("should create a monster when selecting", function(){
 		var nodes = gc.nodes.length;
-		alert(gc.nodes[1].teams);
 		etf(mp, 'select', {'t':mp,'hashName':'monster-building', 'action':mp.hashes['monster-building'].action});
 		expect(gc.nodes.length).toBeGreaterThan(nodes);
 	});
