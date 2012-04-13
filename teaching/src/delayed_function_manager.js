@@ -11,6 +11,10 @@ DelayedFunctionManager = function() {
 		"PlayerCannon":function(args){
 			args.t.ready = true;
 			console.log("args.t.ready" + args.t.ready);
+		},
+		"Builder":function(args){
+			var builder = args.t;
+			
 		}
 	}
 }

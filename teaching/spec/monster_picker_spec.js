@@ -8,6 +8,8 @@ describe("Monster picker", function(){
 		player = mt('player-mouse', gc);
 		mp = mt('monster-picker', gc);
 		mb = mt('monster-builder', gc);
+		mb.l.x = 350;
+		mb.l.y = 350;
 	});
 	it("should have weighted monster types", function(){
 		expect(mp.hashes['monster-building'].hash.hunter).toBe(2);
@@ -46,5 +48,14 @@ describe("Monster picker", function(){
 			var monster = gc.findTarget(gc, 'enemy');
 			expect(monster.t).toBe(player);
 		});
+		it("should set location for built monsters", function(){
+			etf(mp, 'select', {'t':mp,'hashName':'monster-building'});
+			var monster = gc.findTarget(gc, 'enemy');
+			expect(monster.l.x).toBe(mb.l.x);
+			expect(monster.l.y).toBe(mb.l.y);			
+		});
+		// it("should select over time", function(){
+		// 	expect(mp.delayedActions[0]).toNotBe(undefined);
+		// });
 	});
 });

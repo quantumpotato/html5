@@ -74,10 +74,13 @@ function setupFunctions() {
 				var buildArgs = {'t':builder,'kind':monster};
 				etf(builder, 'build', buildArgs);
 				gc.newestNode.t = gc.findTarget(gc, 'player');
+				gc.newestNode.l.x = builder.l.x;
+				gc.newestNode.l.y = builder.l.y;
 				builder.hashes['monster-building'].hash[monster].speed += 1;
 				builder.hashes['monster-building'].hash[monster].power += 1;				
 			}
 			t.hashes['monster-building'] = {'hash':{'hunter':2,'bullet':3},'action':makeMonsterFunc};
+
 		},
 		'monster-builder':function(t) {
 			t.hashes['monster-building'] = {'hash':{'hunter':{'speed':3,'power':1},'bullet':{'speed':4,'power':1}}};
