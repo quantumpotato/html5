@@ -27,6 +27,15 @@ var x = -50;
 var y = -50;
 var gc;
 var player;
+var foo;
+$.getScript("test.js", function(data, textStatus, jqxhr) {
+//   alert(data); //data returned
+   var testObject = magic();
+   alert(testObject.alpha);
+   console.log(textStatus); //success
+   console.log(jqxhr.status); //200
+   console.log('Load was performed.');
+});     
 
 function draw() {
 
