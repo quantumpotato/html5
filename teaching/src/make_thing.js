@@ -62,7 +62,14 @@ function setupFunctions() {
 			t.speed = 5;
 		},
 		"monster-picker":function(t){
-			t.weightedHashes['monster-types'] = {'hash':{'hunter':2,'bullet':3}};
+		t.weightedHashes['monster-types'] = {'hash':{'hunter':2,'bullet':3}, 'action':function(){
+                        var args = {'t':t, 'monster':processWeightedHash(t.monster-types)}
+                        etf(gc.findTarget('monster-builder', gc), 'build-monster', args)
+                        processWeightedHash(t.monster_types, gc.findTarget('monster-builder', gc).functions)
+
+                 
+
+}};
 		}
 	}
 };

@@ -1,5 +1,10 @@
 describe("Regeneration", function(){
-	var regenner;
+if (window.File && window.FileReader && window.FileList && window.Blob) {
+ alert('hi great success'); // Great success! All the File APIs are supported.
+} else {
+  alert('The File APIs are not fully supported in this browser.');
+}	
+var regenner;
 	beforeEach(function(){
 		regenner = generateThing(['BasicObject','Regeneration']);
 	});

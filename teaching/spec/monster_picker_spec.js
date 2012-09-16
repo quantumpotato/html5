@@ -14,12 +14,3 @@ describe("Monster picker", function(){
 	});
 });
 
-// {'monster-types':{'a':3,'b':4}}
-// 
-// function valueWeightedHash(hash, success) {
-// 	..arc4random
-// }
-// 
-// var args = {'t':t, 'monster':processWeightedHash(t.monster-types)}
-// etf(gc.findTarget('monster-builder', gc), 'build-monster', args)
-// processWeightedHash(t.monster_types, gc.findTarget('monster-builder', gc).functions)
