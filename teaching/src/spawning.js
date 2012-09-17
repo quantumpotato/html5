@@ -1,7 +1,46 @@
 function assignInitialProperty(t, prop) {
  //load from list
 t[prop] = 5; 
+
 };
+
+function assignPropertiesFromComponentTemplate(t, template, completion) {
+     for (var ii = 0; ii < template.properties.length; ii++) {
+        assignInitialProperty(t, template.properties[ii]);       
+     };
+     t.componentsRemainingForAssignment--;
+     if (t.componentsRemainingForAssignment == 0) {
+       completion(t);
+     };
+};
+
+function loadComponents(t, component, completion) {
+  $.getScript(component + '.js', function(data, b, c) {
+    var componentsTemplate = window[component]();
+    assignPropertiesFromComponentTemplate(t, componentsTemplate, completion);
+  });
+
+};
+
+function assignComponents(t, components, completion) {
+  t.componentsRemainingForAssignment = components.length;
+  for (var i = 0; i < components.length; i++) {
+    loadComponents(t, components[i], completion);
+  };
+};
+
+
+
+function spawn(name, gc, completion) {
+
+var t = {};
+  $.getScript(name + '.js', function(data, b, c) {
+    var template = window[name]();
+    var components = template.components;
+    assignComponents(t, template.components, completion);
+  });
+
+}
 
 function spawnThing(name, gc) {
 
@@ -46,6 +85,9 @@ return t;
 function st(name, gc){
 return spawnThing(name, gc);
 };
+
+
+
 
 function testSpawn(name, gc) {
 var testedSpawn;
