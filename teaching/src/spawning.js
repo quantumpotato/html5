@@ -78,10 +78,18 @@ function spawn(name, gc, completion) {
   $.getScript(name + '.js', function(data, b, c) {
     var template = window[name]();
     var components = template.components;
-    assignComponents(t, template.components, completion);
-    assignTags(t, template.tags);
-  
+    assignComponents(t, template.components, function(t) {
+      assignTags(t, template.tags);
+      if (completion != undefined) {
+        completion(t);
+      }
+    // gc.register(gc, t);
+      alert('nodes' + gc.nodes.length);
+    });
+ 
 });
 
 };
+
+
 

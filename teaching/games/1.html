@@ -110,19 +110,9 @@ $(document).ready(function() {
 
 
 
-  //     var bar = testSpawn('basicPlayer', gc);
-   //    var again = testSpawn('testPlayer', gc);
-   //    alert(bar.alpha);
-    //   var foo = spawnThing('basicPlayer', gc); 
-       spawn('basicPlayer', gc, function(t){
-        alert('spawned:' + t);
-        alert(t.life);
-        alert(t.d.x);
-        alert(t.radius)
-        alert(t.functions['tick']);
-        alert(t.tags);
-        gc.register(gc, t); 
-        alert('holy!');
+       alert('nodes:' + gc.nodes.length);
+       spawn('basicPlayer', gc, function(t) {
+         alert(t.tags);
        });
 
   setInterval(tick, 10);
