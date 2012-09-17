@@ -6,7 +6,6 @@ var functions = {'tick':[function(args){
                           t.l.x = t.l.x + (t.d.x * t.speed);
                           t.l.y = t.l.y + (t.d.y * t.speed);
                         }]};
-
 var nt = {'properties':properties, 'functions':functions, 'functionIndex':functionIndex};
 return nt;
 };

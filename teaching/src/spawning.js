@@ -2,23 +2,42 @@ function assignInitialProperty(t, prop) {
 t[prop] = DefaultPropertyManager()[prop];
 };
 
-function assignPropertiesFromComponentTemplate(t, template, completion) {
-     for (var i = 0; i < template.properties.length; i++) {
-        assignInitialProperty(t, template.properties[i]);       
-     };
-     if (t.functions === undefined) {
+function assignFunctionsFromComponentTemplate(t, template) {
+   if (t.functions === undefined) {
        t.functions = {};
      };
-     for (var ii = 0; ii < template.functionIndex.length; ii++) {
-       fName = template.functionIndex[ii];
+     for (var i = 0; i < template.functionIndex.length; i++) {
+       fName = template.functionIndex[i];
        if (t.functions[fName] === undefined) {
          t.functions[fName] = [];
        };
-       for (iii = 0; iii < template.functions[fName].length; iii++) {
-         t.functions[fName].push(template.functions[fName][iii]);
+     for (var ii = 0; ii < template.functions[fName].length; ii++) {
+         t.functions[fName].push(template.functions[fName][ii]);
        };
+     };
+};
 
- }
+function assignDelayedFunctionsFromComponentTemplate(t, template) {
+ if (t.delayedActions === undefined) {
+   t.delayedActions = {};
+   t.delayedIndex = [];
+ };
+ if (template.delayedActions != undefined) {
+   for (var i = 0; i < template.delayIndex; i++) {
+     var fName = template.delayIndex[i];
+     t.delayedIndex.push(fName);
+     t.delayedActions[fName] = template.delayedActions[fName];
+     t.delayedActions[fName].delay = template.delayedActions[fName].delayReset;
+   };
+ };
+};
+
+function assignValuesFromComponentTemplate(t, template, completion) {
+     for (var i = 0; i < template.properties.length; i++) {
+        assignInitialProperty(t, template.properties[i]);       
+     };
+     assignFunctionsFromComponentTemplate(t, template);
+     assignDelayedFunctionsFromComponentTemplate(t, template);
      t.componentsRemainingForAssignment--;
      if (t.componentsRemainingForAssignment == 0) {
        completion(t);
@@ -30,7 +49,7 @@ alert('t.functions[tick]' + t.functions['tick']);
 function loadComponents(t, component, completion) {
   $.getScript(component + '.js', function(data, b, c) {
     var componentsTemplate = window[component]();
-    assignPropertiesFromComponentTemplate(t, componentsTemplate, completion);
+    assignValuesFromComponentTemplate(t, componentsTemplate, completion);
   });
 
 };
