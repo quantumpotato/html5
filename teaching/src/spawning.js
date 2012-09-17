@@ -61,12 +61,26 @@ function assignComponents(t, components, completion) {
   };
 };
 
+function assignTags(t, tags) {
+  if (t.tags === undefined) {
+    t.tags = [];
+  } 
+  if (tags != undefined) {
+    //see if tags contains
+    for (var i = 0; i < tags.length; i++) {
+      t.tags.push(tags[i]);
+    };
+  }
+}
+
 function spawn(name, gc, completion) {
   var t = {};
   $.getScript(name + '.js', function(data, b, c) {
     var template = window[name]();
     var components = template.components;
     assignComponents(t, template.components, completion);
-  });
+    assignTags(t, template.tags);
+   // gc.register(gc, t); 
+});
 };
 

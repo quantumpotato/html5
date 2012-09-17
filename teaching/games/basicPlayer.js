@@ -1,5 +1,5 @@
 function basicPlayer(){
 var components = ['basicObject'];
-var nt = {'components':components};
-return nt;
+var tags = ['collision', 'player'];
+return {'components':components, 'tags':tags};
 };
