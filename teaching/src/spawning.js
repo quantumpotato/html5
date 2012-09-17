@@ -19,12 +19,16 @@ for (var i = 0; i <= components.length; i++ ) {
 //load component file
 alert('loading component file for index:' + i);
   $.getScript(components[0] + '.js', function(data, textStatus, jqxhr) {
-  var componentTemplate = window['component_'+components[0]]();
+alert('status'+textStatus);
+  var componentTemplate = window[components[0]]();
  // alert('componentTemplate: ' + componentTemplate);
   var properties = componentTemplate.properties;
   for (var ii = 0; ii < properties.length; ii++) {
-  //  assignInitialProperty(t, properties[ii]);
+    assignInitialProperty(t, properties[ii]);
+    alert('assigned t' + t);
   }
+ alert(t.l);
+alert(t.life);
 
   });
 //assign properties
@@ -34,7 +38,7 @@ alert('loading component file for index:' + i);
 };
 
 });
-
+alert('returning t' + t);
 return t;
 
 };
