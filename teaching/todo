@@ -2,4 +2,5 @@ check for existing tags
 filepaths
 caching script loading
 notifications
+before and after functions stack with nullify options (shields etc)
 custom thing functions
