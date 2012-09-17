@@ -1,7 +1,7 @@
 function assignInitialProperty(t, prop) {
  //load from list
 t[prop] = 5; 
-
+t[prop] = DefaultPropertyManager()[prop];
 };
 
 function assignPropertiesFromComponentTemplate(t, template, completion) {

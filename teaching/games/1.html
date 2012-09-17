@@ -117,8 +117,8 @@ $(document).ready(function() {
        spawn('basicPlayer', gc, function(t){
         alert('spawned:' + t);
         alert(t.life);
-        alert(t.dx);
-        alert(t.d);
+        alert(t.d.x);
+        alert(t.radius)
         gc.register(gc, t); 
         alert('holy!');
        });
