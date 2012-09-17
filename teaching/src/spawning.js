@@ -4,16 +4,18 @@ t[prop] = DefaultPropertyManager()[prop];
 
 function assignFunctionsFromComponentTemplate(t, template) {
    if (t.functions === undefined) {
+      alert('undefined t.functions');
        t.functions = {};
-     };
+   };
      for (var i = 0; i < template.functionIndex.length; i++) {
        fName = template.functionIndex[i];
        if (t.functions[fName] === undefined) {
          t.functions[fName] = [];
        };
-     for (var ii = 0; ii < template.functions[fName].length; ii++) {
+       for (var ii = 0; ii < template.functions[fName].length; ii++) {
          t.functions[fName].push(template.functions[fName][ii]);
        };
+       alert('pushed functions' + fName + ': ' + t.functions[fName]);
      };
 };
 
@@ -42,8 +44,6 @@ function assignValuesFromComponentTemplate(t, template, completion) {
      if (t.componentsRemainingForAssignment == 0) {
        completion(t);
      };
-alert('t.functions[tick]' + t.functions['tick']);
-   
 };
 
 function loadComponents(t, component, completion) {
@@ -80,7 +80,8 @@ function spawn(name, gc, completion) {
     var components = template.components;
     assignComponents(t, template.components, completion);
     assignTags(t, template.tags);
-   // gc.register(gc, t); 
+  
 });
+
 };
 
