@@ -1,21 +1,29 @@
 function assignInitialProperty(t, prop) {
  //load from list
-// t.prop = 5; 
+t[prop] = 5; 
 };
 
 function spawnThing(name, gc) {
 
-$.getScript('things'/name + '.js', function(data, textStatus, jqxhr) {
-var template = window['spawn_'+name]();
-var components = template.components; 
 var t = {};
-for (i = 0; i < components.length; i++) {
+
+$.getScript(name + '.js', function(data, textStatus, jqxhr) {
+
+var template = window[name]();
+alert('template:' + template);
+var components = template.components; 
+alert('components:' + components);
+alert(components[0]);
+alert('components.length:' + components.length);
+for (var i = 0; i <= components.length; i++ ) {
 //load component file
-  $.getScript('components/'+components[i], function(data, textStatus, jqxhr) {
-  var componentTemplate = window['component_'+name]();
+alert('loading component file for index:' + i);
+  $.getScript(components[0] + '.js', function(data, textStatus, jqxhr) {
+  var componentTemplate = window['component_'+components[0]]();
+ // alert('componentTemplate: ' + componentTemplate);
   var properties = componentTemplate.properties;
   for (var ii = 0; ii < properties.length; ii++) {
-    assignInitialProperty(t, properties[ii]);
+  //  assignInitialProperty(t, properties[ii]);
   }
 
   });
@@ -27,8 +35,22 @@ for (i = 0; i < components.length; i++) {
 
 });
 
+return t;
+
 };
 
 function st(name, gc){
 return spawnThing(name, gc);
+};
+
+function testSpawn(name, gc) {
+var testedSpawn;
+$.getScript(name + '.js', function(data, textStatus, jqxhr) {
+  testedSpawn = window[name]();
+  alert('test components: ' + testedSpawn.components);
+ alert('template:'+testedSpawn);
+});
+
+return testedSpawn;
+
 };

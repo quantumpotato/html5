@@ -31,17 +31,20 @@ var player;
 var foo;
 var name = 'test';
 $.getScript(name + '.js', function(data, textStatus, jqxhr) {
-var function_name = name;
-function_name = window[name];
-   var t = window[name]();
-  var num = t.alpha;
-  alert(num);
-   alert(num+13);
-   alert(t.props[1]);
-    //var testObject = $.parseJSON(data);
-   // alert(testObject());
-    //alert(testObject.alpha);
-});     
+ var t = window[name]();
+ var num = t.alpha;
+//   alert(num);
+//var testObject = $.parseJSON(data);
+// alert(testObject());
+  //  alert(testObject.alpha);
+});    
+
+//$.getScript('basicPlayer.js', function(data, b, c) {
+//var bp = window[name]();
+//alert('bp is: ' + bp);
+//alert(bp.components);
+//alert('components: ' + bp.components);
+//}); 
 
 function draw() {
 
@@ -105,7 +108,9 @@ $(document).ready(function() {
 
 
 
- 
+  //     var bar = testSpawn('basicPlayer', gc);
+   //    var again = testSpawn('testPlayer', gc);
+   //    alert(bar.alpha);
        var foo = spawnThing('basicPlayer', gc); 
 
   setInterval(tick, 10);
