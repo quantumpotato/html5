@@ -19,6 +19,7 @@ canvas {
 <script type="text/javascript" src="../src/thing_generator.js"></script>
 <script type="text/javascript" src="../src/execute_thing_function.js"></script>
 <script type="text/javascript" src="../src/make_thing.js"></script>
+<script type="text/javascript" src="../src/spawning.js"></script>
 <script type="text/javascript">
 var context;
 var width = 500;
@@ -28,13 +29,18 @@ var y = -50;
 var gc;
 var player;
 var foo;
-$.getScript("test.js", function(data, textStatus, jqxhr) {
-//   alert(data); //data returned
-   var testObject = magic();
-   alert(testObject.alpha);
-   console.log(textStatus); //success
-   console.log(jqxhr.status); //200
-   console.log('Load was performed.');
+var name = 'test';
+$.getScript(name + '.js', function(data, textStatus, jqxhr) {
+var function_name = name;
+function_name = window[name];
+   var t = window[name]();
+  var num = t.alpha;
+  alert(num);
+   alert(num+13);
+   alert(t.props[1]);
+    //var testObject = $.parseJSON(data);
+   // alert(testObject());
+    //alert(testObject.alpha);
 });     
 
 function draw() {
@@ -93,8 +99,15 @@ $(document).ready(function() {
 	gc.register(gc, collisionManager);
 	var coinMaker = generateThing(['Maker']);
 	coinMaker.kind = 'coin';
-	coinMaker.delayedActions[0].delayReset = 5;
+	coinMaker.delayedActions[0].delayReset = 500;
  	gc.register(gc, coinMaker);
+
+
+
+
+ 
+       var foo = spawnThing('basicPlayer', gc); 
+
   setInterval(tick, 10);
 });
 </script>
