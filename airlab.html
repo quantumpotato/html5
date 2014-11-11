@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+<style type='text/css'>
+<script type="text/javascript">
+canvas {
+  border: 1px solid #aaa;
+  cursor: none;
+}
+</style>
+<script type="text/javascript" src="jquery-1.4.3.min.js"></script>
+<script type="text/javascript">
+var context;
+var width = 500;
+var height = 500;
+
+function setBackground() {
+	context.clearRect(0, 0, width, height);
+	context.fillStyle = "black";
+	context.fillRect(0,0,width,height);
+}
+
+function point(x,y) {
+	this.x = x;
+	this.y = y;
+}
+
+var mouse = new point(0,0);
+
+function drawCircle(p,colour,radius) {
+	context.fillStyle = colour;
+	context.beginPath();
+	context.arc(p.x,p.y,radius,0,Math.PI*2,true);
+	context.closePath();
+	context.fill();
+}
+
+function showPlayer() {
+	drawCircle(mouse, "blue", 10);
+}
+
+function draw() {
+	setBackground();
+	showPlayer();
+}
+
+$(document).ready(function() {
+  var canvas = $('#canvas');	
+  context = canvas.get(0).getContext('2d');
+  
+  setInterval(draw, 10);
+
+  canvas.mousemove(function(e) {
+    var mousex = e.pageX - canvas.offset().left;
+    var mousey = e.pageY - canvas.offset().top;
+
+		mouse.x = mousex;
+		mouse.y = mousey;		
+  }); 
+
+});
+
+</script>
+</head>
+<body>
+<canvas id='canvas' width=500 height=500></canvas>
+</body>
+</html>
