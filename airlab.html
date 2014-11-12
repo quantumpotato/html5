@@ -25,7 +25,65 @@ function point(x,y) {
 	this.y = y;
 }
 
+var cats = [];
+function setupCats() {
+	cats = [];
+	for (var i = 0; i < 30; i++) {
+		var cat = new point(Math.random() * width, Math.random() * height);
+		cats.push(cat);
+	}
+}
+
+var dogs = [];
+var dogVectors = [];
+function setupDogs() {
+	dogs = [];
+	dogVectors = [];
+	for (var i = 0; i < 30; i++) {
+		var dog = new point(0,0);
+		var dVector = new point(1 + (Math.random() * 3), 1 + (Math.random() * 3));
+		dogs.push(dog);
+		dogVectors.push(dVector);
+	}	
+}
+
+setupCats();
+setupDogs();
+
 var mouse = new point(0,0);
+var cat = new point(150,200);
+var score = 0;
+var dog = new point(0, 0);
+var dogVector = new point(1,1);
+
+var bone = new point(50,50);
+
+function getVector(a,b) {
+	var dist = distance(a,b);
+	
+	if (dist == 0) {
+		return new point(0,0);
+	}
+	
+	var distX = Math.abs(a.x-b.x) / dist;
+	var distY = Math.abs(a.y-b.y) / dist;
+	
+	if (b.x < a.x) {
+		distX = -distX;
+	}
+	
+	if (b.y < a.y) {
+		distY = -distY;
+	}
+	
+	return new point(distX,distY);
+}
+
+function distance(a,b) {
+	var xdist = (a.x - b.x) * (a.x - b.x);
+	var ydist = (a.y - b.y) * (a.y - b.y);
+	return Math.sqrt(xdist * ydist);
+}
 
 function drawCircle(p,colour,radius) {
 	context.fillStyle = colour;
@@ -35,13 +93,74 @@ function drawCircle(p,colour,radius) {
 	context.fill();
 }
 
+function showScore() { 
+	context.fillStyle = "white";
+	context.fillText("Score:" + score, 0, height - 20);
+}
+
+function relocateCat(c) {
+	c.x = Math.random() * width;
+	c.y = Math.random() * height;
+}
+
+function processFindingCat() {
+
+   for (var i = 0; i < cats.length; i++) {
+   	 var c = cats[i];
+   	 if(distance(mouse, c) < 5) {
+			  score = score + 50;
+			  setupCats();
+			  //relocateCat(c);
+			}
+
+   }
+
+		
+}
+
 function showPlayer() {
 	drawCircle(mouse, "blue", 10);
+}
+
+function showAnimals() {
+  for (var i = 0; i < cats.length; i++) {
+  	var c = cats[i];
+  	drawCircle(c, "green", 5);
+  }
+}
+
+function moveDogs() {
+	drawCircle(dogs[0], "red", 5);
+	for (var i = 0; i < dogs.length; i++) {
+		var d = dogs[i];
+		drawCircle(d, "red", 5);
+
+		if (distance(mouse, d) < 20) {
+			score = score - 1;
+		}
+
+		var dVector = dogVectors[i];
+		 d.x = d.x + dVector.x;
+		 d.y = d.y + dVector.y;	
+		if (d.x > width || d.y > height) {
+			d.x = 0;
+			d.y = 0;
+  	}
+	}
+}
+
+function dogAttack() {
+	
 }
 
 function draw() {
 	setBackground();
 	showPlayer();
+ 	showAnimals();
+  processFindingCat();
+  showScore();
+  moveDogs();
+  dogAttack();
 }
 
 $(document).ready(function() {
@@ -49,7 +168,6 @@ $(document).ready(function() {
   context = canvas.get(0).getContext('2d');
   
   setInterval(draw, 10);
-
   canvas.mousemove(function(e) {
     var mousex = e.pageX - canvas.offset().left;
     var mousey = e.pageY - canvas.offset().top;
