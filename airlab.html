@@ -57,7 +57,7 @@ var dog = new point(0, 0);
 var dogVector = new point(1,1);
 
 var bone = new point(50,50);
-
+	
 function getVector(a,b) {
 	var dist = distance(a,b);
 	
@@ -65,9 +65,14 @@ function getVector(a,b) {
 		return new point(0,0);
 	}
 	
-	var distX = Math.abs(a.x-b.x) / dist;
-	var distY = Math.abs(a.y-b.y) / dist;
-	
+	var distX = Math.abs(a.x-b.x);
+	var distY = Math.abs(a.y-b.y);
+
+	total = distX + distY;
+
+	distX = distX / total;
+	distY = distY / total;
+
 	if (b.x < a.x) {
 		distX = -distX;
 	}
@@ -104,7 +109,6 @@ function relocateCat(c) {
 }
 
 function processFindingCat() {
-
    for (var i = 0; i < cats.length; i++) {
    	 var c = cats[i];
    	 if(distance(mouse, c) < 5) {
@@ -141,7 +145,7 @@ function moveDogs() {
 
 		var dVector = dogVectors[i];
 		 d.x = d.x + dVector.x;
-		 d.y = d.y + dVector.y;	
+		 d.y = d.y + dVector.y;
 		if (d.x > width || d.y > height) {
 			d.x = 0;
 			d.y = 0;
@@ -166,6 +170,7 @@ function draw() {
 $(document).ready(function() {
   var canvas = $('#canvas');	
   context = canvas.get(0).getContext('2d');
+  setBackground();
   
   setInterval(draw, 10);
   canvas.mousemove(function(e) {
